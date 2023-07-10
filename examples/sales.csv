@@ -1,0 +1,201 @@
+restaurant,customers,region,country,id
+McDonalds,15000,Alabama,US,685
+McDonalds,18000,Alaska,US,133
+McDonalds,20000,Arizona,US,539
+McDonalds,13000,Arkansas,US,594
+McDonalds,25000,California,US,691
+McDonalds,17000,Colorado,US,115
+McDonalds,10000,Connecticut,US,311
+McDonalds,9000,Delaware,US,573
+McDonalds,22000,Florida,US,932
+McDonalds,15000,Georgia,US,603
+McDonalds,8000,Hawaii,US,943
+McDonalds,12000,Idaho,US,384
+McDonalds,16000,Illinois,US,769
+McDonalds,14000,Indiana,US,930
+McDonalds,11000,Iowa,US,264
+McDonalds,10000,Kansas,US,135
+McDonalds,13000,Kentucky,US,633
+McDonalds,19000,Louisiana,US,601
+McDonalds,7000,Maine,US,435
+McDonalds,12000,Maryland,US,177
+McDonalds,16000,Massachusetts,US,355
+McDonalds,18000,Michigan,US,863
+McDonalds,10000,Minnesota,US,469
+McDonalds,9000,Mississippi,US,145
+McDonalds,14000,Missouri,US,530
+McDonalds,8000,Montana,US,980
+McDonalds,10000,Nebraska,US,242
+McDonalds,11000,Nevada,US,717
+McDonalds,7000,New Hampshire,US,463
+McDonalds,14000,New Jersey,US,490
+McDonalds,12000,New Mexico,US,531
+McDonalds,16000,New York,US,390
+McDonalds,18000,North Carolina,US,946
+McDonalds,11000,North Dakota,US,791
+McDonalds,15000,Ohio,US,368
+McDonalds,13000,Oklahoma,US,567
+McDonalds,12000,Oregon,US,278
+McDonalds,21000,Pennsylvania,US,802
+McDonalds,8000,Rhode Island,US,410
+McDonalds,9000,South Carolina,US,777
+McDonalds,7000,South Dakota,US,471
+McDonalds,15000,Tennessee,US,236
+McDonalds,25000,Texas,US,567
+McDonalds,14000,Utah,US,886
+McDonalds,7000,Vermont,US,980
+McDonalds,12000,Virginia,US,345
+McDonalds,17000,Washington,US,550
+McDonalds,11000,West Virginia,US,728
+McDonalds,13000,Wisconsin,US,484
+McDonalds,8000,Wyoming,US,145
+McDonalds,12000,Alabama,US,696
+McDonalds,12000,Alaska,US,104
+McDonalds,12000,Arizona,US,341
+McDonalds,12000,Arkansas,US,237
+McDonalds,12000,California,US,299
+McDonalds,12000,Colorado,US,410
+McDonalds,12000,Connecticut,US,649
+McDonalds,12000,Delaware,US,474
+McDonalds,12000,Florida,US,890
+McDonalds,12000,Georgia,US,345
+McDonalds,12000,Hawaii,US,421
+McDonalds,12000,Idaho,US,782
+McDonalds,12000,Illinois,US,662
+McDonalds,12000,Indiana,US,561
+McDonalds,12000,Iowa,US,546
+McDonalds,12000,Kansas,US,581
+McDonalds,12000,Kentucky,US,166
+McDonalds,12000,Louisiana,US,768
+McDonalds,12000,Maine,US,698
+McDonalds,12000,Maryland,US,432
+McDonalds,12000,Massachusetts,US,964
+McDonalds,12000,Michigan,US,613
+McDonalds,12000,Minnesota,US,260
+McDonalds,12000,Mississippi,US,962
+McDonalds,12000,Missouri,US,329
+McDonalds,12000,Montana,US,522
+McDonalds,12000,Nebraska,US,344
+McDonalds,12000,Nevada,US,137
+McDonalds,12000,New Hampshire,US,132
+McDonalds,12000,New Jersey,US,608
+McDonalds,12000,New Mexico,US,408
+McDonalds,12000,New York,US,937
+McDonalds,12000,North Carolina,US,721
+McDonalds,12000,North Dakota,US,773
+McDonalds,12000,Ohio,US,173
+McDonalds,12000,Oklahoma,US,646
+McDonalds,12000,Oregon,US,975
+McDonalds,12000,Pennsylvania,US,182
+McDonalds,12000,Rhode Island,US,253
+McDonalds,12000,South Carolina,US,493
+McDonalds,12000,South Dakota,US,680
+McDonalds,12000,Tennessee,US,483
+McDonalds,12000,Texas,US,715
+McDonalds,12000,Utah,US,253
+McDonalds,12000,Vermont,US,215
+McDonalds,12000,Virginia,US,894
+McDonalds,12000,Washington,US,891
+McDonalds,12000,West Virginia,US,198
+McDonalds,12000,Wisconsin,US,552
+McDonalds,12000,Wyoming,US,270
+Burger King,17000,Alabama,US,926
+Burger King,19000,Alaska,US,295
+Burger King,21000,Arizona,US,457
+Burger King,15000,Arkansas,US,543
+Burger King,25000,California,US,524
+Burger King,18000,Colorado,US,556
+Burger King,12000,Connecticut,US,351
+Burger King,11000,Delaware,US,797
+Burger King,24000,Florida,US,381
+Burger King,17000,Georgia,US,246
+Burger King,10000,Hawaii,US,732
+Burger King,14000,Idaho,US,634
+Burger King,19000,Illinois,US,282
+Burger King,16000,Indiana,US,985
+Burger King,13000,Iowa,US,222
+Burger King,12000,Kansas,US,373
+Burger King,15000,Kentucky,US,566
+Burger King,20000,Louisiana,US,409
+Burger King,9000,Maine,US,268
+Burger King,14000,Maryland,US,776
+Burger King,18000,Massachusetts,US,764
+Burger King,20000,Michigan,US,940
+Burger King,12000,Minnesota,US,278
+Burger King,11000,Mississippi,US,896
+Burger King,16000,Missouri,US,280
+Burger King,10000,Montana,US,591
+Burger King,13000,Nebraska,US,891
+Burger King,14000,Nevada,US,455
+Burger King,9000,New Hampshire,US,435
+Burger King,16000,New Jersey,US,545
+Burger King,14000,New Mexico,US,329
+Burger King,19000,New York,US,105
+Burger King,22000,North Carolina,US,657
+Burger King,13000,North Dakota,US,829
+Burger King,17000,Ohio,US,144
+Burger King,15000,Oklahoma,US,439
+Burger King,14000,Oregon,US,427
+Burger King,23000,Pennsylvania,US,348
+Burger King,10000,Rhode Island,US,181
+Burger King,11000,South Carolina,US,368
+Burger King,9000,South Dakota,US,558
+Burger King,16000,Tennessee,US,514
+Burger King,25000,Texas,US,696
+Burger King,14000,Utah,US,262
+Burger King,8000,Vermont,US,499
+Burger King,15000,Virginia,US,990
+Burger King,20000,Washington,US,607
+Burger King,12000,West Virginia,US,789
+Burger King,14000,Wisconsin,US,347
+Burger King,8000,Wyoming,US,853
+Burger King,22000,Alabama,US,637
+Burger King,15000,Alaska,US,378
+Burger King,18000,Arizona,US,632
+Burger King,13000,Arkansas,US,594
+Burger King,25000,California,US,716
+Burger King,19000,Colorado,US,611
+Burger King,12000,Connecticut,US,164
+Burger King,11000,Delaware,US,270
+Burger King,23000,Florida,US,601
+Burger King,17000,Georgia,US,790
+Burger King,10000,Hawaii,US,572
+Burger King,14000,Idaho,US,510
+Burger King,20000,Illinois,US,239
+Burger King,16000,Indiana,US,530
+Burger King,13000,Iowa,US,654
+Burger King,12000,Kansas,US,698
+Burger King,15000,Kentucky,US,457
+Burger King,21000,Louisiana,US,651
+Burger King,9000,Maine,US,497
+Burger King,14000,Maryland,US,601
+Burger King,18000,Massachusetts,US,818
+Burger King,20000,Michigan,US,269
+Burger King,12000,Minnesota,US,672
+Burger King,11000,Mississippi,US,551
+Burger King,16000,Missouri,US,201
+Burger King,10000,Montana,US,525
+Burger King,13000,Nebraska,US,948
+Burger King,14000,Nevada,US,136
+Burger King,9000,New Hampshire,US,992
+Burger King,16000,New Jersey,US,102
+Burger King,14000,New Mexico,US,549
+Burger King,19000,New York,US,648
+Burger King,22000,North Carolina,US,166
+Burger King,13000,North Dakota,US,151
+Burger King,17000,Ohio,US,458
+Burger King,15000,Oklahoma,US,194
+Burger King,14000,Oregon,US,255
+Burger King,23000,Pennsylvania,US,211
+Burger King,10000,Rhode Island,US,722
+Burger King,11000,South Carolina,US,564
+Burger King,9000,South Dakota,US,953
+Burger King,16000,Tennessee,US,918
+Burger King,25000,Texas,US,596
+Burger King,14000,Utah,US,242
+Burger King,8000,Vermont,US,569
+Burger King,15000,Virginia,US,982
+Burger King,20000,Washington,US,546
+Burger King,12000,West Virginia,US,893
+Burger King,14000,Wisconsin,US,613
+Burger King,8000,Wyoming,US,557

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-08/schema#",
+  "$id": "http://www.serra.io",
+  "type": "object",
+  "properties": {
+    "job_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "debug": {
+      "type": "boolean"
+    }
+  },
+  "patternProperties": {
+    "^step": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "enum": ["AddColumn", "CaseWhen", "CastColumns", "DropColumns", "GetCount", "Join", "Map", "Pivot", "RenameColumn", "LocalReader"]
+        },
+        "input_node": {
+          "type": "string"
+        },
+        "config": {
+          "oneOf": [
+            {
+              "if": {"properties": {"class_name": {"string": "CastColumns"}}},
+              "then": {
+                "type": "object",
+                "properties": {
+                  "column_dict": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "if": {"properties": {"class_name": {"string": "AddColumn"}}},
+              "then": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "value": {"type": "string"}
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

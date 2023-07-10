@@ -1,0 +1,8 @@
+__pycache__/
+.Python
+env/
+develop-eggs/
+dist/
+.vscode/
+build/
+serra.egg-info

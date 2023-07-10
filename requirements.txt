@@ -1,0 +1,6 @@
+pyspark==3.3.0
+click
+pyyaml
+pandas==1.5.3
+boto3
+databricks-sdk
