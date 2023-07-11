@@ -66,7 +66,7 @@ FROM (
       COUNT(DISTINCT s.restaurant) AS restaurant_count
     FROM
       sales s
-      INNER JOIN rating r ON s.id = r.id
+      INNER JOIN rating r ON s.id = r.id --replace s.id with s.restaurant for SQL debug demo
     GROUP BY
       s.restaurant,
       s.region,

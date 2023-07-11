@@ -1,13 +1,20 @@
 # yaml-language-server: $schema=/Users/albertstanley/Code/serra/autocomplete/basic.json
-job_steps: ['step_read', 'step_map_state_names', 'step_cast_customers', 'step_write']
+job_steps: ['step_read', 'step_join', 'step_map', 'step_pivot', 'step_write']
 
 debug: true
 
 step_read:
   class_name: S3Reader
   config:
-    path: 's3a://serrademo/sales.csv'
+    path: 's3a://serrademo/demo_df.csv'
     format: 'csv'
+
+step_join:
+  class_name: Join
+  config:
+    join_type: 'inner'
+    matching_col: ['restaurant','id']
+    path: 's3a://serrademo/rating_df.csv' 
 
 step_map_state_names:
   class_name: Map
@@ -73,8 +80,7 @@ step_cast_customers:
       customer_int: ['customers', 'integer']
 
 step_write:
-  class_name: DatabricksWriter
+  class_name: S3Writer
   config:
-    path: 'demo.test_table'
-    format: 'delta'
-    mode: 'overwrite'
+    path: 's3a://serrademo/sales_write.csv'
+    format: 'csv'
