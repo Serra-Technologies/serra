@@ -11,7 +11,7 @@ setup(name='serra',
       packages=setuptools.find_packages(),
       package_data={"serra": ["data/*.yml"]},
       install_requires=[
-          "click","pyspark", "pyyaml", "pandas", "boto3", "databricks-sdk", "loguru"
+          "click","pyspark", "pyyaml", "pandas", "boto3", "databricks-sdk", "loguru", 'flask'
       ],
       zip_safe=False,
       entry_points={

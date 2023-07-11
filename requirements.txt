@@ -4,3 +4,4 @@ pyyaml
 pandas==1.5.3
 boto3
 databricks-sdk
+flask
