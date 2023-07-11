@@ -8,8 +8,8 @@
     ></script>
     <style type="text/css">
       #mynetwork {
-        width: 1000px;
-        height: 1000px;
+        width: 100vh;
+        height: 100vh;
         border: 1px solid lightgray;
       }
     </style>
@@ -18,21 +18,10 @@
     <div id="mynetwork"></div>
     <script type="text/javascript">
       // create an array with nodes
-      var nodes = new vis.DataSet([
-        { id: 1, label: "Node 1" },
-        { id: 2, label: "Node 2" },
-        { id: 3, label: "Node 3" },
-        { id: 4, label: "Node 4" },
-        { id: 5, label: "Node 5" },
-      ]);
+      var nodes = new vis.DataSet(JSON.parse('{{nodes_list | tojson}}'));
 
       // create an array with edges
-      var edges = new vis.DataSet([
-        { from: 1, to: 3 },
-        { from: 1, to: 2 },
-        { from: 2, to: 4 },
-        { from: 2, to: 5 }
-      ]);
+      var edges = new vis.DataSet(JSON.parse('{{edges_list | tojson}}'));
 
       // create a network
       var container = document.getElementById("mynetwork");
@@ -53,7 +42,7 @@
                 blockShifting: true,
                 edgeMinimization: true,
                 parentCentralization: false,
-                direction: 'LR',        // UD, DU, LR, RL
+                direction: 'UD',        // UD, DU, LR, RL
                 sortMethod: 'directed',  // hubsize, directed
                 shakeTowards: 'leaves'  // roots, leaves
             }

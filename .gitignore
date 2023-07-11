@@ -6,3 +6,5 @@ dist/
 .vscode/
 build/
 serra.egg-info
+node_modules
+.DS_Store
