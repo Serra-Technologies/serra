@@ -1,0 +1,7 @@
+.bordered-div {
+  border: 2px dashed red; /* Add a 2px dashed red border */
+  border-radius: 5px; /* Add rounded corners with a radius of 5 pixels */
+  padding: 10px; /* Add some padding inside the div */
+  background-color: lightgray; /* Set a background color */
+  color: navy; /* Set the text color */
+}
