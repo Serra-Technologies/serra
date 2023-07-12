@@ -19,7 +19,10 @@
       "properties": {
         "class_name": {
           "type": "string",
-          "enum": ["AddColumn", "CaseWhen", "CastColumn", "DropColumns", "GetCount", "Join", "Map", "Pivot", "RenameColumn", "LocalReader", "LocalWriter", "S3Reader", "S3Writer"]
+          "enum": ["AddColumn", "CaseWhen", "CastColumn", "DropColumns", 
+                  "GetCount", "Join", "Map", "Pivot", "RenameColumn", 
+                  "LocalReader", "LocalWriter", "S3Reader", "S3Writer",
+                  "DatabricksWriter", "DatabricksReader"]
         },
         "input_node": {
           "type": "string"

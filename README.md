@@ -33,8 +33,3 @@ serra update_package
 ```bash
 serra create_job {job_name}
 ```
-
-
-
-# Run on databricks
-serra-databricks StripeExample
