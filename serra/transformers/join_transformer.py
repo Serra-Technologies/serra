@@ -31,9 +31,10 @@ class Join(Transformer):
 
         df2_config = {'path':self.path, 'format':'csv'}
         df2 = S3Reader(df2_config).read()
-        df1 = df1.join(df2, df1[matching_col[0]] == df2[matching_col[1]], self.join_type)
+        df1 = df1.join(df2, df1[matching_col[0]] == df2[matching_col[1]], self.join_type).drop(df2[matching_col[1]])
         if df1.isEmpty():
             logger.error(f"Joiner - Invalid matching ID's: {matching_col[0]}, {matching_col[1]}")
             raise Exception(f"Joiner - Invalid matching ID's: {matching_col[0]}, {matching_col[1]}")
         return df1
+    
     

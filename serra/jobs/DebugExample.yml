@@ -1,25 +1,25 @@
 # yaml-language-server: $schema=/Users/albertstanley/Code/serra/autocomplete/basic.json
-job_steps: ['step_read', 'step_join', 'step_map', 'step_pivot', 'step_write']
+job_steps: ['step_read', 'step_join', 'step_map_state_names', 'step_cast_ratings', 'step_pivot', 'step_write']
 
 debug: true
 
 step_read:
-  class_name: S3Reader
+  class_name: DatabricksReader
   config:
-    path: 's3a://serrademo/demo_df.csv'
-    format: 'csv'
+    database: 'demo'
+    table: 'restaurants'
 
 step_join:
   class_name: Join
   config:
     join_type: 'inner'
-    matching_col: ['restaurant','id']
+    matching_col: ['id','id']
     path: 's3a://serrademo/rating_df.csv' 
 
 step_map_state_names:
   class_name: Map
   config:
-    name: 'state_abbreviation'
+    name: 'region_abbr'
     map_dict:
       Alabama: 'AL'
       Alaska: 'AK'
@@ -73,14 +73,23 @@ step_map_state_names:
       Wyoming: 'WY'
     col_key: 'region'
   
-step_cast_customers:
+step_cast_ratings:
   class_name: CastColumn
   config:
     cast_columns:
-      customer_int: ['customers', 'integer']
+      rating: ['rating', 'double']
+
+step_pivot:
+  class_name: Pivot
+  config:
+    row_level: 'restaurant'
+    column_level: 'region_abbr'
+    sum_col: 'rating'
 
 step_write:
-  class_name: S3Writer
+  class_name: DatabricksWriter
   config:
-    path: 's3a://serrademo/sales_write.csv'
-    format: 'csv'
+    database: 'demo'
+    table: 'sales_by_store'
+    format: 'delta'
+    mode: 'overwrite'

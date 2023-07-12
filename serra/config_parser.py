@@ -24,6 +24,9 @@ class ConfigParser:
     def get_param(self):
         pass
 
+    def get_tables(self):
+        return self.config.get("tables")
+    
     def get_job_steps(self):
         return self.config.get("job_steps")
     

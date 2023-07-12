@@ -1,6 +1,7 @@
 # Running a specific job
 from serra.config_parser import ConfigParser
 from serra.utils import import_class, get_path_to_user_configs_folder, write_to_file
+from serra.aws import read_json_s3, write_json_s3
 from os.path import exists
 from loguru import logger
 from serra.databricks import upload_wheel_to_bucket, restart_server
@@ -30,6 +31,15 @@ def run_job_with_config_parser(cf: ConfigParser):
     - first step is a read
     - only one read in job steps
     """
+    # logger.info(f"Executing tables")
+    # tables = cf.get_tables()
+    # job_name = cf.get_job_name
+    # json_content = read_json_s3(job_name)
+    # json_content['tables'] = tables
+    # logger.info(f"Executing tables {json_content['tables']}")
+
+    # logger.info(f"Writing tables")
+    # write_json_s3(json_content, job_name)
     
     steps = cf.get_job_steps()
 
