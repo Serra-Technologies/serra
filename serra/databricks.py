@@ -3,7 +3,7 @@ from loguru import logger
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import Task, PythonWheelTask
 from databricks.sdk.service.compute import Library, State
-from serra.aws import upload_file_to_bucket
+from serra.aws import upload_file_to_bucket, write_json_s3
 from serra.utils import get_path_to_user_configs_folder
 from serra.config import (
     DATABRICKS_HOST, 
@@ -32,6 +32,9 @@ def create_job(config_name):
     logger.info("Uploading config to AWS")
     config_path = f"{get_path_to_user_configs_folder()}/{config_name}.yml"
     upload_file_to_bucket(config_path)
+
+    logger.info("Uploading JSON to AWS")
+    write_json_s3({},config_name)
     
     # Create the job on databricks
     logger.info("Creating databricks job")
