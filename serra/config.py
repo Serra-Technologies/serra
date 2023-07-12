@@ -1,3 +1,7 @@
+import os
+
+PACKAGE_PATH = os.path.dirname(__file__)
+
 CONFIG_WORKSPACE_NAME="jobs" # Folder where all jobs will be placed
 
 AWS_ACCESS_KEY_ID = "AKIA3TOV3GZZHAH4MPAE"
@@ -11,6 +15,8 @@ DATABRICKS_TOKEN="dapi55908f285e31ab9937bc6928b4991fef"
 DATABRICKS_CLUSTER_ID="0630-194840-lj2a32jr"
 
 # WHEEL CONFIGS
-PATH_TO_WHEEL = "/Users/albertstanley/Code/serra/dist/serra-0.1-py3-none-any.whl"
+PATH_TO_WHEEL = f"{PACKAGE_PATH}/../dist/serra-0.1-py3-none-any.whl"
 WHEEL_FILE_NAME_IN_BUCKET = "serra-0.1-py3-none-any.whl"
 S3_WHEEL_PATH = f"s3://serrademo/{WHEEL_FILE_NAME_IN_BUCKET}"
+
+TEMPLATE_FOLDER = f"{PACKAGE_PATH}/frontend/public/"

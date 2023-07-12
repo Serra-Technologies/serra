@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Network</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+      #mynetwork {
+        width: 100vh;
+        height: 100vh;
+        border: 1px solid lightgray;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mynetwork"></div>
+    <script type="text/javascript">
+      // create an array with nodes
+      var nodes = new vis.DataSet(JSON.parse('{{nodes_list | tojson}}'));
+
+      // create an array with edges
+      var edges = new vis.DataSet(JSON.parse('{{edges_list | tojson}}'));
+
+      // create a network
+      var container = document.getElementById("mynetwork");
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {
+        edges: {
+            arrows: "to"
+        },
+        layout:{
+            hierarchical: {
+                enabled:true,
+                levelSeparation: 150,
+                nodeSpacing: 100,
+                treeSpacing: 200,
+                blockShifting: true,
+                edgeMinimization: true,
+                parentCentralization: false,
+                direction: 'UD',        // UD, DU, LR, RL
+                sortMethod: 'directed',  // hubsize, directed
+                shakeTowards: 'leaves'  // roots, leaves
+            }
+        },
+        nodes:{
+            shape: "box"
+        }
+      };
+      var network = new vis.Network(container, data, options);
+    </script>
+  </body>
+</html>

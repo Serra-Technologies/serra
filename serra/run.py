@@ -91,3 +91,18 @@ def update_package():
     # restart server
     upload_wheel_to_bucket()
     restart_server()
+
+from serra.frontend.server import start_server
+def visualize_dag(job_name):
+    # read config from local dir
+    user_configs_folder = get_path_to_user_configs_folder()
+    config_path = f"{user_configs_folder}/{job_name}.yml"
+    cf = ConfigParser.from_local_config(config_path)
+
+    # get job steps
+    job_steps = cf.get_job_steps()
+
+    # show dag
+    server_location = "http://127.0.0.1:5000"
+    logger.info(f"Visualization available at {server_location}")
+    start_server(job_steps)
