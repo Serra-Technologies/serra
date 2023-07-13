@@ -8,7 +8,7 @@ from pyspark.sql.types import (
 from sparktestingbase.sqltestcase import SQLTestCase
 
 from serra.transformers.drop_columns_transformer import (
-    DropColumn
+    DropColumnTransformer
 )
 
 class DropColumnsTransformerTest(SQLTestCase):
@@ -25,7 +25,7 @@ class DropColumnsTransformerTest(SQLTestCase):
             'drop_names': 'person'
         }
 
-        result = DropColumn(config).transform(df)
+        result = DropColumnTransformer(config).transform(df)
 
         expected_schema = StructType(
             [

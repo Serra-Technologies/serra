@@ -1,11 +1,8 @@
 from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
-from serra.transformers.drop_columns_transformer import (
-    DropColumn
-)
 
-class RenameColumn(Transformer):
+class RenameColumnTransformer(Transformer):
     """
     Test transformer to add a column to dataframe
     :param config: Holds column value

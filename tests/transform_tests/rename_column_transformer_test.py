@@ -8,7 +8,7 @@ from pyspark.sql.types import (
 from sparktestingbase.sqltestcase import SQLTestCase
 
 from serra.transformers.rename_column_transformer import (
-    RenameColumn
+    RenameColumnTransformer
 )
 
 class RenameColumnTransformerTest(SQLTestCase):
@@ -26,7 +26,7 @@ class RenameColumnTransformerTest(SQLTestCase):
             'new_name':'name'
         }
 
-        result = RenameColumn(config).transform(df)
+        result = RenameColumnTransformer(config).transform(df)
 
         expected_schema = StructType(
             [

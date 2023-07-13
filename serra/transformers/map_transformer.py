@@ -3,7 +3,7 @@ from pyspark.sql import functions as F
 from serra.transformers.transformer import Transformer
 import json
 
-class Map(Transformer):
+class MapTransformer(Transformer):
     """
     Test transformer to add a column to dataframe
     :param config: Holds column value

@@ -2,7 +2,7 @@ from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
 
-class GetCount(Transformer):
+class GetCountTransformer(Transformer):
     """
     Test transformer to add a column to dataframe
     :param config: Holds column value

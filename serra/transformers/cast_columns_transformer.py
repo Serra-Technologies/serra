@@ -2,7 +2,7 @@ from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
 
-class CastColumn(Transformer):
+class CastColumnTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config

@@ -8,7 +8,7 @@ from pyspark.sql.types import (
 from sparktestingbase.sqltestcase import SQLTestCase
 
 from serra.transformers.map_transformer import (
-    Map
+    MapTransformer
 )
 
 class MapTransformerTest(SQLTestCase):
@@ -27,7 +27,7 @@ class MapTransformerTest(SQLTestCase):
             'col_key':'location'
         }
 
-        result = Map(config).transform(df)
+        result = MapTransformer(config).transform(df)
 
         expected_schema = StructType(
             [

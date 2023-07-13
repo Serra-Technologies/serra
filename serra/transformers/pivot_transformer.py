@@ -2,7 +2,7 @@ from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
 
-class Pivot(Transformer):
+class PivotTransformer(Transformer):
     """
     Join tables together
     :param row_level: column used for row levels

@@ -8,7 +8,7 @@ from pyspark.sql.types import (
 from sparktestingbase.sqltestcase import SQLTestCase
 
 from serra.transformers.join_transformer import (
-    Join
+    JoinTransformer
 )
 
 class JoinTransformerTest(SQLTestCase):
@@ -32,7 +32,7 @@ class JoinTransformerTest(SQLTestCase):
             'matching_col': 'id'
         }
 
-        result = Join(config).transform(df,df2)
+        result = JoinTransformer(config).transform(df,df2)
 
         expected_schema = StructType(
             [

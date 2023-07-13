@@ -8,7 +8,7 @@ from pyspark.sql.types import (
 from sparktestingbase.sqltestcase import SQLTestCase
 
 from serra.transformers.pivot_transformer import (
-    Pivot
+    PivotTransformer
 )
 
 class PivotTransformerTest(SQLTestCase):
@@ -33,7 +33,7 @@ class PivotTransformerTest(SQLTestCase):
             'sum_col': 'subscriber_count'
         }
 
-        result = Pivot(config).transform(df)
+        result = PivotTransformer(config).transform(df)
 
         expected_schema = StructType(
             [

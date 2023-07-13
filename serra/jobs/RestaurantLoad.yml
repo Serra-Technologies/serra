@@ -9,7 +9,7 @@ step_read:
     format: 'csv'
 
 step_join:
-  class_name: Join
+  class_name: JoinTransformer
   config:
     join_type: 'inner'
     matching_col: ['id','id']

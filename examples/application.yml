@@ -9,14 +9,14 @@ step_read:
     file_path: "./examples/sales.csv"
 
 step_map_state_names:
-  class_name: Map
+  class_name: MapTransformer
   config:
     name: 'state_abbreviation'
     map_dict_path: "./examples/states_to_abbreviation.json"
     col_key: 'region'
   
 step_cast_customers:
-  class_name: CastColumn
+  class_name: CastColumnTransformer
   config:
     cast_columns:
       customer_int: ['customers', 'integer']

@@ -19,8 +19,8 @@
       "properties": {
         "class_name": {
           "type": "string",
-          "enum": ["AddColumn", "CaseWhen", "CastColumn", "DropColumns", 
-                  "GetCount", "Join", "Map", "Pivot", "RenameColumn", 
+          "enum": ["AddColumnTransformer", "CaseWhenTransformer", "CastColumnTransformer", "DropColumnsTransformer", 
+                  "GetCountTransformer", "JoinTransformer", "MapTransformer", "PivotTransformer", "RenameColumnTransformer", 
                   "LocalReader", "LocalWriter", "S3Reader", "S3Writer",
                   "DatabricksWriter", "DatabricksReader"]
         },

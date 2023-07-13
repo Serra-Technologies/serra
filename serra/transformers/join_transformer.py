@@ -6,7 +6,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class Join(Transformer):
+class JoinTransformer(Transformer):
     """
     Join tables together
     :param join_type: Type of join

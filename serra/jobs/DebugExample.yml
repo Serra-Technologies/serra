@@ -10,14 +10,14 @@ step_read:
     table: 'restaurants'
 
 step_join:
-  class_name: Join
+  class_name: JoinTransformer
   config:
     join_type: 'inner'
     matching_col: ['id','id']
     path: 's3a://serrademo/rating_df.csv' 
 
 step_map_state_names:
-  class_name: Map
+  class_name: MapTransformer
   config:
     name: 'region_abbr'
     map_dict:
@@ -74,13 +74,13 @@ step_map_state_names:
     col_key: 'region'
   
 step_cast_ratings:
-  class_name: CastColumn
+  class_name: CastColumnTransformer
   config:
     cast_columns:
       rating: ['rating', 'double']
 
 step_pivot:
-  class_name: Pivot
+  class_name: PivotTransformer
   config:
     row_level: 'restaurant'
     column_level: 'region_abbr'
