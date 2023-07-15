@@ -25,7 +25,7 @@ def convert_name_to_full(class_name):
     else:
         return f"serra.transformers.{class_name}"
 
-def run_job_with_config_parser(cf: ConfigParser):
+def run_job_with_config_parser(cf: ConfigParser, is_local):
     """
     Current assumptions
     - at least one step
@@ -51,7 +51,12 @@ def run_job_with_config_parser(cf: ConfigParser):
 
     full_reader_class_name = convert_name_to_full(reader_class_name)
     reader_object = import_class(full_reader_class_name)
+
     df = reader_object(reader_config).read()
+
+    if is_local:
+        df = df.limit(5)
+        logger.info(f"Here is starting dataframe {df.show()}")
 
     for step in steps[1:-1]:
         logger.info(f"Executing {step}")
@@ -74,18 +79,18 @@ def run_job_with_config_parser(cf: ConfigParser):
     writer_object(writer_config).write(df)
 
     # Commenting this out because it doesn't look good with large dfs
-    # df.show()
+    df.show()
 
 def run_job_from_job_dir(job_name):
     user_configs_folder = get_path_to_user_configs_folder()
     config_path = f"{user_configs_folder}/{job_name}.yml"
     cf = ConfigParser.from_local_config(config_path)
-    run_job_with_config_parser(cf)
+    run_job_with_config_parser(cf, True)
 
 def run_job_from_aws(job_name):
     try:
         cf = ConfigParser.from_s3_config(f"{job_name}.yml")
-        run_job_with_config_parser(cf)
+        run_job_with_config_parser(cf, False)
     except Exception as e:
         logger.error(e)
         exit(1)

@@ -1,4 +1,4 @@
-pyspark==3.3.0
+pyspark==3.3.2
 click
 pyyaml
 pandas==1.5.3
