@@ -20,7 +20,7 @@ def get_or_create_spark_session_with_name(app_name):
     spark = SparkSession.builder.appName(app_name).config().enableHiveSupport().getOrCreate()
     return spark
 
-def get_or_create_spark_session_s3():
+def get_or_create_spark_session():
     # These installations are only really necessary when running locally
     packages = [
         f'org.apache.hadoop:hadoop-aws:3.3.1',
@@ -35,10 +35,6 @@ def get_or_create_spark_session_s3():
         .config('spark.hadoop.fs.s3a.secret.key', 'LpNCKyDu7A5+lLQySYctTuo7wXZ4wo2lNH9IUzP3')
         .config('spark.hadoop.fs.s3a.aws.credentials.provider', 'org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider')
         .getOrCreate())
-    return spark
-
-def get_or_create_spark_session():
-    spark = SparkSession.builder.getOrCreate()
     return spark
 
 def get_path_to_user_configs_folder():
