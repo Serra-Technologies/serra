@@ -1,4 +1,5 @@
 # Running a specific job
+from sys import exit
 from serra.config_parser import ConfigParser
 from serra.utils import import_class, get_path_to_user_configs_folder, write_to_file
 from serra.aws import read_json_s3, write_json_s3
@@ -72,7 +73,8 @@ def run_job_with_config_parser(cf: ConfigParser):
     writer_object = import_class(full_writer_class_name)
     writer_object(writer_config).write(df)
 
-    df.show()
+    # Commenting this out because it doesn't look good with large dfs
+    # df.show()
 
 def run_job_from_job_dir(job_name):
     user_configs_folder = get_path_to_user_configs_folder()
@@ -81,8 +83,12 @@ def run_job_from_job_dir(job_name):
     run_job_with_config_parser(cf)
 
 def run_job_from_aws(job_name):
-    cf = ConfigParser.from_s3_config(f"{job_name}.yml")
-    run_job_with_config_parser(cf)
+    try:
+        cf = ConfigParser.from_s3_config(f"{job_name}.yml")
+        run_job_with_config_parser(cf)
+    except Exception as e:
+        logger.error(e)
+        exit(1)
 
 def update_package():
     # create wheel
@@ -92,17 +98,17 @@ def update_package():
     upload_wheel_to_bucket()
     restart_server()
 
-from serra.frontend.server import start_server
-def visualize_dag(job_name):
-    # read config from local dir
-    user_configs_folder = get_path_to_user_configs_folder()
-    config_path = f"{user_configs_folder}/{job_name}.yml"
-    cf = ConfigParser.from_local_config(config_path)
+# from serra.frontend.server import start_server
+# def visualize_dag(job_name):
+#     # read config from local dir
+#     user_configs_folder = get_path_to_user_configs_folder()
+#     config_path = f"{user_configs_folder}/{job_name}.yml"
+#     cf = ConfigParser.from_local_config(config_path)
 
-    # get job steps
-    job_steps = cf.get_job_steps()
+#     # get job steps
+#     job_steps = cf.get_job_steps()
 
-    # show dag
-    server_location = "http://127.0.0.1:5000"
-    logger.info(f"Visualization available at {server_location}")
-    start_server(job_steps)
+#     # show dag
+#     server_location = "http://127.0.0.1:5000"
+#     logger.info(f"Visualization available at {server_location}")
+#     start_server(job_steps)

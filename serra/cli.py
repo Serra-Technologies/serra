@@ -1,7 +1,7 @@
 # Entry point for serra command line tool
 import sys
 import click
-from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, visualize_dag
+from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws#, visualize_dag
 from serra.databricks import create_job
 
 @click.group()
@@ -39,7 +39,8 @@ def cli_update_package():
 @main.command(name="docs")
 @click.argument("job_name")
 def cli_docs(job_name):
-    visualize_dag(job_name)
+    # visualize_dag(job_name)
+    pass
     
 # only for use by databricks cluster
 # Did not use click because there were wierd traceback errors
