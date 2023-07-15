@@ -1,0 +1,22 @@
+job_steps: ['step_read', 'step_map_state_names', 'step_cast_customers', 'step_write']
+
+debug: true
+
+step_read:
+  LocalReader:
+    file_path: "./examples/sales.csv"
+
+step_map_state_names:
+  MapTransformer:
+    name: 'state_abbreviation'
+    map_dict_path: "./examples/states_to_abbreviation.json"
+    col_key: 'region'
+  
+step_cast_customers:
+  CastColumnTransformer:
+    cast_columns:
+      customer_int: ['customers', 'integer']
+
+step_write:
+  LocalWriter:
+    file_path: "./output/output.csv"

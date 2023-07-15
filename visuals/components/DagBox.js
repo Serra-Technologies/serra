@@ -21,12 +21,12 @@ const reactFlowStyle = {
 function DagBox(){
 
     const initialNodes = [
-        { id: '1', position: { x: 250, y: 100 }, data: { label: 'restaurants' },type: 'input' },
-        { id: '2', position: { x: 250, y: 200 }, data: { label: 'sales' } }
+        { id: 'sales', position: { x: 250, y: 100 }, data: { label: 'Sales Table' },type: 'input' },
+        { id: 'step_read', position: { x: 250, y: 200 }, data: { label: 'Name: step_read \n Type: MapTransformer' } }
     ];
     const initialEdges = [{ id: 'e1-2', 
-                            source: '1', 
-                            target: '2',
+                            source: 'sales', 
+                            target: 'step_read',
                             markerEnd: {
                                 type: MarkerType.ArrowClosed,
                             },}];
