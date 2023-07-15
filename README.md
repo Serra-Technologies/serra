@@ -4,8 +4,8 @@ Object-Oriented Spark Framework for Data Transformations
 # Setup
 
 ```bash
-brew install python3.8
-python3.8 -m venv env
+brew install python3.9
+python3.9 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 pip install -r requirements_dev.txt
@@ -32,4 +32,36 @@ serra update_package
 ## If you add a new job ( new confg file)
 ```bash
 serra create_job {job_name}
+```
+
+# Databricks Local Setup
+
+### Step 1: Install DB-connect
+```bash
+pip3 install --upgrade "databricks-connect==12.2.*"
+```
+
+### Step 2: Configure w/ DB cluster
+```bash
+databricks-connect configure
+```
+* Fill out the credentials as so:
+```
+DB Workspace: https://dbc-b854a7df-4e5e.cloud.databricks.com
+DB Token: dapiaca3916d64c45c3b454fd6bb0e5a20c3
+cluster_id: 0630-194840-lj2a32jr
+```
+
+### Step 3: Confirm connection
+* To test if your connection is setup
+```bash
+databricks-connect test
+```
+
+* All local spark sessions can now read from DB ie
+```python
+from pyspark.sql.session import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+spark.sql("SELECT * FROM demo.sales_by_store")
 ```
