@@ -65,3 +65,10 @@ from pyspark.sql.session import SparkSession
 spark = SparkSession.builder.getOrCreate()
 spark.sql("SELECT * FROM demo.sales_by_store")
 ```
+
+
+# Run the flask server
+```bash
+source python3 -m venv env
+python3 app.py
+```
