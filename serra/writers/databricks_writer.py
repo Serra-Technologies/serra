@@ -1,10 +1,10 @@
 from serra.writers import Writer
-from serra.utils import get_or_create_spark_session_s3
+from serra.utils import get_or_create_spark_session
 from pyspark.sql import DataFrame
 
 class DatabricksWriter(Writer):
     def __init__(self, config):
-        self.spark = get_or_create_spark_session_s3()
+        self.spark = get_or_create_spark_session()
         self.config = config
         self.database = self.config.get('database')
         self.table = self.config.get('table')
