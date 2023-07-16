@@ -4,10 +4,13 @@ import yaml
 from werkzeug.utils import secure_filename
 import os
 import subprocess
+from logging.handlers import RotatingFileHandler
 
 # Create an instance of the Flask class
 app = Flask(__name__)
 app.secret_key = "here's some secret key"
+handler = RotatingFileHandler('app.log', maxBytes=100000, backupCount=10)
+app.logger.addHandler(handler)
 
 @app.route('/run', methods=['POST'])
 def upload_yaml():
