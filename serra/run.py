@@ -1,4 +1,5 @@
 # Running a specific job
+import sys
 from sys import exit
 from serra.config_parser import ConfigParser
 from serra.utils import import_class, get_path_to_user_configs_folder, write_to_file
@@ -6,6 +7,10 @@ from serra.aws import read_json_s3, write_json_s3
 from os.path import exists
 from loguru import logger
 from serra.databricks import upload_wheel_to_bucket, restart_server
+
+# Setup logger
+logger.remove()  # Remove the default sink
+logger.add(sink=sys.stdout, format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
 
 def create_job_yaml(job_name):
     file_path = f"{get_path_to_user_configs_folder()}/{job_name}.yml"
@@ -55,8 +60,8 @@ def run_job_with_config_parser(cf: ConfigParser, is_local):
     df = reader_object(reader_config).read()
 
     if is_local:
-        df = df.limit(5)
-        logger.info(f"Here is starting dataframe {df.show()}")
+        df = df.limit(10)
+        # logger.info(f"Here is starting dataframe {df.show()}")
 
     for step in steps[1:-1]:
         logger.info(f"Executing {step}")
