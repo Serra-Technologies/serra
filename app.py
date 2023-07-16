@@ -1,5 +1,5 @@
 import serra # testing that this works
-from flask import Flask, request
+from flask import Flask, request, session, redirect, url_for
 import yaml
 from werkzeug.utils import secure_filename
 import os
@@ -7,6 +7,7 @@ import subprocess
 
 # Create an instance of the Flask class
 app = Flask(__name__)
+app.secret_key = "here's some secret key"
 
 @app.route('/run', methods=['POST'])
 def upload_yaml():
@@ -14,6 +15,9 @@ def upload_yaml():
     if 'file' not in request.files:
         return 'No file uploaded.', 400
 
+    # Get session info
+    session_id = request.form['session_id']
+    
     file = request.files['file']
     # Check if the file has a YAML extension
     if file.filename.endswith('.yaml') or file.filename.endswith('.yml'):
@@ -25,7 +29,10 @@ def upload_yaml():
             print(data)
 
             filename = secure_filename(file.filename)
-            file_path = os.path.join('./serra/jobs', filename)
+            file_base_name = filename.split(".")[0]
+            new_file_name = f"{session_id}_{filename}"
+
+            file_path = os.path.join('./serra/jobs', new_file_name)
 
             with open(file_path, 'w') as f:
                 yaml.safe_dump(data, f)
@@ -33,7 +40,7 @@ def upload_yaml():
                         # Verify that the file was saved correctly
             if os.path.isfile(file_path):
                 # Run command serra run_locally {config_name} and capture output
-                bashCommand = "serra run_locally testing"
+                bashCommand = f"serra run_locally {file_base_name}"
                 process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
                 output, error = process.communicate()
 
@@ -42,18 +49,28 @@ def upload_yaml():
 
             else:
                 return 'Error saving the file.', 500
-
-            # bashCommand = "serra run_locally hi"
-            # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-            # output, error = process.communicate()
-            # print(output)
-            # return output
-            # return 'YAML file uploaded and processed successfully.'
         except yaml.YAMLError:
             return 'Invalid YAML file.', 400
         
     else:
         return 'Invalid file format. Please upload a YAML file.', 400
+
+@app.route('/api', methods=['POST'])
+def api():
+    # Get the session ID from the request
+    session_id = request.json['session_id']
+    
+    # Retrieve the session data based on the session ID
+    session_data = session.get(session_id, {})
+    
+    # Access and modify session data as needed
+    session_data['counter'] = session_data.get('counter', 0) + 1
+    
+    # Store the updated session data
+    session[session_id] = session_data
+    
+    # Return a response with the updated session data or any other information
+    return {'counter': session_data['counter']}
 
 # Define a route and its corresponding function
 @app.route('/')
