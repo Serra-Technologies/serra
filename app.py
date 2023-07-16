@@ -29,8 +29,8 @@ def upload_yaml():
             print(data)
 
             filename = secure_filename(file.filename)
-            file_base_name = filename.split(".")[0]
             new_file_name = f"{session_id}_{filename}"
+            file_base_name = new_file_name.split(".")[0]
 
             file_path = os.path.join('./serra/jobs', new_file_name)
 
