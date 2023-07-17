@@ -5,6 +5,11 @@ from werkzeug.utils import secure_filename
 import os
 import subprocess
 from serra.cli import run_locally_with_function
+import io
+from loguru import logger
+
+log_buffer = io.StringIO()
+logger.add(log_buffer, format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
 
 # Create an instance of the Flask class
 app = Flask(__name__)
@@ -48,7 +53,8 @@ def upload_yaml():
                 # # Send the output back in the response
                 # return output.decode('utf-8')
                 run_locally_with_function(file_base_name)
-                return "Success"
+                logs = log_buffer.getvalue() # Get the logs
+                return logs
 
             else:
                 return 'Error saving the file.', 500
