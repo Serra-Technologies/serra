@@ -22,6 +22,11 @@ def cli_run_job_from_job_dir(job_name):
     """
     run_job_from_job_dir(job_name)
 
+def run_locally_with_function(job_name):
+    """Run a specific job locally
+    """
+    run_job_from_job_dir(job_name)
+
 @main.command(name="create_job")
 @click.argument("job_name")
 @click.option( "--log-level", type=click.Choice(['DEBUG', "INFO", "WARNING"], case_sensitive=False))

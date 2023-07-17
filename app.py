@@ -4,13 +4,11 @@ import yaml
 from werkzeug.utils import secure_filename
 import os
 import subprocess
-from logging.handlers import RotatingFileHandler
+from serra.cli import run_locally_with_function
 
 # Create an instance of the Flask class
 app = Flask(__name__)
 app.secret_key = "here's some secret key"
-handler = RotatingFileHandler('app.log', maxBytes=100000, backupCount=10)
-app.logger.addHandler(handler)
 
 @app.route('/run', methods=['POST'])
 def upload_yaml():
@@ -43,12 +41,14 @@ def upload_yaml():
                         # Verify that the file was saved correctly
             if os.path.isfile(file_path):
                 # Run command serra run_locally {config_name} and capture output
-                bashCommand = f"serra run_locally {file_base_name}"
-                process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-                output, error = process.communicate()
+                # bashCommand = f"serra run_locally {file_base_name}"
+                # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+                # output, error = process.communicate()
 
-                # Send the output back in the response
-                return output.decode('utf-8')
+                # # Send the output back in the response
+                # return output.decode('utf-8')
+                run_locally_with_function(file_base_name)
+                return "Success"
 
             else:
                 return 'Error saving the file.', 500
