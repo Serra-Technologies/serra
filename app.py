@@ -53,6 +53,7 @@ def upload_yaml():
                 # return output.decode('utf-8')
                 run_locally_with_function(file_base_name)
                 logs = get_io_buffer().getvalue() # Get the logs
+                get_io_buffer().truncate(0)
                 return logs
 
             else:
