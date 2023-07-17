@@ -1,5 +1,6 @@
 from serra.readers import Reader
 from serra.utils import get_or_create_spark_session
+from loguru import logger
 
 class S3Reader(Reader):
     def __init__(self, config):
@@ -9,6 +10,7 @@ class S3Reader(Reader):
         self.format = self.config.get('format')
         
     def read(self):
+        logger.info("\tReading from S3")
         df = self.spark.read.format(self.format).option("header","true").load(self.path)
         return df
 

@@ -1,5 +1,6 @@
 from serra.readers import Reader
 from serra.utils import get_or_create_spark_session
+from loguru import logger
 
 class DatabricksReader(Reader):
     def __init__(self, config):
@@ -9,6 +10,7 @@ class DatabricksReader(Reader):
         self.table = self.config.get('table')
         
     def read(self):
+        logger.info("\tReading from Databricks")
         df = self.spark.read.table(f'{self.database}.{self.table}')
         return df
 

@@ -1,6 +1,7 @@
 from serra.writers import Writer
 from serra.utils import get_or_create_spark_session
 from pyspark.sql import DataFrame
+from loguru import logger
 
 class DatabricksWriter(Writer):
     def __init__(self, config):
@@ -12,6 +13,7 @@ class DatabricksWriter(Writer):
         self.mode = self.config.get('mode')
         
     def write(self, df: DataFrame):
+        logger.info("\tWriting to Databricks")
         # Currently forces overwrite if csv already exists
         df.write.format(self.format).mode(self.mode).saveAsTable(f'{self.database}.{self.table}')
         return None
