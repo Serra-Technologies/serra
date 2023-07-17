@@ -7,6 +7,8 @@ from serra.aws import read_json_s3, write_json_s3
 from os.path import exists
 from loguru import logger
 from serra.databricks import upload_wheel_to_bucket, restart_server
+from serra.logger import get_io_buffer
+from contextlib import redirect_stdout
 
 # Setup logger
 logger.remove()  # Remove the default sink
@@ -85,7 +87,8 @@ def run_job_with_config_parser(cf: ConfigParser, is_local):
     writer_object(writer_config).write(df)
 
     # Commenting this out because it doesn't look good with large dfs
-    df.show()
+    with redirect_stdout(get_io_buffer()):
+        df.show()
 
 def run_job_from_job_dir(job_name):
     user_configs_folder = get_path_to_user_configs_folder()
