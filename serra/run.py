@@ -13,7 +13,7 @@ from contextlib import redirect_stdout
 # Setup logger
 logger.remove()  # Remove the default sink
 logger.add(sink=sys.stdout, format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
-logger.add("app.log", format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>")
+# logger.add("app.log", format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>")
 
 def create_job_yaml(job_name):
     file_path = f"{get_path_to_user_configs_folder()}/{job_name}.yml"

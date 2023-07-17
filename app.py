@@ -8,7 +8,7 @@ from serra.cli import run_locally_with_function
 from loguru import logger
 from serra.logger import get_io_buffer
 
-logger.add(get_io_buffer(), format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
+
 
 # Create an instance of the Flask class
 app = Flask(__name__)
@@ -22,6 +22,9 @@ def upload_yaml():
 
     # Get session info
     session_id = request.form['session_id']
+    session['session_id'] = session_id
+
+    logger.add(get_io_buffer(), format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
     
     file = request.files['file']
     # Check if the file has a YAML extension
