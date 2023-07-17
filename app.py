@@ -6,9 +6,13 @@ import os
 import subprocess
 from serra.cli import run_locally_with_function
 from loguru import logger
-from serra.logger import get_io_buffer
+from serra.logger import get_io_buffer, log, read_and_flush_logs
 
 
+def get_session_id(_):
+    return session['session_id']
+
+logger.add(log, format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
 
 # Create an instance of the Flask class
 app = Flask(__name__)
@@ -24,7 +28,7 @@ def upload_yaml():
     session_id = request.form['session_id']
     session['session_id'] = session_id
 
-    logger.add(get_io_buffer(), format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
+    
     
     file = request.files['file']
     # Check if the file has a YAML extension
@@ -55,8 +59,7 @@ def upload_yaml():
                 # # Send the output back in the response
                 # return output.decode('utf-8')
                 run_locally_with_function(file_base_name)
-                logs = get_io_buffer().getvalue() # Get the logs
-                get_io_buffer().truncate(0)
+                logs = read_and_flush_logs()
                 return logs
 
             else:
