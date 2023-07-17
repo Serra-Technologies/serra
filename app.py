@@ -82,7 +82,7 @@ def hello_world():
 
 # Run the application if the script is executed directly
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8000)
 
 
 
