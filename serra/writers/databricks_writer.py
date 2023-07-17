@@ -13,8 +13,11 @@ class DatabricksWriter(Writer):
         self.mode = self.config.get('mode')
         
     def write(self, df: DataFrame):
-        logger.info("\tWriting to Databricks")
+        logger.info("--- Writing to Databricks")
         # Currently forces overwrite if csv already exists
-        df.write.format(self.format).mode(self.mode).saveAsTable(f'{self.database}.{self.table}')
+        try:
+            df.write.format(self.format).mode(self.mode).saveAsTable(f'{self.database}.{self.table}')
+        except:
+            raise ("Failed on write to Databricks for {self.database}.{self.table}")
         return None
 

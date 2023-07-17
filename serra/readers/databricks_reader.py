@@ -10,8 +10,11 @@ class DatabricksReader(Reader):
         self.table = self.config.get('table')
         
     def read(self):
-        logger.info("\tReading from Databricks")
-        df = self.spark.read.table(f'{self.database}.{self.table}')
+        logger.info("--- Reading from Databricks")
+        try:
+            df = self.spark.read.table(f'{self.database}.{self.table}')
+        except:
+            raise Exception(f"Failed on read from Databricks for {self.database}.{self.table}")
         return df
 
 

@@ -10,8 +10,12 @@ class S3Reader(Reader):
         self.format = self.config.get('format')
         
     def read(self):
-        logger.info("\tReading from S3")
-        df = self.spark.read.format(self.format).option("header","true").load(self.path)
+        logger.info("--- Reading from S3")
+        try:
+            df = self.spark.read.format(self.format).option("header","true").load(self.path)
+        except:
+            raise Exception(f"Failed on read from S3: {self.path}")
+
         return df
 
 

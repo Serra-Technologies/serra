@@ -11,8 +11,11 @@ class S3Writer(Writer):
         self.format = self.config.get('format')
         
     def write(self, df: DataFrame):
-        logger.info("\tWriting to S3")
+        logger.info("--- Writing to S3")
         # Currently forces overwrite if csv already exists
-        df.write.option("header","true").mode('overwrite').format(self.format).save(self.path)
+        try:
+            df.write.option("header","true").mode('overwrite').format(self.format).save(self.path)
+        except:
+            raise Exception(f"Failed on write to S3: {self.path}")
         return None
 
