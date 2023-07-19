@@ -23,9 +23,9 @@ def create_job_yaml(job_name):
     write_to_file(file_path, starter_config)
 
 def convert_name_to_full(class_name):
-    if class_name in ["LocalReader", "S3Reader", "DatabricksReader"]:
+    if "Reader" in class_name:
         return f"serra.readers.{class_name}"
-    elif class_name in ["LocalWriter", "S3Writer", "DatabricksWriter"]:
+    elif "Writer" in class_name:
         return f"serra.writers.{class_name}"
     else:
         return f"serra.transformers.{class_name}"
