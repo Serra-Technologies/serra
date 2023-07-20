@@ -5,16 +5,16 @@ from pyspark.sql.types import (
     StringType,
     LongType
 )
-from sparktestingbase.sqltestcase import SQLTestCase
+from tests.base_test import SparkETLTestCase
 
 from serra.transformers.pivot_transformer import (
     PivotTransformer
 )
 
-class PivotTransformerTest(SQLTestCase):
+class PivotTransformerTest(SparkETLTestCase):
     def test_pivot_column_transformer(self):
 
-        df = self.sqlCtx.createDataFrame(
+        df = self.spark.createDataFrame(
             [
                 Row(streaming_service='Netflix', subscriber_count=12000, region='CA', country='US'),
                 Row(streaming_service='Disney', subscriber_count=2000, region='MA', country='US'),
@@ -42,7 +42,7 @@ class PivotTransformerTest(SQLTestCase):
                 StructField('US', LongType())
             ]
         )
-        expected = self.sqlCtx.createDataFrame(
+        expected = self.spark.createDataFrame(
             [
                 Row(streaming_service='Disney', China=13000, US=2100),
                 Row(streaming_service='Netflix', China=21500, US=62000)
@@ -50,4 +50,4 @@ class PivotTransformerTest(SQLTestCase):
             expected_schema
         )
         
-        self.assertDataFrameEqual(expected, result)
+        self.assertEqual(expected.collect(), result.collect())

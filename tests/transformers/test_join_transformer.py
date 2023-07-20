@@ -5,22 +5,22 @@ from pyspark.sql.types import (
     StringType,
     LongType
 )
-from sparktestingbase.sqltestcase import SQLTestCase
+from tests.base_test import SparkETLTestCase
 
 from serra.transformers.join_transformer import (
     JoinTransformer
 )
 
-class JoinTransformerTest(SQLTestCase):
+class JoinTransformerTest(SparkETLTestCase):
     def test_join_transformer(self):
 
-        df = self.sqlCtx.createDataFrame(
+        df = self.spark.createDataFrame(
             [
                 Row(person='Albert', id=1234),
                 Row(person='Alan', id=4321)
             ]
         )
-        df2 = self.sqlCtx.createDataFrame(
+        df2 = self.spark.createDataFrame(
             [
                 Row(privacy_name='Test1', id=1234),
                 Row(privacy_name='Test2', id=4321)
@@ -41,7 +41,7 @@ class JoinTransformerTest(SQLTestCase):
                 StructField('privacy_name', StringType())
             ]
         )
-        expected = self.sqlCtx.createDataFrame(
+        expected = self.spark.createDataFrame(
             [
                 Row(person='Alan', id=4321, privacy_name='Test2'),
                 Row(person='Albert', id=1234, privacy_name='Test1'),
@@ -52,4 +52,4 @@ class JoinTransformerTest(SQLTestCase):
         expected.show()
         result.show()
         
-        self.assertDataFrameEqual(result, expected)
+        self.assertEqual(result.collect(), expected.collect())

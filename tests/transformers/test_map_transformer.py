@@ -5,16 +5,16 @@ from pyspark.sql.types import (
     StringType,
     LongType
 )
-from sparktestingbase.sqltestcase import SQLTestCase
+from tests.base_test import SparkETLTestCase
 
 from serra.transformers.map_transformer import (
     MapTransformer
 )
 
-class MapTransformerTest(SQLTestCase):
+class MapTransformerTest(SparkETLTestCase):
     def test_map_transformer(self):
 
-        df = self.sqlCtx.createDataFrame(
+        df = self.spark.createDataFrame(
             [
                 Row(person='Albert', id=1234, location='CA'),
                 Row(person='Alan', id=4321, location='TX')
@@ -37,7 +37,7 @@ class MapTransformerTest(SQLTestCase):
                 StructField('location_full', StringType())
             ]
         )
-        expected = self.sqlCtx.createDataFrame(
+        expected = self.spark.createDataFrame(
             [
                 Row(person='Albert', id=1234, location='CA', location_full='California'),
                 Row(person='Alan', id=4321, location='TX', location_full='Texas' )
@@ -45,4 +45,4 @@ class MapTransformerTest(SQLTestCase):
             expected_schema
         )
         
-        self.assertDataFrameEqual(expected, result)
+        self.assertEqual(expected.collect(), result.collect())

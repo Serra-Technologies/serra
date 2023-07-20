@@ -6,16 +6,17 @@ from pyspark.sql.types import (
     DoubleType,
     IntegerType
 )
-from sparktestingbase.sqltestcase import SQLTestCase
+
+from tests.base_test import SparkETLTestCase
 
 from serra.transformers.cast_columns_transformer import (
     CastColumnTransformer
 )
 
-class CastColumnsTransformerTest(SQLTestCase):
+class CastColumnsTransformerTest(SparkETLTestCase):
     def test_cast_columns_transformer(self):
 
-        df = self.sqlCtx.createDataFrame(
+        df = self.spark.createDataFrame(
             [
                 Row(person='Albert', amount=5302.34),
                 Row(person='Alan', amount=4321.3)
@@ -37,7 +38,7 @@ class CastColumnsTransformerTest(SQLTestCase):
                 StructField('amount_int', IntegerType())
             ]
         )
-        expected = self.sqlCtx.createDataFrame(
+        expected = self.spark.createDataFrame(
             [
                 Row(person='Albert', amount=5302.34, amount_int=5302),
                 Row(person='Alan', amount=4321.3, amount_int=4321)
@@ -45,4 +46,4 @@ class CastColumnsTransformerTest(SQLTestCase):
             expected_schema
         )
         
-        self.assertDataFrameEqual(expected, result)
+        self.assertEqual(result.collect(), expected.collect())

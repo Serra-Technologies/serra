@@ -5,16 +5,16 @@ from pyspark.sql.types import (
     StringType,
     LongType
 )
-from sparktestingbase.sqltestcase import SQLTestCase
+from tests.base_test import SparkETLTestCase
 
 from serra.transformers.rename_column_transformer import (
     RenameColumnTransformer
 )
 
-class RenameColumnTransformerTest(SQLTestCase):
+class RenameColumnTransformerTest(SparkETLTestCase):
     def test_rename_column_transformer(self):
 
-        df = self.sqlCtx.createDataFrame(
+        df = self.spark.createDataFrame(
             [
                 Row(person='Albert', id=1234),
                 Row(person='Alan', id=4321)
@@ -34,7 +34,7 @@ class RenameColumnTransformerTest(SQLTestCase):
                 StructField('name', StringType())
             ]
         )
-        expected = self.sqlCtx.createDataFrame(
+        expected = self.spark.createDataFrame(
             [
                 Row(id=1234, name='Albert'),
                 Row(id=4321, name='Alan')
@@ -42,4 +42,4 @@ class RenameColumnTransformerTest(SQLTestCase):
             expected_schema
         )
         
-        self.assertDataFrameEqual(expected, result)
+        self.assertEqual(expected.collect(), result.collect())
