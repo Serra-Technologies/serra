@@ -1,1 +1,0 @@
-spark-testing-base==0.10.0

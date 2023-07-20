@@ -1,4 +1,4 @@
-job_steps: ['step_read', 'step_map', 'step_write']
+job_steps: ['step_read','step_pivot','step_write']
 
 step_read:
   class_name: AmazonS3Reader
@@ -9,15 +9,13 @@ step_read:
     file_path: sales.csv
     file_type: csv
 
-step_map:
-  class_name: MapTransformer
+step_pivot:
+  class_name: PivotTransformer
   config:
-    name: 'state_abbreviation'
-    map_dict:
-      MCD: 'McDonalds'
-      BK: 'Burger King'
-    col_key: 'region'
-
+    row_level: "restaurant"
+    column_level: "region"
+    aggregate_type: "sum"
+    sum_col: "customers"
 
 step_write:
   class_name: AmazonS3Writer

@@ -11,6 +11,8 @@ from serra.transformers.pivot_transformer import (
     PivotTransformer
 )
 
+#TODO: Test avg
+
 class PivotTransformerTest(SparkETLTestCase):
     def test_pivot_column_transformer(self):
 
@@ -30,7 +32,8 @@ class PivotTransformerTest(SparkETLTestCase):
         config = {
             'row_level': 'streaming_service',
             'column_level': 'country',
-            'sum_col': 'subscriber_count'
+            'sum_col': 'subscriber_count',
+            'aggregate_type': 'sum'
         }
 
         result = PivotTransformer(config).transform(df)

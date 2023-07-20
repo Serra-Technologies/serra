@@ -1,0 +1,31 @@
+job_steps: ['step_read', 'step_map', 'step_write']
+
+step_read:
+  class_name: AmazonS3Reader
+  config:
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: sales.csv
+    file_type: csv
+
+step_map:
+  class_name: MapTransformer
+  config:
+    name: 'state_abbreviation'
+    map_dict:
+      Alabama: 'AL'
+      Alaska: 'AL'
+    col_key: 'region'
+
+
+step_write:
+  class_name: AmazonS3Writer
+  config:
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: output.csv
+    file_type: csv
+
+

@@ -15,6 +15,7 @@ class PivotTransformer(Transformer):
         self.row_level = config.get("row_level")
         self.column_level = config.get("column_level")
         self.sum_col = config.get("sum_col")
+        self.aggregate_type = config.get("aggregate_type")
 
     def transform(self, df):
         """
@@ -22,7 +23,16 @@ class PivotTransformer(Transformer):
         :return; Dataframe w/ new column containing col_value
         """
 
-        df = df.groupBy(self.row_level).pivot(self.column_level).avg(self.sum_col)
+        df = df.groupBy(self.row_level).pivot(self.column_level)
+        
+        # Perform aggregation
+        if self.aggregate_type == "avg":
+            df = df.avg(self.sum_col)
+        elif self.aggregate_type == "sum":
+            df = df.sum(self.sum_col)
+        else:
+            raise Exception("Invalid Pivot Aggregation type")
+
         return df
 
 
