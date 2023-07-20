@@ -1,7 +1,9 @@
-pyspark==3.3.2
+pyspark
+findspark
 click
 pyyaml
-pandas==1.5.3
+pandas
 boto3
 databricks-sdk
 flask
+loguru

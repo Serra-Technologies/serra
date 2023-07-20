@@ -1,16 +1,17 @@
 # Serra
 Object-Oriented Spark Framework for Data Transformations
 
-# Setup
+# Setup for running
 
 ```bash
-brew install python3.9
-python3.9 -m venv env
+python3.10 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
-pip install -r requirements_dev.txt
 pip install -e .
 ```
+
+# May also need to follow these steps (Download and install spark)
+https://spark.apache.org/docs/latest/api/python/getting_started/install.html#manually-downloading
 
 # Development Guide
 
@@ -38,7 +39,7 @@ serra create_job {job_name}
 
 ### Step 1: Install DB-connect
 ```bash
-pip3 install --upgrade "databricks-connect==12.2.*"
+pip3 install --upgrade "databricks-connect==11.3.*"
 ```
 
 ### Step 2: Configure w/ DB cluster
