@@ -71,10 +71,7 @@ def run_job_with_config_parser(cf: ConfigParser, is_local):
 
         full_class_name = convert_name_to_full(class_name)
         step_object = import_class(full_class_name)
-        try:
-            df = step_object(config).transform(df)
-        except:
-            raise Exception(f"{class_name}: Invalid arguments. See https://serratech.gitbook.io/documentation/transformers")
+        df = step_object(config).transform(df)
 
     # Assume final step is a write
     writer_step = steps[-1]
@@ -90,10 +87,13 @@ def run_job_with_config_parser(cf: ConfigParser, is_local):
     df.show()
 
 def run_job_from_job_dir(job_name):
-    user_configs_folder = get_path_to_user_configs_folder()
-    config_path = f"{user_configs_folder}/{job_name}.yml"
-    cf = ConfigParser.from_local_config(config_path)
-    run_job_with_config_parser(cf, True)
+    try:
+        user_configs_folder = get_path_to_user_configs_folder()
+        config_path = f"{user_configs_folder}/{job_name}.yml"
+        cf = ConfigParser.from_local_config(config_path)
+        run_job_with_config_parser(cf, True)
+    except Exception as e:
+        logger.error(e)
 
 def run_job_from_aws(job_name):
     try:
