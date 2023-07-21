@@ -39,7 +39,7 @@ serra create_job {job_name}
 
 ### Step 1: Install DB-connect
 ```bash
-pip3 install --upgrade "databricks-connect==11.3.*"
+pip3 install --upgrade "databricks-connect==12.2.*"
 ```
 
 ### Step 2: Configure w/ DB cluster

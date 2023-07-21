@@ -8,6 +8,10 @@ class LocalReader(Reader):
         self.spark: SparkSession = get_or_create_spark_session()
         self.config = config
         self.file_path = config.get("file_path")
+
+    @property
+    def dependencies(self):
+        return []
         
     def read(self):
         df = self.spark.read.format("csv").option("header",True).load(self.file_path)
