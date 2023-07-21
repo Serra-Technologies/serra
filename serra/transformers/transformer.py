@@ -8,3 +8,7 @@ class Transformer(ABC):
     @abstractmethod
     def transform(self, df):
         pass
+
+    @property
+    def dependencies(self):
+        return [self.config.get('input')]

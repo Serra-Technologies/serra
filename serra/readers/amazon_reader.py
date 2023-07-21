@@ -27,6 +27,10 @@ class AmazonS3Reader():
     def file_type(self):
         return self.config.get("file_type")
     
+    @property
+    def dependencies(self):
+        return []
+    
     def read(self):
         session = boto3.Session(
             aws_access_key_id=self.aws_access_key_id,

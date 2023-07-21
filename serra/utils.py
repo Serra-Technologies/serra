@@ -18,6 +18,8 @@ def import_class(cl):
     return getattr(m, classname)
 
 def get_or_create_spark_session():
+    # TODO: Take a look for spark session conf: https://engineeringfordatascience.com/posts/pyspark_unit_testing_with_pytest/
+
     # These installations are only really necessary when running locallys
     return SparkSession.builder.config("spark.logLevel", "ERROR").getOrCreate()
 
