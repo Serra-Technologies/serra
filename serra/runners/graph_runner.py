@@ -43,6 +43,7 @@ def get_order_of_execution(cf: ConfigParser):
 
 def run_job_with_graph(cf: ConfigParser):
     ordered_block_names = get_order_of_execution(cf)
+    logger.info(f"Decided order of execution: {ordered_block_names}")
     df_map = {}
 
     for block_name in ordered_block_names:
