@@ -17,24 +17,30 @@ class JoinTransformer(Transformer):
     def __init__(self, config):
         self.config = config
         self.join_type = config.get("join_type")
-        self.matching_col = config.get("matching_col")
-        self.path = config.get("path")
+        self.join_on = config.get("join_on")
 
+    @property
+    def dependencies(self):
+        return [key for key in self.config.get("join_on").keys()]
 
-    def transform(self, df1):
+    def transform(self, df1, df2):
         """
         Add column with col_value to dataframe
         :return; Dataframe w/ new column containing col_value
         """
+        assert self.join_type in "inner"
 
-        matching_col = self.matching_col
+        join_keys = []
+        for table in self.join_on:
+            join_keys.append(self.join_on.get(table))
 
-        df2_config = {'path':self.path, 'format':'csv'}
-        df2 = S3Reader(df2_config).read()
+        assert len(join_keys) == 2
+
+        matching_col = join_keys
+
         df1 = df1.join(df2, df1[matching_col[0]] == df2[matching_col[1]], self.join_type).drop(df2[matching_col[1]])
         if df1.isEmpty():
-            logger.error(f"Joiner - Invalid matching ID's: {matching_col[0]}, {matching_col[1]}")
-            raise Exception(f"Joiner - Invalid matching ID's: {matching_col[0]}, {matching_col[1]}")
+            raise Exception(f"Joiner - Invalid matching ID's: {matching_col[0]}, {matching_col[1]}. Dataframes — restaurants & ratings.")
         return df1
     
     

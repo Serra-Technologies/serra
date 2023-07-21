@@ -2,6 +2,15 @@
 import yaml
 from serra.aws import retrieve_file_as_bytes_from_bucket
 
+
+def convert_name_to_full(class_name):
+    if "Reader" in class_name:
+        return f"serra.readers.{class_name}"
+    elif "Writer" in class_name:
+        return f"serra.writers.{class_name}"
+    else:
+        return f"serra.transformers.{class_name}"
+
 class ConfigParser:
 
     def __init__(self, config):
@@ -20,12 +29,6 @@ class ConfigParser:
         config_bytes = retrieve_file_as_bytes_from_bucket(config_name)
         config = yaml.safe_load(config_bytes)
         return ConfigParser(config)
-
-    def get_param(self):
-        pass
-
-    def get_tables(self):
-        return self.config.get("tables")
     
     def get_job_steps(self):
         return self.config.get("job_steps")
@@ -43,6 +46,12 @@ class ConfigParser:
     
     def get_job_name(self):
         return self.get("name")
+    
+    def get_blocks(self):
+        return self.config.keys()
+    
+    def get_config_for_block(self, block_name):
+        return self.config.get(block_name).get("config")
 
 if __name__=="__main__":
     cp = ConfigParser("")

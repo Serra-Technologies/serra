@@ -29,7 +29,10 @@ class JoinTransformerTest(SparkETLTestCase):
 
         config = {
             'join_type':'inner',
-            'matching_col': 'id'
+            'join_on': {
+                "some": "id",
+                "thing": "id"
+            }
         }
 
         result = JoinTransformer(config).transform(df,df2)
@@ -43,8 +46,8 @@ class JoinTransformerTest(SparkETLTestCase):
         )
         expected = self.spark.createDataFrame(
             [
-                Row(person='Alan', id=4321, privacy_name='Test2'),
                 Row(person='Albert', id=1234, privacy_name='Test1'),
+                Row(person='Alan', id=4321, privacy_name='Test2')
             ],
             expected_schema
         )

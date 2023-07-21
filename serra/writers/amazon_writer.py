@@ -26,6 +26,10 @@ class AmazonS3Writer():
     def file_type(self):
         return self.config.get("file_type")
     
+    @property
+    def dependencies(self):
+        return [self.config.get('input_block')]
+    
     def write(self, df):
         # Convert DataFrame to CSV data
         pandas_df = df.toPandas()

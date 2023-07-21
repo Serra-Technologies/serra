@@ -1,8 +1,0 @@
-# This isn't used for anything right now but is an example of 
-# how we could maybe setup stuff for development/running on cloud
-databricks:
-  access-token: dapi55908f285e31ab9937bc6928b4991fef
-  aws-wheel-location: s3://...
-  aws-iam-role: test-iam-role # not currently used
-  aws-secret-key: LpNCKyDu7A5+lLQySYctTuo7wXZ4wo2lNH9IUzP3
-  aws-access-key: AKIA3TOV3GZZHAH4MPAE
