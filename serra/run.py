@@ -71,7 +71,10 @@ def run_job_with_config_parser(cf: ConfigParser, is_local):
 
         full_class_name = convert_name_to_full(class_name)
         step_object = import_class(full_class_name)
-        df = step_object(config).transform(df)
+        try:
+            df = step_object(config).transform(df)
+        except:
+            raise Exception(f"{class_name}: Invalid arguments. See https://serratech.gitbook.io/documentation/transformers")
 
     # Assume final step is a write
     writer_step = steps[-1]
