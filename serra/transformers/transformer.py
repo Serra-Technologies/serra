@@ -11,4 +11,4 @@ class Transformer(ABC):
 
     @property
     def dependencies(self):
-        return [self.config.get('input')]
+        return [self.config.get('input_block')]

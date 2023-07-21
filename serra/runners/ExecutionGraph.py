@@ -15,6 +15,7 @@ class Block:
         return len(self.upstream_blocks) == 0
 
 def get_result(block: Block, inputs):
+    # Just for playing around
     result = f"[{block.name}"
     for input in inputs:
         result = result + "|" + input
@@ -29,6 +30,14 @@ class BlockGraph:
             self.name_to_block[block.name] = block
 
         self.outputs = {}
+
+    def add_block(self, block_name, deps):
+        block = Block(block_name)
+        for dep in deps:
+            block.add_upstream_task(dep)
+
+        self.blocks.append(block)
+        self.name_to_block[block_name] = block
 
     def find_entry_points(self):
         entry_names = []
@@ -51,7 +60,6 @@ class BlockGraph:
             if ok_to_run:
                 entry_names.append(block.name)
         
-        print('Found entry points: ', entry_names)
         return entry_names
     
 
@@ -64,31 +72,23 @@ class BlockGraph:
             # Grab the df from the upstream tasks
             inputs.append(self.outputs[input_block])
 
-        print("Executing block:", block.name)
-        print("inputs are:", inputs)
-
         result = get_result(block, inputs)
-        print("Result is", result)
-        print()
         self.outputs[block.name] = result
 
+if __name__=="__main__":
+    # Example of usage
+    graph = BlockGraph([])
+    graph.add_block("SALES", [])
+    graph.add_block("RATINGS", [])
+    graph.add_block("JOIN", ["SALES", "RATINGS"])
+    graph.add_block("WRITE", ["JOIN"])
 
-
-sales = Block("SALES")
-ratings = Block("RATINGS")
-
-join = Block("JOIN")
-join.add_upstream_task("SALES")
-join.add_upstream_task("RATINGS")
-
-write = Block("WRITE")
-write.add_upstream_task("JOIN")
-
-
-graph = BlockGraph([sales, ratings, join, write])
-
-entry_points = graph.find_entry_points()
-while len(entry_points) != 0:
-    # execute
-    graph.execute(entry_points[0])
+    order = []
     entry_points = graph.find_entry_points()
+    while len(entry_points) != 0:
+        # execute
+        order.append(entry_points[0])
+        graph.execute(entry_points[0])
+        entry_points = graph.find_entry_points()
+
+    print(order)

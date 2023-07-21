@@ -1,67 +1,64 @@
 from serra.config_parser import ConfigParser, convert_name_to_full
 from serra.utils import get_or_create_spark_session, import_class
 from loguru import logger
+from serra.runners.ExecutionGraph import BlockGraph
 
-def run_job_simple_linear(cf: ConfigParser, is_local):
-    """
-    Current assumptions
-    - at least one step
-    - first step is a read
-    - only one read in job steps
-    """
-    steps = cf.get_job_steps()
+def get_configured_block_object(block_name, cf: ConfigParser):
+    config = cf.get_config_for_block(block_name)
+    class_name = cf.get_class_name_for_step(block_name)
 
-    reader_step = steps[0]
-    logger.info(f"Executing {reader_step}")
-    reader_class_name = cf.get_class_name_for_step(reader_step)
-    reader_config = cf.get_config_for_step(reader_step)
+    full_class_name = convert_name_to_full(class_name)
+    block_class = import_class(full_class_name)
+    configured_block_object = block_class(config)
+    return configured_block_object
 
-    full_reader_class_name = convert_name_to_full(reader_class_name)
-    reader_object = import_class(full_reader_class_name)
+# TODO: Add execute method to all blocks to remove this design
+def is_reader(block_name, cf: ConfigParser):
+    class_name = cf.get_class_name_for_step(block_name)
+    return "Reader" in class_name
 
-    df = reader_object(reader_config).read()
+def is_writer(block_name, cf: ConfigParser):
+    class_name = cf.get_class_name_for_step(block_name)
+    return "Writer" in class_name
 
-    if is_local:
-        df = df.limit(10)
+def is_Transformer(block_name, cf: ConfigParser):
+    class_name = cf.get_class_name_for_step(block_name)
+    return "Transformer" in class_name
 
-    for step in steps[1:-1]:
-        logger.info(f"Executing {step}")
-        # Get coressponding class
-        class_name = cf.get_class_name_for_step(step)
-        config = cf.get_config_for_step(step)
+def get_order_of_execution(cf: ConfigParser):
+    block_names = cf.get_blocks()
+    graph = BlockGraph([])
+    for block_name in block_names:
+        obj = get_configured_block_object(block_name, cf)
+        graph.add_block(block_name, obj.dependencies)
 
-        full_class_name = convert_name_to_full(class_name)
-        step_object = import_class(full_class_name)
-        df = step_object(config).transform(df)
+    order = []
+    entry_points = graph.find_entry_points()
+    while len(entry_points) != 0:
+        order.append(entry_points[0])
+        graph.execute(entry_points[0])
+        entry_points = graph.find_entry_points()
 
-    # Assume final step is a write
-    writer_step = steps[-1]
-    logger.info(f"Executing {writer_step}")
-    writer_class_name = cf.get_class_name_for_step(writer_step)
-    writer_config = cf.get_config_for_step(writer_step)
-
-    full_writer_class_name = convert_name_to_full(writer_class_name)
-    writer_object = import_class(full_writer_class_name)
-    writer_object(writer_config).write(df)
-
-    # Commenting this out because it doesn't look good with large dfs
-    df.show()
-
-def test_run():
-    print("succeeded!")
+    return order
 
 def run_job_with_graph(cf: ConfigParser):
-    blocks = cf.get_blocks()
+    ordered_block_names = get_order_of_execution(cf)
+    df_map = {}
 
-    for block in blocks:
-        print()
-        config = cf.get_config_for_block(block)
-        class_name = cf.get_class_name_for_step(block)
-
-        full_class_name = convert_name_to_full(class_name)
-        block_obj = import_class(full_class_name)
-        deps = block_obj(config).dependencies
-        print(deps)
-        print()
-
-    pass
+    for block_name in ordered_block_names:
+        logger.info(f"Executing step {block_name}")
+        # execute block
+        block_obj = get_configured_block_object(block_name, cf)
+        if is_reader(block_name, cf):
+            df = block_obj.read()
+            df_map[block_name] = df
+        elif is_writer(block_name, cf):
+            assert len(block_obj.dependencies) == 1
+            dependency = block_obj.dependencies[0]
+            df_map[dependency].show()
+            block_obj.write(df_map[dependency]) # Get the 
+        elif is_Transformer(block_name, cf):
+            assert len(block_obj.dependencies) >= 1
+            input_dfs = [df_map[dep] for dep in block_obj.dependencies]
+            df = block_obj.transform(*input_dfs)
+            df_map[block_name] = df
