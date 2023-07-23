@@ -1,8 +1,11 @@
 from serra.config_parser import ConfigParser, convert_name_to_full
 from serra.utils import get_or_create_spark_session, import_class
+from serra.tests import duplicates_test, nulls_test
 from loguru import logger
 from serra.runners.ExecutionGraph import BlockGraph
 
+
+# Returns instatiated reader,writer,transformer class with config already passed in
 def get_configured_block_object(block_name, cf: ConfigParser):
     config = cf.get_config_for_block(block_name)
     class_name = cf.get_class_name_for_step(block_name)
@@ -50,6 +53,7 @@ def run_job_with_graph(cf: ConfigParser):
         logger.info(f"Executing step {block_name}")
         # execute block
         block_obj = get_configured_block_object(block_name, cf)
+
         if is_reader(block_name, cf):
             df = block_obj.read()
             df_map[block_name] = df
@@ -63,3 +67,19 @@ def run_job_with_graph(cf: ConfigParser):
             input_dfs = [df_map[dep] for dep in block_obj.dependencies]
             df = block_obj.transform(*input_dfs)
             df_map[block_name] = df
+
+        if cf.get_tests_for_block(block_name) is not None:
+            tests = cf.get_tests_for_block(block_name)
+            for test_name in tests:
+                print(test_name)
+                if test_name == 'nulls':
+                    df = df_map[block_name]
+                    print('checking')
+                    nulls_test(df)
+                if test_name == 'duplicates':
+                    df = df_map[block_name]
+                    print('checking')
+                    duplicates_test(df)
+
+    if cf.get_test():
+        df.show()

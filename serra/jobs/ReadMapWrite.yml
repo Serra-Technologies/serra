@@ -7,6 +7,12 @@ step_read:
     file_path: sales.csv
     file_type: csv
 
+step_join:
+  class_name: AddColumnTransformer
+  config:
+    input_block: step_read
+    name: 'restaurant'
+
 step_map:
   class_name: MapTransformer
   config:
@@ -15,8 +21,7 @@ step_map:
     map_dict:
       Alabama: 'AL'
       Alaska: 'AL'
-    col_key: 'region'
-
+    col_key: 'blah'
 
 step_write:
   class_name: AmazonS3Writer
