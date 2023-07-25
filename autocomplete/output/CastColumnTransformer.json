@@ -1,0 +1,9 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "cast_columns": {
+            "type": "object"
+        }
+    },
+    "type": "object"
+}

@@ -1,0 +1,12 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "new_name": {
+            "type": "string"
+        },
+        "old_name": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

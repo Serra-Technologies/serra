@@ -1,0 +1,9 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "drop_names": {
+            "type": "array"
+        }
+    },
+    "type": "object"
+}

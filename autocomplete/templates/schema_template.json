@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-08/schema#",
+    "$id": "http://www.serra.io",
+    "type": "object",
+    "properties": {
+
+    },
+    "patternProperties": {
+      ".*": {
+        "description": "a basic serra block",
+        "type": "object",
+        "oneOf" : [
+          
+        ]
+      }
+    }
+  }

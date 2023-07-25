@@ -1,0 +1,9 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "example": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

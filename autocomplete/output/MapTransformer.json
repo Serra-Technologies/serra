@@ -1,0 +1,15 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "col_key": {
+            "type": "string"
+        },
+        "map_dict": {
+            "type": "object"
+        },
+        "name": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

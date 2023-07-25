@@ -1,0 +1,12 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "join_on": {
+            "type": "object"
+        },
+        "join_type": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
