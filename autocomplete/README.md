@@ -17,6 +17,7 @@ Inside settings.json (https://code.visualstudio.com/docs/getstarted/settings#_se
     "yaml.schemas": {
         "file:///path/to/serra_yaml_schema.json": ["*serra.yaml"]
     }
+    "yaml.format.enable": false
 ```
 
 Now any files createed with the extension ```.serra.yaml``` should show proper autocomplete for the Serra framework.

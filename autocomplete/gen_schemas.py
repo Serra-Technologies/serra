@@ -32,7 +32,10 @@ transformer_template = read_json_file("./templates/transformer_template.json")
 for class_name in specs:
     new_property = {
             "type": "object",
-            "properties": {f"{class_name}" : { "$ref": f"./{class_name}.json" }},
+            "properties": {
+                f"{class_name}" : { "$ref": f"./{class_name}.json" },
+                "tests": {"type": "object"}
+                },
             "additionalProperties": False
           }
 
@@ -40,13 +43,14 @@ for class_name in specs:
 
 # Create the schemas for each class
 for class_name in specs:
-    class_schema = {
-        "type": "object",
-        "properties": {
+    class_schema = read_json_file(BLOCK_TEMPLATE)
+    # class_schema = {
+    #     "type": "object",
+    #     "properties": {
             
-        },
-        "additionalProperties": False
-    }
+    #     },
+    #     "additionalProperties": False
+    # }
 
     for property,property_type in specs[class_name].items():
         class_schema['properties'][property] = {"type": property_type}

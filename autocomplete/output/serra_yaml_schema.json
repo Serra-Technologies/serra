@@ -10,6 +10,9 @@
                     "properties": {
                         "AddColumnTransformer": {
                             "$ref": "./AddColumnTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -19,6 +22,9 @@
                     "properties": {
                         "CaseWhenTransformer": {
                             "$ref": "./CaseWhenTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -28,6 +34,9 @@
                     "properties": {
                         "CastColumnTransformer": {
                             "$ref": "./CastColumnTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -37,6 +46,9 @@
                     "properties": {
                         "DropColumnTransformer": {
                             "$ref": "./DropColumnTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -46,6 +58,9 @@
                     "properties": {
                         "GetCountTransformer": {
                             "$ref": "./GetCountTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -55,6 +70,9 @@
                     "properties": {
                         "JoinTransformer": {
                             "$ref": "./JoinTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -64,6 +82,9 @@
                     "properties": {
                         "MapTransformer": {
                             "$ref": "./MapTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -73,6 +94,9 @@
                     "properties": {
                         "PivotTransformer": {
                             "$ref": "./PivotTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -82,6 +106,9 @@
                     "properties": {
                         "RenameColumnTransformer": {
                             "$ref": "./RenameColumnTransformer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -91,6 +118,9 @@
                     "properties": {
                         "AmazonS3Reader": {
                             "$ref": "./AmazonS3Reader.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -100,6 +130,9 @@
                     "properties": {
                         "DatabricksReader": {
                             "$ref": "./DatabricksReader.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -109,6 +142,9 @@
                     "properties": {
                         "LocalReader": {
                             "$ref": "./LocalReader.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -118,6 +154,9 @@
                     "properties": {
                         "AmazonS3Writer": {
                             "$ref": "./AmazonS3Writer.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -127,6 +166,9 @@
                     "properties": {
                         "DatabricksWriter": {
                             "$ref": "./DatabricksWriter.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -136,6 +178,9 @@
                     "properties": {
                         "LocalWriter": {
                             "$ref": "./LocalWriter.json"
+                        },
+                        "tests": {
+                            "type": "object"
                         }
                     },
                     "type": "object"
