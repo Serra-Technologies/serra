@@ -7,6 +7,10 @@ from os.path import exists
 from loguru import logger
 from serra.databricks import upload_wheel_to_bucket, restart_server
 from serra.runners.graph_runner import run_job_with_graph
+from serra.translate import Translator
+import os
+
+PACKAGE_PATH = os.path.dirname(os.path.dirname(__file__))
 
 # Setup logger
 logger.remove()  # Remove the default sink
@@ -31,6 +35,36 @@ def run_job_from_job_dir(job_name):
         run_job_with_graph(cf)
     except Exception as e:
         logger.error(e)
+
+# translates your given sql file, gives you the config output, and saves the config in a new yml file
+
+# Use the paths as needed
+
+
+def translate_job(sql_path, is_run):
+    logger.info(f"Starting translation process for {sql_path}...")
+    yaml_path = os.path.splitext(sql_path)[0]
+
+    # Translate job by getting root dir, sql folder, sql path, get response, package path is just serra/
+    sql_folder_path = os.path.join(PACKAGE_PATH, 'sql')
+    print(sql_folder_path)
+    sql_path = f"{sql_folder_path}/{sql_path}"
+
+    tl = Translator(sql_path)
+    response = tl.prompt_gpt()
+
+    # Save in new yaml file (config folder with same name as sql path)
+    user_configs_folder = get_path_to_user_configs_folder()
+    yaml_path = f"{user_configs_folder}/{yaml_path}.yml"
+    logger.info(f"Translation complete. Yaml file can be found at {yaml_path}")
+    tl.save_as_yaml(response, yaml_path)
+
+    if is_run:
+        logger.info("Running job...")
+        cf = ConfigParser.from_local_config(yaml_path)
+    # run_job_simple_linear(cf, True)
+        run_job_with_graph(cf)
+        logger.info("Job run completed.")
 
 def run_job_from_aws(job_name):
     try:

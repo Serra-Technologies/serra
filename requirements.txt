@@ -8,3 +8,4 @@ databricks-sdk
 flask
 loguru
 wheel
+openai

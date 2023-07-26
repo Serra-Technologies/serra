@@ -1,9 +1,9 @@
 # Entry point for serra command line tool
 import sys
 import click
-from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws#, visualize_dag
+from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job#, visualize_dag
 from serra.databricks import create_job
-
+from serra.translate import Translator
 @click.group()
 def main():
     pass
@@ -15,12 +15,20 @@ def cli_start(job_name):
     """
     create_job_yaml(job_name)
 
-@main.command(name="run_locally")
+@main.command(name="run")
 @click.argument("job_name")
 def cli_run_job_from_job_dir(job_name):
     """Run a specific job locally
     """
     run_job_from_job_dir(job_name)
+
+@main.command(name="translate")
+@click.argument("sql_path")
+@click.option("--run", is_flag=True, default=False, required=False)
+def cli_translator(sql_path, run):
+    """Run a specific job locally
+    """
+    translate_job(sql_path, run)
 
 @main.command(name="create_job")
 @click.argument("job_name")

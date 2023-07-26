@@ -12,7 +12,8 @@ class AddColumnTransformer(Transformer):
         self.config = config
         self.name = config.get("name")
         self.value = config.get("value")
-
+        self.column_type = config.get("column_type")
+        
     def transform(self, df):
         """
         Add column with col_value to dataframe
@@ -22,6 +23,6 @@ class AddColumnTransformer(Transformer):
             raise ValueError(f"Column '{self.name}' already exists in the DataFrame. Choose a different name.")
         
         return df.withColumn(
-            self.name, F.lit(self.value)
+            self.name, F.lit(self.value).cast(self.column_type)  
         )
     

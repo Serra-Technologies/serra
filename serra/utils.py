@@ -25,3 +25,10 @@ def get_or_create_spark_session():
 
 def get_path_to_user_configs_folder():
     return pkg_resources.resource_filename('serra', CONFIG_WORKSPACE_NAME)
+
+def read_sql_file(file_path):
+    with open(file_path, 'r') as file:
+        sql_script = file.read()
+    return sql_script
+
+
