@@ -1,18 +1,17 @@
+# There are some prints that are occuring when running this script? Not logs?
+# Duplicates across all column or a single column?
 read_sales:
-  class_name: LocalReader
-  config:
+  LocalReader:
     file_path: "./examples/sales.csv"
 
 read_ratings:
-  class_name: LocalReader
-  config:
+  LocalReader:
     file_path: "./examples/ratings.csv"
   tests:
     - duplicates
 
 step_join:
-  class_name: JoinTransformer
-  config:
+  JoinTransformer:
     join_type: 'inner'
     join_on:
       read_sales: id

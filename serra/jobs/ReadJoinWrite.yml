@@ -1,6 +1,5 @@
 read_sales:
-  class_name: AmazonS3Reader
-  config:
+  AmazonS3Reader:
     aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
     aws_secret_access_key: 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
     bucket_name: serrademo
@@ -8,8 +7,7 @@ read_sales:
     file_type: csv
 
 read_ratings:
-  class_name: AmazonS3Reader
-  config:
+  AmazonS3Reader:
     aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
     aws_secret_access_key: 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
     bucket_name: serrademo
@@ -17,16 +15,14 @@ read_ratings:
     file_type: csv
 
 join_tables:
-  class_name: JoinTransformer
-  config:
+  JoinTransformer:
     join_type: 'inner'
     join_on:
       read_sales: id
       read_ratings: id
 
 step_write:
-  class_name: AmazonS3Writer
-  config:
+  AmazonS3Writer:
     input_block: join_tables
     aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
     aws_secret_access_key: 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

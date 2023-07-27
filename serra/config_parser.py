@@ -30,26 +30,27 @@ class ConfigParser:
         config = yaml.safe_load(config_bytes)
         return ConfigParser(config)
     
-    def get_step(self, step_name):
-        return self.config.get(step_name)
+    def get_step(self, block_name):
+        return self.config.get(block_name)
     
-    def get_class_name_for_step(self, step_name):
-        step = self.get_step(step_name)
-        return step.get("class_name")
+    def get_class_name_for_step(self, block_name):
+        step = self.get_step(block_name)
+        keys = [key for key in step.keys()]
+        if "tests" in keys:
+            keys.remove("tests")
+        return keys[0]
     
-    def get_config_for_step(self, step_name):
-        step = self.get_step(step_name)
+    def get_config_for_step(self, block_name):
+        step = self.get_step(block_name)
         return step.get("config")
-    
-    def get_job_name(self):
-        return self.get("name")
     
     def get_blocks(self):
         blocks = [name for name in self.config.keys() if name != 'debug']
         return blocks
     
     def get_config_for_block(self, block_name):
-        return self.config.get(block_name).get("config")
+        class_name = self.get_class_name_for_step(block_name)
+        return self.config.get(block_name).get(class_name)
     
     def get_tests_for_block(self, block_name):
         return self.config.get(block_name).get("tests")
