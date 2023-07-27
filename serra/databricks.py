@@ -72,4 +72,4 @@ def restart_server():
     
     w.clusters.ensure_cluster_is_running(DATABRICKS_CLUSTER_ID)
 
-    logger.info("Finished restarted")
+    logger.info("Finished restarting")

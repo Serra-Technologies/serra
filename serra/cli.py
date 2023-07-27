@@ -4,11 +4,11 @@ import click
 from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job#, visualize_dag
 from serra.databricks import create_job
 from serra.translate import Translator
-from serra.utils import validate_worksapce
+from serra.utils import validate_workspace
 
 @click.group()
 def main():
-    validate_worksapce()
+    pass
 
 @main.command(name="start")
 @click.argument("job_name")
@@ -22,6 +22,7 @@ def cli_start(job_name):
 def cli_run_job_from_job_dir(job_name):
     """Run a specific job locally
     """
+    validate_workspace()
     run_job_from_job_dir(job_name)
 
 @main.command(name="translate")
@@ -38,6 +39,7 @@ def cli_translator(sql_path, run):
 def cli_create_job(job_name, log_level):
     """Create a databricks job
     """
+    validate_workspace()
     create_job(job_name)
 
 @main.command(name="update_package")
@@ -45,12 +47,6 @@ def cli_update_package():
     """Uploads package to aws, and restarts databricks cluster
     """
     update_package()
-    
-@main.command(name="docs")
-@click.argument("job_name")
-def cli_docs(job_name):
-    # visualize_dag(job_name)
-    pass
     
 # only for use by databricks cluster
 # Did not use click because there were wierd traceback errors

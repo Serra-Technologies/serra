@@ -30,7 +30,7 @@ def read_sql_file(file_path):
         sql_script = file.read()
     return sql_script
 
-def validate_worksapce():
+def validate_workspace():
     if not exists("./jobs"):
         logger.error("Please create a jobs directory before proceeding")
         exit()
