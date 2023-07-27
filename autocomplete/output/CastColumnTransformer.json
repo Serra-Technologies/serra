@@ -3,6 +3,9 @@
     "properties": {
         "cast_columns": {
             "type": "object"
+        },
+        "input_block": {
+            "type": "string"
         }
     },
     "type": "object"

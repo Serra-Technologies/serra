@@ -1,43 +1,56 @@
 {
     "AddColumnTransformer": {
+        "input_block": "string",
         "name": "string",
         "value": "string"
     }, 
     "CaseWhenTransformer": {
+        "input_block": "string",
         "name": "string",
         "value": "string"
     },
     "CastColumnTransformer": {
+        "input_block": "string",
         "cast_columns": "object"
     },
     "DropColumnTransformer": {
+        "input_block": "string",
         "drop_names": "array"
     },
     "GetCountTransformer": {
+        "input_block": "string",
         "group_by": "string", 
         "count_col": "string"
     },
     "JoinTransformer": {
+        "input_block": "string",
         "join_type": "string", 
         "join_on": "object"
     },
     "MapTransformer": {
+        "input_block": "string",
         "name": "string", 
         "map_dict": "object",
         "col_key": "string"
     },
     "PivotTransformer": {
+        "input_block": "string",
         "row_level": "string",
         "col_level": "string",
         "sum_col": "string",
         "aggregate_type": "string"
     },
     "RenameColumnTransformer": {
+        "input_block": "string",
         "old_name": "string", 
         "new_name": "string"
     },
     "AmazonS3Reader": {
-        "example": "string"
+        "aws_access_key_id": "string",
+        "aws_secret_access_key": "string",
+        "bucket_name": "string",
+        "file_path": "string",
+        "file_type": "string"
     }, 
     "DatabricksReader": {
         "example": "string"
@@ -46,13 +59,18 @@
         "example": "string"
     },
     "AmazonS3Writer": {
-        "example": "string"
+        "input_block": "string",
+        "aws_access_key_id": "string",
+        "aws_secret_access_key": "string",
+        "bucket_name": "string",
+        "file_path": "string",
+        "file_type": "string"
     }, 
     "DatabricksWriter": {
-        "example": "string"
+        "input_block": "string"
     }, 
     "LocalWriter": {
-        "example": "string"
+        "input_block": "string"
     }
 
 }

@@ -3,6 +3,9 @@
     "properties": {
         "drop_names": {
             "type": "array"
+        },
+        "input_block": {
+            "type": "string"
         }
     },
     "type": "object"

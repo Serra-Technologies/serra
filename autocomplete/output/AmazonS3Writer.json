@@ -1,7 +1,22 @@
 {
     "additionalProperties": false,
     "properties": {
-        "example": {
+        "aws_access_key_id": {
+            "type": "string"
+        },
+        "aws_secret_access_key": {
+            "type": "string"
+        },
+        "bucket_name": {
+            "type": "string"
+        },
+        "file_path": {
+            "type": "string"
+        },
+        "file_type": {
+            "type": "string"
+        },
+        "input_block": {
             "type": "string"
         }
     },

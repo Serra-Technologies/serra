@@ -6,6 +6,9 @@
         },
         "group_by": {
             "type": "string"
+        },
+        "input_block": {
+            "type": "string"
         }
     },
     "type": "object"

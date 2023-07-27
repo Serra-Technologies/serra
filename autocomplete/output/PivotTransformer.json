@@ -7,6 +7,9 @@
         "col_level": {
             "type": "string"
         },
+        "input_block": {
+            "type": "string"
+        },
         "row_level": {
             "type": "string"
         },

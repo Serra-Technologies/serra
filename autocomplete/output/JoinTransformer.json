@@ -1,6 +1,9 @@
 {
     "additionalProperties": false,
     "properties": {
+        "input_block": {
+            "type": "string"
+        },
         "join_on": {
             "type": "object"
         },
