@@ -32,9 +32,6 @@ def create_job(config_name):
     logger.info("Uploading config to AWS")
     config_path = f"{get_path_to_user_configs_folder()}/{config_name}.yml"
     upload_file_to_bucket(config_path)
-
-    logger.info("Uploading JSON to AWS")
-    write_json_s3({},config_name)
     
     # Create the job on databricks
     logger.info("Creating databricks job")
