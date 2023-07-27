@@ -1,9 +1,8 @@
 # Entry point for serra command line tool
 import sys
 import click
-from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job#, visualize_dag
+from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job
 from serra.databricks import create_job
-from serra.translate import Translator
 from serra.utils import validate_workspace
 
 @click.group()
@@ -35,8 +34,7 @@ def cli_translator(sql_path, run):
 
 @main.command(name="create_job")
 @click.argument("job_name")
-@click.option( "--log-level", type=click.Choice(['DEBUG', "INFO", "WARNING"], case_sensitive=False))
-def cli_create_job(job_name, log_level):
+def cli_create_job(job_name):
     """Create a databricks job
     """
     validate_workspace()

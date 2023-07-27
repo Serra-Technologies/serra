@@ -6,9 +6,9 @@ def write_to_file(filename, content):
     try:
         with open(filename, 'w') as file:
             file.write(content)
-        print(f"Successfully wrote to {filename}.")
+        logger.info(f"Successfully wrote to {filename}.")
     except IOError:
-        print(f"Error writing to {filename}.")
+        logger.error(f"Error writing to {filename}.")
 
 def import_class(cl):
     d = cl.rfind(".")
@@ -18,8 +18,6 @@ def import_class(cl):
 
 def get_or_create_spark_session():
     # TODO: Take a look for spark session conf: https://engineeringfordatascience.com/posts/pyspark_unit_testing_with_pytest/
-
-    # These installations are only really necessary when running locallys
     return SparkSession.builder.config("spark.logLevel", "ERROR").getOrCreate()
 
 def get_path_to_user_configs_folder():

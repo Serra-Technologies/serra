@@ -3,7 +3,7 @@ from loguru import logger
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import Task, PythonWheelTask
 from databricks.sdk.service.compute import Library, State
-from serra.aws import upload_file_to_bucket, write_json_s3
+from serra.aws import upload_file_to_bucket
 from serra.utils import get_path_to_user_configs_folder
 from serra.profile import get_serra_profile
 from serra.config import (
