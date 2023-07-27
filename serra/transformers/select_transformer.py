@@ -1,6 +1,7 @@
 from pyspark.sql import DataFrame
 from pyspark.sql import functions as F
 from serra.transformers.transformer import Transformer
+from serra.exceptions import SerraRunException
 
 class SelectTransformer(Transformer):
     """
@@ -19,12 +20,12 @@ class SelectTransformer(Transformer):
         :return: Transformed DataFrame with only the selected columns.
         """
         if not self.columns:
-            raise ValueError("No columns specified in the configuration.")
+            raise SerraRunException("No columns specified in the configuration.")
 
         selected_columns = [F.col(col) for col in self.columns if col in df.columns]
 
         if not selected_columns:
-            raise ValueError("None of the specified columns exist in the DataFrame.")
+            raise SerraRunException("None of the specified columns exist in the DataFrame.")
 
         return df.select(*selected_columns)
 

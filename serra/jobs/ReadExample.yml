@@ -1,12 +1,10 @@
 step_read:
-  class_name: DatabricksReader
-  config:
+  DatabricksReader:
     database: 'demo'
     table: 'test_table'
 
 step_write:
-  class_name: DatabricksWriter
-  config:
+  DatabricksWriter:
     input_block: step_read
     database: 'demo'
     table: 'db_test'

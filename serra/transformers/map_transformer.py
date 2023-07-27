@@ -1,6 +1,7 @@
 from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
+from serra.exceptions import SerraRunException
 import json
 
 class MapTransformer(Transformer):
@@ -22,13 +23,13 @@ class MapTransformer(Transformer):
         :return; Dataframe w/ new column containing col_value
         """
         if not self.name or not self.col_key:
-            raise ValueError("Both 'name' and 'col_key' must be provided in the config.")
+            raise SerraRunException("Both 'name' and 'col_key' must be provided in the config.")
         
         if not self.map_dict and not self.map_dict_path:
-            raise ValueError("Either 'map_dict' or 'map_dict_path' must be provided in the config.")
+            raise SerraRunException("Either 'map_dict' or 'map_dict_path' must be provided in the config.")
 
         if self.col_key not in df.columns:
-            raise ValueError(f"Column '{self.col_key}' specified as col_key does not exist in the DataFrame.")
+            raise SerraRunException(f"Column '{self.col_key}' specified as col_key does not exist in the DataFrame.")
 
         try:
             for key, value in self.map_dict.items():
@@ -39,7 +40,7 @@ class MapTransformer(Transformer):
             df = df.withColumn(self.name, F.coalesce(*[F.col(f'{self.name}_{key}') for key in self.map_dict]))
             df = df.drop(*[f'{self.name}_{key}' for key in self.map_dict])
         except Exception as e:
-            raise RuntimeError(f"Error transforming DataFrame: {str(e)}")
+            raise SerraRunException(f"Error transforming DataFrame: {str(e)}")
 
         return df
         

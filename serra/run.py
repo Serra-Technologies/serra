@@ -8,6 +8,7 @@ from loguru import logger
 from serra.databricks import upload_wheel_to_bucket, restart_server
 from serra.runners.graph_runner import run_job_with_graph
 from serra.translate import Translator
+from serra.exceptions import SerraRunException
 import os
 
 PACKAGE_PATH = os.path.dirname(os.path.dirname(__file__))
@@ -31,9 +32,8 @@ def run_job_from_job_dir(job_name):
         user_configs_folder = get_path_to_user_configs_folder()
         config_path = f"{user_configs_folder}/{job_name}.yml"
         cf = ConfigParser.from_local_config(config_path)
-    # run_job_simple_linear(cf, True)
         run_job_with_graph(cf)
-    except Exception as e:
+    except SerraRunException as e:
         logger.error(e)
 
 # translates your given sql file, gives you the config output, and saves the config in a new yml file
@@ -70,7 +70,7 @@ def run_job_from_aws(job_name):
     try:
         cf = ConfigParser.from_s3_config(f"{job_name}.yml")
         run_job_with_graph(cf)
-    except Exception as e:
+    except SerraRunException as e:
         logger.error(e)
         exit(1)
 

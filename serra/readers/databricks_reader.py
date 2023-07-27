@@ -1,5 +1,6 @@
 from serra.readers import Reader
 from serra.utils import get_or_create_spark_session
+from serra.exceptions import SerraRunException
 
 class DatabricksReader(Reader):
     def __init__(self, config):
@@ -9,7 +10,10 @@ class DatabricksReader(Reader):
         self.table = self.config.get('table')
         
     def read(self):
-        df = self.spark.read.table(f'{self.database}.{self.table}')
+        try:
+            df = self.spark.read.table(f'{self.database}.{self.table}')
+        except Exception as e:
+            raise SerraRunException(e)
         return df
 
 

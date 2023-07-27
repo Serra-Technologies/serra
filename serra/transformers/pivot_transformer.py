@@ -31,7 +31,7 @@ class PivotTransformer(Transformer):
         elif self.aggregate_type == "sum":
             df = df.sum(self.sum_col)
         else:
-            raise Exception("Invalid Pivot Aggregation type")
+            raise SerraRunException("Invalid Pivot Aggregation type")
 
         return df
 
