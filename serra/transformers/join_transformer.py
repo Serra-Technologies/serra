@@ -28,8 +28,9 @@ class JoinTransformer(Transformer):
         Add column with col_value to dataframe
         :return; Dataframe w/ new column containing col_value
         """
-        assert self.join_type in "inner"
-
+        #assert self.join_type in "inner"
+        if self.join_type is None:
+            self.join_type = "inner"
         join_keys = []
         for table in self.join_on:
             join_keys.append(self.join_on.get(table))

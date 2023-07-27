@@ -1,5 +1,10 @@
-SELECT *
-FROM (
+-- Example SQL Script for ETL Job
+-- Goal: Get the average rating by state for each fast food franchise.
+
+
+
+-- Join, Map, Cast, Pivot
+SELECT * FROM (
   SELECT
     restaurant,
     CASE
@@ -53,38 +58,28 @@ FROM (
       WHEN region = 'West Virginia' THEN 'WV'
       WHEN region = 'Wisconsin' THEN 'WI'
       WHEN region = 'Wyoming' THEN 'WY'
-    END AS state_abbreviation,
+    END AS region_abbr,
     country,
-    avg_rating,
-    restaurant_count
-  FROM (
+    false AS is_test  -- New boolean column with default value false
+FROM (
     SELECT
-      s.restaurant,
-      s.region,
-      s.country,
-      r.rating AS avg_rating,
-      COUNT(DISTINCT s.restaurant) AS restaurant_count
+        s.restaurant,
+        s.region,
+        s.country,
+        r.rating
     FROM
-      sales s
-      INNER JOIN rating r ON s.id = r.id --replace s.id with s.restaurant for SQL debug demo
+        sales s
+        INNER JOIN rating r ON s.id = r.id
     GROUP BY
-      s.restaurant,
-      s.region,
-      s.country,
-      r.rating
-  )
-) AS SourceTable
-PIVOT (
-  AVG(avg_rating)
-  FOR state_abbreviation IN (
-    'AL', 'AK', 'AZ', 'AR', 'CA', 
-    'CO', 'CT', 'DE', 'FL', 'GA', 
-    'HI', 'ID', 'IL', 'IN', 'IA', 
-    'KS', 'KY', 'LA', 'ME', 'MD', 
-    'MA', 'MI', 'MN', 'MS', 'MO', 
-    'MT', 'NE', 'NV', 'NH', 'NJ', 
-    'NM', 'NY', 'NC', 'ND', 'OH', 
-    'OK', 'OR', 'PA', 'RI', 'SC', 
-    'SD', 'TN', 'TX', 'UT', 'VT',
-     'VA', 'WA', 'WV', 'WI', 'WY')
-);
+        s.restaurant,
+        s.region,
+        s.country,
+        r.rating
+)
+)
+
+
+
+
+
+

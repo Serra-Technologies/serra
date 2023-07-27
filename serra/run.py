@@ -47,7 +47,6 @@ def translate_job(sql_path, is_run):
 
     # Translate job by getting root dir, sql folder, sql path, get response, package path is just serra/
     sql_folder_path = os.path.join(PACKAGE_PATH, 'sql')
-    print(sql_folder_path)
     sql_path = f"{sql_folder_path}/{sql_path}"
 
     tl = Translator(sql_path)
@@ -63,8 +62,11 @@ def translate_job(sql_path, is_run):
         logger.info("Running job...")
         cf = ConfigParser.from_local_config(yaml_path)
     # run_job_simple_linear(cf, True)
+    try:
         run_job_with_graph(cf)
         logger.info("Job run completed.")
+    except Exception as e:
+        logger.error(e)
 
 def run_job_from_aws(job_name):
     try:

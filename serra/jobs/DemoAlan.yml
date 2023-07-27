@@ -16,22 +16,32 @@ read_ratings:
     file_path: rating_df.csv
     file_type: csv
 
-join_tables:
+step_join:
   class_name: JoinTransformer
   config:
     join_type: 'inner'
     join_on:
-      read_sales: restaurant
+      read_sales: id
       read_ratings: id
+  
+step_cast_ratings:
+  class_name: CastColumnTransformer
+  config:
+    input_block: step_map_state_names
+    cast_columns:
+      rating: ['rating', 'double']
+
+step_pivot:
+  class_name: PivotTransformer
+  config:
+    input_block: step_cast_ratings
+    row_level: 'restaurant'
+    column_level: "region"
+    aggregate_type: "avg"
+    sum_col: "customers"
 
 step_write:
-  class_name: AmazonS3Writer
+  class_name: LocalWriter
   config:
-    input_block: join_tables
-    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
-    aws_secret_access_key: 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
-    bucket_name: serrademo
-    file_path: output.csv
-    file_type: csv
-
-lineage: true
+    input_block: step_pivot
+    file_path: "./examples/outputalan.csv"

@@ -1,0 +1,21 @@
+step_read:
+  class_name: AmazonS3Reader
+  config:
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: sales.csv
+    file_type: csv
+
+step_select:
+  class_name: SelectTransformer
+  config:
+    columns:
+      - id
+    input_block: step_read
+
+write_to_file:
+  class_name: LocalWriter
+  config:
+    file_path: ./examples/bruh.csv
+    input_block: step_select

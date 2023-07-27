@@ -1,28 +1,35 @@
-# yaml-language-server: $schema=/Users/albertstanley/Code/serra/autocomplete/basic.json
-job_steps: [
-    'read',
-    'join_restaurant_ratings', 'map_state_names', 'cast_ratings', 'pivot_region_ratings', 
-    'write'
-  ]
-
 debug: true
 
-read:
-  class_name: DatabricksReader
+read_sales:
+  class_name: AmazonS3Reader
   config:
-    database: 'demo'
-    table: 'restaurants'
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: sales.csv
+    file_type: csv
 
-join_restaurant_ratings:
+read_ratings:
+  class_name: AmazonS3Reader
+  config:
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: rating_df.csv
+    file_type: csv
+
+join_tables:
   class_name: JoinTransformer
   config:
     join_type: 'inner'
-    matching_col: ['id','id']
-    path: 's3a://serrademo/rating_df.csv' 
+    join_on:
+      read_sales: restaurant
+      read_ratings: id
 
 map_state_names:
   class_name: MapTransformer
   config:
+    input_block: join_tables
     name: 'region_abbr'
     map_dict:
         Alabama: 'AL'
@@ -80,20 +87,21 @@ map_state_names:
 cast_ratings:
   class_name: CastColumnTransformer
   config:
+    input_block: map_state_names
     cast_columns:
       rating: ['rating', 'double']
 
-pivot_region_ratings:
+pivot:
   class_name: PivotTransformer
   config:
+    input_block: cast_ratings
     row_level: 'restaurant'
-    column_level: 'region_abbr'
-    sum_col: 'rating'
+    column_level: "region"
+    aggregate_type: "avg"
+    sum_col: "customers"
 
-write:
-  class_name: DatabricksWriter
+step_write:
+  class_name: LocalWriter
   config:
-    database: 'demo'
-    table: 'sales_by_store'
-    format: 'delta'
-    mode: 'overwrite'
+    input_block: pivot
+    file_path: "./examples/outputalan.csv"

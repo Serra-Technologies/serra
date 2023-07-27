@@ -435,11 +435,3 @@ class Translator:
             print(f"Content saved as YAML file: {file_path}")
         except Exception as e:
             print(f"Error saving content as YAML file: {str(e)}")
-
-if __name__ == '__main__':
-    gpt = Translator('/Users/alanwang/Documents/GitHub/serra/examples/hard_demo.sql')
-    response = gpt.prompt_gpt()
-
-    # Assuming you want to save the YAML file in the same location as the input SQL file
-    output_yaml_path = '/Users/alanwang/Documents/GitHub/serra/serra/jobs/hard_demo.yml'
-    gpt.save_as_yaml(response, output_yaml_path)
