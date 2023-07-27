@@ -1,11 +1,12 @@
 import boto3
 from serra.utils import get_or_create_spark_session
-from serra.config import serra_profile
+from serra.config import get_serra_profile
 
 
 class AmazonS3Writer():
     def __init__(self, config):
         self.config = config
+        self.serra_profile = get_serra_profile()
     
     @property
     def bucket_name(self):
@@ -29,8 +30,8 @@ class AmazonS3Writer():
         csv_data = pandas_df.to_csv(index=False)
         
         session = boto3.Session(
-            aws_access_key_id=serra_profile.aws_access_key_id,
-            aws_secret_access_key=serra_profile.aws_secret_access_key
+            aws_access_key_id=self.serra_profile.aws_access_key_id,
+            aws_secret_access_key=self.serra_profile.aws_secret_access_key
         )
 
         # Create an S3 client using the session

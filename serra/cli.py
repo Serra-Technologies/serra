@@ -4,9 +4,11 @@ import click
 from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job#, visualize_dag
 from serra.databricks import create_job
 from serra.translate import Translator
+from serra.utils import validate_worksapce
+
 @click.group()
 def main():
-    pass
+    validate_worksapce()
 
 @main.command(name="start")
 @click.argument("job_name")
@@ -43,7 +45,7 @@ def cli_update_package():
     """Uploads package to aws, and restarts databricks cluster
     """
     update_package()
-
+    
 @main.command(name="docs")
 @click.argument("job_name")
 def cli_docs(job_name):

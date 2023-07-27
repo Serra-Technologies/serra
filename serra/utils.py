@@ -1,4 +1,6 @@
 from pyspark.sql import SparkSession
+from os.path import exists
+from loguru import logger
 
 def write_to_file(filename, content):
     try:
@@ -28,4 +30,12 @@ def read_sql_file(file_path):
         sql_script = file.read()
     return sql_script
 
+def validate_worksapce():
+    if not exists("./jobs"):
+        logger.error("Please create a jobs directory before proceeding")
+        exit()
+    if not exists("./profiles.yml"):
+        logger.error("Please create a profiles.yml file in the current directory.")
+        exit()
+    return
 

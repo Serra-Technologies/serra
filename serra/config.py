@@ -40,4 +40,6 @@ class SerraProfile:
     def aws_secret_access_key(self):
         return self.config.get("AWS_SECRET_ACCESS_KEY")
 
-serra_profile = SerraProfile.from_yaml_path("./profiles.yml")
+def get_serra_profile():
+    serra_profile = SerraProfile.from_yaml_path("./profiles.yml")
+    return serra_profile
