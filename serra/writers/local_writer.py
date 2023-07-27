@@ -6,10 +6,6 @@ class LocalWriter(Writer):
         self.spark = get_or_create_spark_session()
         self.config = config
         self.file_path = config.get("file_path")
-
-    @property
-    def dependencies(self):
-        return [self.config.get('input_block')]
     
     def write(self, df):
         # Convert PySpark DataFrame to Pandas DataFrame

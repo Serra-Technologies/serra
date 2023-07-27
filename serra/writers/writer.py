@@ -8,3 +8,7 @@ class Writer(ABC):
     @abstractmethod
     def write(self, df):
         pass
+
+    @property
+    def dependencies(self):
+        return [self.config.get('input_block')]

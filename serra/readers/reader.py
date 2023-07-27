@@ -8,3 +8,7 @@ class Reader(ABC):
     @abstractmethod
     def read(self, fmt, path, predicate=None):
         pass
+
+    @property
+    def dependencies(self):
+        return []
