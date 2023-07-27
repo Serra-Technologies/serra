@@ -1,7 +1,7 @@
 import boto3
 import pandas as pd
 from serra.utils import get_or_create_spark_session
-from serra.config import get_serra_profile
+from serra.profile import get_serra_profile
 
 class AmazonS3Reader():
     def __init__(self, config):

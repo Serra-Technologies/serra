@@ -1,6 +1,5 @@
 import boto3
-from serra.utils import get_or_create_spark_session
-from serra.config import get_serra_profile
+from serra.profile import get_serra_profile
 
 
 class AmazonS3Writer():
