@@ -18,5 +18,3 @@ step_write:
     bucket_name: serrademo
     file_path: output.csv
     file_type: csv
-
-

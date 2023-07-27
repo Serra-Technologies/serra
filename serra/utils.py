@@ -1,7 +1,4 @@
-import pkg_resources
 from pyspark.sql import SparkSession
-from pyspark.conf import SparkConf
-from serra.config import CONFIG_WORKSPACE_NAME
 
 def write_to_file(filename, content):
     try:
@@ -24,7 +21,7 @@ def get_or_create_spark_session():
     return SparkSession.builder.config("spark.logLevel", "ERROR").getOrCreate()
 
 def get_path_to_user_configs_folder():
-    return pkg_resources.resource_filename('serra', CONFIG_WORKSPACE_NAME)
+    return "./jobs"
 
 def read_sql_file(file_path):
     with open(file_path, 'r') as file:
