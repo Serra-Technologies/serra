@@ -1,6 +1,7 @@
 import boto3
 import pandas as pd
 from serra.utils import get_or_create_spark_session
+from serra.config import serra_profile
 
 
 class AmazonS3Reader():
@@ -33,8 +34,8 @@ class AmazonS3Reader():
     
     def read(self):
         session = boto3.Session(
-            aws_access_key_id=self.aws_access_key_id,
-            aws_secret_access_key=self.aws_secret_access_key
+            aws_access_key_id=serra_profile.aws_access_key_id,
+            aws_secret_access_key=serra_profile.aws_secret_access_key
         )
 
         # Create an S3 client using the session

@@ -1,7 +1,5 @@
 step_read:
   AmazonS3Reader:
-    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
-    aws_secret_access_key: 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
     bucket_name: serrademo
     file_path: sales.csv
     file_type: csv
@@ -17,8 +15,6 @@ step_pivot:
 step_write:
   AmazonS3Writer:
     input_block: step_pivot
-    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
-    aws_secret_access_key: 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
     bucket_name: serrademo
     file_path: output.csv
     file_type: csv
