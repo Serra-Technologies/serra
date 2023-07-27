@@ -1,0 +1,36 @@
+# This job is used to test whether the autocomplete is working
+read_sales:
+  AmazonS3Reader:
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: sales.csv
+    file_type: csv
+
+read_ratings:
+  AmazonS3Reader:
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: rating_df.csv
+    file_type: csv
+
+join_tables:
+  JoinTransformer:
+    join_type: 'inner'
+    join_on:
+      read_sales: id
+      read_ratings: id
+
+step_write:
+  AmazonS3Writer:
+    input_block: join_tables
+    aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
+    aws_secret_access_key: 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
+    bucket_name: serrademo
+    file_path: output.csv
+    file_type: csv
+
+
+
+

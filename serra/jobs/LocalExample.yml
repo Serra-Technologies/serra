@@ -1,5 +1,3 @@
-debug: True
-
 read_sales:
   class_name: LocalReader
   config:

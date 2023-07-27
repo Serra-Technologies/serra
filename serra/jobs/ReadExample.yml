@@ -1,8 +1,3 @@
-# yaml-language-server: $schema=/Users/albertstanley/Code/serra/autocomplete/basic.json
-job_steps: ['step_read', 'step_write']
-
-debug: true
-
 step_read:
   class_name: DatabricksReader
   config:
@@ -12,6 +7,7 @@ step_read:
 step_write:
   class_name: DatabricksWriter
   config:
+    input_block: step_read
     database: 'demo'
     table: 'db_test'
     format: 'delta'

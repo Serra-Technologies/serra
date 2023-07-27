@@ -1,12 +1,3 @@
-# yaml-language-server: $schema=/Users/albertstanley/Code/serra/autocomplete/basic.json
-job_steps: [
-    'read',
-    'join_restaurant_ratings', 'map_state_names', 'cast_ratings', 'pivot_region_ratings', 
-    'write'
-  ]
-
-debug: true
-
 read:
   class_name: DatabricksReader
   config:
@@ -16,6 +7,7 @@ read:
 join_restaurant_ratings:
   class_name: JoinTransformer
   config:
+    input_block: read
     join_type: 'inner'
     matching_col: ['id','id']
     path: 's3a://serrademo/rating_df.csv' 
@@ -23,6 +15,7 @@ join_restaurant_ratings:
 map_state_names:
   class_name: MapTransformer
   config:
+    input_block: join_restaurant_ratings
     name: 'region_abbr'
     map_dict:
         Alabama: 'AL'
@@ -80,12 +73,14 @@ map_state_names:
 cast_ratings:
   class_name: CastColumnTransformer
   config:
+    input_block: 'map_state_names'
     cast_columns:
       rating: ['rating', 'double']
 
 pivot_region_ratings:
   class_name: PivotTransformer
   config:
+    input_block: cast_ratings
     row_level: 'restaurant'
     column_level: 'region_abbr'
     sum_col: 'rating'
@@ -93,6 +88,7 @@ pivot_region_ratings:
 write:
   class_name: DatabricksWriter
   config:
+    input_block: 'pivot_region_ratings'
     database: 'demo'
     table: 'sales_by_store'
     format: 'delta'
