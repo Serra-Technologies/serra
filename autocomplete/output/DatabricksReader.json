@@ -1,7 +1,10 @@
 {
     "additionalProperties": false,
     "properties": {
-        "example": {
+        "database": {
+            "type": "string"
+        },
+        "table": {
             "type": "string"
         }
     },

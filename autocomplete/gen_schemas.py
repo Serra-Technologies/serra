@@ -34,7 +34,7 @@ for class_name in specs:
             "type": "object",
             "properties": {
                 f"{class_name}" : { "$ref": f"./{class_name}.json" },
-                "tests": {"type": "object"}
+                "tests": {"type": "array"}
                 },
             "additionalProperties": False
           }

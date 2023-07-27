@@ -15,7 +15,7 @@ readlink -f ./output/serra_yaml_schema.json
 Inside settings.json (https://code.visualstudio.com/docs/getstarted/settings#_settingsjson):
 ```
     "yaml.schemas": {
-        "file:///path/to/serra_yaml_schema.json": ["*serra.yaml"]
+        "file:///path/to/serra_yaml_schema.json": ["*.yml"]
     }
     "yaml.format.enable": false
 ```

@@ -1,7 +1,19 @@
 {
     "additionalProperties": false,
     "properties": {
+        "database": {
+            "type": "string"
+        },
+        "format": {
+            "type": "string"
+        },
         "input_block": {
+            "type": "string"
+        },
+        "mode": {
+            "type": "string"
+        },
+        "table": {
             "type": "string"
         }
     },

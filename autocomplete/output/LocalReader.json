@@ -1,7 +1,7 @@
 {
     "additionalProperties": false,
     "properties": {
-        "example": {
+        "file_path": {
             "type": "string"
         }
     },

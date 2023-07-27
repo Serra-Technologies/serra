@@ -12,7 +12,7 @@
                             "$ref": "./AddColumnTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -24,7 +24,7 @@
                             "$ref": "./CaseWhenTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -36,7 +36,7 @@
                             "$ref": "./CastColumnTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -48,7 +48,7 @@
                             "$ref": "./DropColumnTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -60,7 +60,7 @@
                             "$ref": "./GetCountTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -72,7 +72,7 @@
                             "$ref": "./JoinTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -84,7 +84,7 @@
                             "$ref": "./MapTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -96,7 +96,7 @@
                             "$ref": "./PivotTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -108,7 +108,7 @@
                             "$ref": "./RenameColumnTransformer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -120,7 +120,7 @@
                             "$ref": "./AmazonS3Reader.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -132,7 +132,7 @@
                             "$ref": "./DatabricksReader.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -144,7 +144,7 @@
                             "$ref": "./LocalReader.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -156,7 +156,7 @@
                             "$ref": "./AmazonS3Writer.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -168,7 +168,7 @@
                             "$ref": "./DatabricksWriter.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -180,7 +180,7 @@
                             "$ref": "./LocalWriter.json"
                         },
                         "tests": {
-                            "type": "object"
+                            "type": "array"
                         }
                     },
                     "type": "object"

@@ -4,7 +4,7 @@
         "aggregate_type": {
             "type": "string"
         },
-        "col_level": {
+        "column_level": {
             "type": "string"
         },
         "input_block": {

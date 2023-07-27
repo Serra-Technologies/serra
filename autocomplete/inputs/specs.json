@@ -36,7 +36,7 @@
     "PivotTransformer": {
         "input_block": "string",
         "row_level": "string",
-        "col_level": "string",
+        "column_level": "string",
         "sum_col": "string",
         "aggregate_type": "string"
     },
@@ -53,10 +53,11 @@
         "file_type": "string"
     }, 
     "DatabricksReader": {
-        "example": "string"
+        "database": "string",
+        "table": "string"
     }, 
     "LocalReader": {
-        "example": "string"
+        "file_path": "string"
     },
     "AmazonS3Writer": {
         "input_block": "string",
@@ -67,10 +68,15 @@
         "file_type": "string"
     }, 
     "DatabricksWriter": {
-        "input_block": "string"
+        "input_block": "string",
+        "database": "string",
+        "table": "string",
+        "format": "string", 
+        "mode": "string"
     }, 
     "LocalWriter": {
-        "input_block": "string"
+        "input_block": "string",
+        "file_path": "string"
     }
 
 }
