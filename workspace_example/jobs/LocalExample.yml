@@ -4,13 +4,13 @@ debug: true
 
 read_sales:
   LocalReader:
-    file_path: "../examples/sales.csv"
+    file_path: "./examples/sales.csv"
   tests:
     - duplicates
 
 read_ratings:
   LocalReader:
-    file_path: "../examples/ratings.csv"
+    file_path: "./examples/ratings.csv"
 
 step_join:
   JoinTransformer:

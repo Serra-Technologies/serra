@@ -1,5 +1,5 @@
 # Serra
-Translate SQL to Optimized Spark
+Translate SQL to Object-Oriented Spark
 
 # Setup for running
 

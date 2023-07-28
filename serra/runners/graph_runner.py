@@ -1,5 +1,5 @@
 from serra.config_parser import ConfigParser, convert_name_to_full
-from serra.utils import get_or_create_spark_session, import_class
+from serra.utils import import_class
 from serra.tests import duplicates_test, nulls_test
 from loguru import logger
 from serra.runners.ExecutionGraph import BlockGraph
@@ -71,14 +71,12 @@ def run_job_with_graph(cf: ConfigParser):
         if cf.get_tests_for_block(block_name) is not None:
             tests = cf.get_tests_for_block(block_name)
             for test_name in tests:
-                print(test_name)
+                logger.info(f"\tRunning test {test_name}")
                 if test_name == 'nulls':
                     df = df_map[block_name]
-                    print('checking')
                     nulls_test(df)
                 if test_name == 'duplicates':
                     df = df_map[block_name]
-                    print('checking')
                     duplicates_test(df)
 
     if cf.get_test():

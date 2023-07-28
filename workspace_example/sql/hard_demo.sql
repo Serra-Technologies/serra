@@ -1,5 +1,5 @@
 -- note, rating table is ratings.csv, NOT rating.csv
--- reader,writer locations are ../examples/{table_name}.csv
+-- reader,writer locations are ./examples/{table_name}.csv
 
 SELECT *
 FROM (
