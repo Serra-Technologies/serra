@@ -27,7 +27,7 @@ def save_as_yaml(content: str, file_path: str) -> None:
             logger.info(f"Error saving content as YAML file: {str(e)}")
 
 def get_translated_yaml(file_path):
-    url = TRANSLATE_URL
+    url = "https://serra-translate-59cfd3dacac9.herokuapp.com/"
     response = send_post_request(file_path,url)
     if response.status_code != 200:
         return None
