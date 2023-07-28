@@ -1,5 +1,5 @@
 # Serra
-Object-Oriented Spark Framework for Data Transformations
+Translate SQL to Optimized Spark
 
 # Setup for running
 

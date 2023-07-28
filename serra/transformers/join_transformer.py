@@ -40,12 +40,7 @@ class JoinTransformer(Transformer):
 
         df1 = df1.join(df2, df1[matching_col[0]] == df2[matching_col[1]], self.join_type).drop(df2[matching_col[1]])
         if df1.isEmpty():
-            raise SerraRunException(f"""Joiner - Join Key Error: sales.{matching_col[0]}, ratings.{matching_col[1]} columns do not match.
-                                    
-                                          Dataframes: restaurants & ratings. 
-                                          Suggestion: Look at the the type for {matching_col[0]}, {matching_col[1]}.
-                                          Upstream Job Dependencies: restaurants_load, ratings_load
-                                          Contact: Customer Sales Data Team""")
+            raise SerraRunException(f"""Joiner - Join Key Error: {matching_col[0]}, {matching_col[1]} columns do not match.""")
         return df1
     
     
