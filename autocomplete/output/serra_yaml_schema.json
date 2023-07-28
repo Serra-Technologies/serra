@@ -2,7 +2,7 @@
     "$id": "http://www.serra.io",
     "$schema": "http://json-schema.org/draft-08/schema#",
     "patternProperties": {
-        ".*": {
+        "^(?!debug$).*": {
             "description": "a basic serra block",
             "oneOf": [
                 {

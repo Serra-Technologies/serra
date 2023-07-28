@@ -2,7 +2,8 @@
     "AddColumnTransformer": {
         "input_block": "string",
         "name": "string",
-        "value": "string"
+        "value": "string",
+        "column_type": "string"
     }, 
     "CaseWhenTransformer": {
         "input_block": "string",
@@ -46,8 +47,6 @@
         "new_name": "string"
     },
     "AmazonS3Reader": {
-        "aws_access_key_id": "string",
-        "aws_secret_access_key": "string",
         "bucket_name": "string",
         "file_path": "string",
         "file_type": "string"
@@ -61,8 +60,6 @@
     },
     "AmazonS3Writer": {
         "input_block": "string",
-        "aws_access_key_id": "string",
-        "aws_secret_access_key": "string",
         "bucket_name": "string",
         "file_path": "string",
         "file_type": "string"

@@ -39,7 +39,7 @@ for class_name in specs:
             "additionalProperties": False
           }
 
-    schema_template["patternProperties"][".*"]['oneOf'].append(new_property)
+    schema_template["patternProperties"]["^(?!debug$).*"]['oneOf'].append(new_property)
 
 # Create the schemas for each class
 for class_name in specs:

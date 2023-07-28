@@ -1,6 +1,9 @@
 {
     "additionalProperties": false,
     "properties": {
+        "column_type": {
+            "type": "string"
+        },
         "input_block": {
             "type": "string"
         },

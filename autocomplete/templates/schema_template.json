@@ -6,7 +6,7 @@
 
     },
     "patternProperties": {
-      ".*": {
+      "^(?!debug$).*": {
         "description": "a basic serra block",
         "type": "object",
         "oneOf" : [
