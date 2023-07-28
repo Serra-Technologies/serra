@@ -46,8 +46,8 @@ def translate_job(sql_path, is_run):
     yaml_path = os.path.splitext(sql_path)[0]
 
     # Translate job by getting root dir, sql folder, sql path, get response, package path is just serra/
-    sql_folder_path = os.path.join(PACKAGE_PATH, 'sql')
-    print(sql_folder_path)
+    sql_folder_path = './sql'
+
     sql_path = f"{sql_folder_path}/{sql_path}"
 
     tl = Translator(sql_path)
@@ -56,7 +56,7 @@ def translate_job(sql_path, is_run):
     # Save in new yaml file (config folder with same name as sql path)
     user_configs_folder = get_path_to_user_configs_folder()
     yaml_path = f"{user_configs_folder}/{yaml_path}.yml"
-    logger.info(f"Translation complete. Yaml file can be found at {yaml_path}")
+    logger.info(f"Translation complete. Yaml file can be found at {os.path.abspath(yaml_path)}")
     tl.save_as_yaml(response, yaml_path)
 
     if is_run:
@@ -64,7 +64,7 @@ def translate_job(sql_path, is_run):
         cf = ConfigParser.from_local_config(yaml_path)
     # run_job_simple_linear(cf, True)
         run_job_with_graph(cf)
-        logger.info("Job run completed.")
+    #     logger.info("Job run completed.")
 
 def run_job_from_aws(job_name):
     try:

@@ -82,4 +82,5 @@ def run_job_with_graph(cf: ConfigParser):
                     duplicates_test(df)
 
     if cf.get_test():
-        df.show()
+        logger.info("Debug is true—printing out rows.")
+        df.show(500)

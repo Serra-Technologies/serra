@@ -75,6 +75,26 @@ from serra_dev.serra_subscriptions;
 """
 
 assistant_context = """
+
+Every Serra configuration file follows this format, and you must follow it. DO NOT FORGET THE join_type param for JoinTransformer. The general structure of config file you must follow is this (the config should contain the necessary unique parameters and the exact block structure of this (no higher nested levels):
+
+step_name: (VALUE IS EMPTY)
+  class_name: (VALUE IS EMPTY)
+    input_block: -- this is the prior step and the key must be input_block, every writer and transformer NEEDS THIS EXCEPT the JoinTransformer and Readers REMEMBER THIS
+    Param1: 
+    Param2:
+
+So, here is an example, you must keep it like this structure:
+pivot:
+ PivotTransformer:
+   input_block: cast_ratings
+   row_level: 'restaurant'
+   column_level: "region"
+   aggregate_type: "avg"
+   sum_col: "customers"
+
+
+
 Here is an example of the conversion we want you to do.
 We supplied the initial sql script, our framework code, and then finally the config file that we translated the sql script to.
 
@@ -204,46 +224,95 @@ DropColumnTransformer:
 SelectTransformer:
   Description: Transformer to perform a SELECT operation on a DataFrame.
   Params: columns — Holds the list of columns to select from the DataFrame.
+
 GetCountTransformer:
-Description: Transformer to get count 
-Params: cast_columns — dictionary where the key is the new column name, the value is 
-GetCountTransformer to group by specified columns and add a new column with the count of rows for each group.
-Params: config - Holds the configuration parameters such as group_by (list of column names for grouping) and count_col (column name to count rows).
-JoinTransformer
-Description: Transformer to perform an inner join between two DataFrames on specified columns.
-Params: config - Holds the configuration parameters such as join_type (type of join, currently only supports "inner") and join_on (dictionary where the keys are table names and the values are the corresponding columns to join on).
-MapTransformer
+Description: Transformer to group by specified columns and add a new column with the count of rows for each group.
+Params: 
+- Group_by (list of column names for grouping)
+- count_col (column name to count rows).
+
+1. JoinTransformer
+Description: Transformer to perform an inner join between two DataFrames on specified columns. DO NOT FORGET THE JOIN_TYPE PARAM
+
+Params:
+- join_type: Type of join to perform. Currently, only supports "inner" join.
+- join_on: A dictionary where the keys are table names and the values are the corresponding columns to join on.
+
+2. MapTransformer
 Description: Transformer to create a new column based on a mapping dictionary or file for a given input column.
-Params: config - Holds the configuration parameters such as name (name of the new column), map_dict (dictionary with keys as input values and values as output values), map_dict_path (path to a file containing the mapping dictionary), and col_key (the input column to apply the mapping).
-PivotTransformer
+
+Params:
+- name: Name of the new column to be created.
+- map_dict: A dictionary with keys as input values and values as output values for mapping.
+- map_dict_path: Path to a file containing the mapping dictionary (optional, used instead of `map_dict` if provided).
+- col_key: The input column to which the mapping should be applied.
+
+3. PivotTransformer
 Description: Transformer to pivot a DataFrame based on row and column levels and aggregate the values.
-Params: config - Holds the configuration parameters such as row_level (column used for row levels), column_level (column used for column levels), sum_col (column to summarize values), and aggregate_type (type of aggregation, currently supports "avg" or "sum").
-RenameColumnTransformer
+
+Params:
+- row_level: Column used for row levels during pivoting.
+- column_level: Column used for column levels during pivoting.
+- sum_col: Column to summarize values while pivoting.
+- aggregate_type: Type of aggregation to use during pivoting. Currently supports "avg" or "sum".
+
+4. RenameColumnTransformer
 Description: Transformer to rename a column in a DataFrame.
-Params: config - Holds the configuration parameters such as old_name (name of the column to be renamed) and new_name (new name for the column).
-Readers:
-AmazonS3Reader
+
+Params:
+- old_name: Name of the column to be renamed.
+- new_name: New name for the column.
+
+Now let's move on to the readers:
+
+1. AmazonS3Reader
 Description: Reader to read data from a CSV file stored in an Amazon S3 bucket.
-Params: config - Holds the configuration parameters such as aws_access_key_id (AWS access key ID), aws_secret_access_key (AWS secret access key), bucket_name (name of the S3 bucket), file_path (path to the CSV file in the bucket), and file_type (type of the file, currently assumes CSV).
-DatabricksReader
+
+Params:
+- aws_access_key_id: AWS access key ID.
+- aws_secret_access_key: AWS secret access key.
+- bucket_name: Name of the S3 bucket.
+- file_path: Path to the CSV file in the bucket.
+- file_type: Type of the file. Currently assumes CSV.
+
+2. DatabricksReader
 Description: Reader to read data from a table in Databricks Delta format.
-Params: config - Holds the configuration parameters such as database (name of the database), and table (name of the table).
-LocalReader
+
+Params:
+- database: Name of the database.
+- table: Name of the table.
+
+3. LocalReader
 Description: Reader to read data from a local CSV file.
-Params: config - Holds the configuration parameters such as file_path (path to the local CSV file).
-Writers:
-AmazonS3Writer
+
+Params:
+- file_path: Path to the local CSV file.
+
+Finally, let's discuss the writers:
+
+1. AmazonS3Writer
 Description: Writer to write data from a DataFrame to a CSV file stored in an Amazon S3 bucket.
-Params: config - Holds the configuration parameters such as aws_access_key_id (AWS access key ID), aws_secret_access_key (AWS secret access key), bucket_name (name of the S3 bucket), file_path (path to the CSV file in the bucket), and file_type (type of the file, currently assumes CSV).
-DatabricksWriter
+
+Params:
+- aws_access_key_id: AWS access key ID.
+- aws_secret_access_key: AWS secret access key.
+- bucket_name: Name of the S3 bucket.
+- file_path: Path to the CSV file in the bucket.
+- file_type: Type of the file. Currently assumes CSV.
+
+2. DatabricksWriter
 Description: Writer to write data from a DataFrame to a Databricks Delta table.
-Params: config - Holds the configuration parameters such as database (name of the database), table (name of the table), format (format of the data, e.g., "parquet"), and mode (write mode, e.g., "overwrite").
-LocalWriter
+
+Params:
+- database: Name of the database.
+- table: Name of the table.
+- format: Format of the data, e.g., "parquet".
+- mode: Write mode, e.g., "overwrite".
+
+3. LocalWriter
 Description: Writer to write data from a DataFrame to a local CSV file.
-Params: config - Holds the configuration parameters such as file_path (path to the local CSV file).
-
-
-
+Params:
+- file_path: Path to the local CSV file.
 
 
 
@@ -252,28 +321,21 @@ debug: true
 
 
 read_sales:
- class_name: AmazonS3Reader
- config:
-   aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
-   aws_secret_access_key: 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
+ AmazonS3Reader:
    bucket_name: serrademo
    file_path: sales.csv
    file_type: csv
 
 
 read_ratings:
- class_name: AmazonS3Reader
- config:
-   aws_access_key_id: AKIA3TOV3GZZHAH4MPAE
-   aws_secret_access_key: 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
+ AmazonS3Reader:
    bucket_name: serrademo
    file_path: rating_df.csv
    file_type: csv
 
 
 join_tables:
- class_name: JoinTransformer
- config:
+ JoinTransformer:
    join_type: 'inner'
    join_on:
      read_sales: id
@@ -281,8 +343,7 @@ join_tables:
 
 
 map_state_names:
- class_name: MapTransformer
- config:
+  MapTransformer:
    input_block: join_tables
    name: 'region_abbr'
    map_dict:
@@ -337,17 +398,17 @@ map_state_names:
        Wisconsin: 'WI'
        Wyoming: 'WY'
    col_key: 'region'
- cast_ratings:
- class_name: CastColumnTransformer
- config:
-   input_block: map_state_names
-   cast_columns:
-     rating: ['rating', 'double']
+
+
+cast_ratings:
+  CastColumnTransformer:
+    input_block: map_state_names
+    cast_columns:
+      rating: ['rating', 'double']
 
 
 pivot:
- class_name: PivotTransformer
- config:
+ PivotTransformer:
    input_block: cast_ratings
    row_level: 'restaurant'
    column_level: "region"
@@ -356,19 +417,10 @@ pivot:
 
 
 step_write:
- class_name: LocalWriter
- config:
+  LocalWriter:
    input_block: pivot
-   file_path: "./examples/outputalan.csv"
+   file_path: "../examples/Demo.csv"
 
-
-
-The general structure of config file you must follow is (the config should contain the necessary unique parameters and the exact block structure of this (no higher nested levels)):
-
-step_name: 
-  class_name: The necessary class ()  --- the key must be class_name
-  config: --- the key must be class_name
-    input_block: -- this is the prior step and the key must be input_block, every writer and transformer NEEDS THIS except the JoinTransformer and Readers
 """
 
 
@@ -406,7 +458,7 @@ class Translator:
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "Don't provide any explanation for your answers. You are a Serra Data Engineer developer. Translate SQL scripts to our framework and output the configuration file exactly like our assistant example. Default to local reader and writer. DO not put ```yaml in your output. Specify all local paths under the './examples' folder. Use only the available framework." },
+                {"role": "system", "content": "Don't provide any explanation for your answers. You are the best Serra Data Engineer developer/translator. Serra is a framework that takes long SQL scripts and translates them into short configuration files that follow OOP principles. Translate SQL scripts to our framework and output the configuration file exactly like our assistant example. Default to local reader and writer. DO not put ```yaml in your output. Specify all local paths under the '../examples' folder. Use only the available framework"},
                 {"role": "user", "content": prompt},
                 {"role": "assistant", "content": assistant_context}
             ]
@@ -432,7 +484,7 @@ class Translator:
             yaml_content = yaml.safe_load(content)
             with open(file_path, 'w') as file:
                 yaml.dump(yaml_content, file)
-            print(f"Content saved as YAML file: {file_path}")
+            print(f"Content saved as YAML file: {os.path.abspath(file_path)}")
         except Exception as e:
             print(f"Error saving content as YAML file: {str(e)}")
 

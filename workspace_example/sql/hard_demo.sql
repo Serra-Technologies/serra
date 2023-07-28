@@ -1,4 +1,5 @@
--- note, rating table is ratings.csv
+-- note, rating table is ratings.csv, NOT rating.csv
+-- reader,writer locations are ../examples/{table_name}.csv
 
 SELECT *
 FROM (
@@ -66,7 +67,7 @@ FROM (
      r.rating
    FROM
      sales s
-     INNER JOIN rating r ON s.restaurant = r.id
+     INNER JOIN rating r ON s.id = r.id
    GROUP BY
      s.restaurant,
      s.region,
