@@ -1,11 +1,11 @@
 # Serra
-![Project Header](serralongblue.png)
+![Project Header](serra.png)
 
 Translate SQL to Object-Oriented Spark
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Serra.
 
 ```bash
 pip install serra==0.3
