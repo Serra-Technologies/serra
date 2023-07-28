@@ -1,7 +1,7 @@
 # Serra
 Translate SQL to Object-Oriented Spark
 
-# Setup for running
+# Setup
 
 ```bash
 python3.10 -m venv env
@@ -9,6 +9,14 @@ source env/bin/activate
 pip install -r requirements.txt
 pip install -e .
 ```
+
+# Getting Started
+Navigate to the workspace_example folder and try out a couple of jobs!
+
+```bash
+serra run LocalExample
+```
+Other jobs available can be found in the **workspace_example/jobs** folder.
 
 # Development Guide
 
