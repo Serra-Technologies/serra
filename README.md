@@ -1,6 +1,11 @@
 # Serra
 Translate SQL to Object-Oriented Spark
 
+# Install
+```bash
+pip install serra==0.3
+```
+
 # Setup
 
 ```bash
