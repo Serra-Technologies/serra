@@ -10,9 +10,6 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-# May also need to follow these steps (Download and install spark)
-https://spark.apache.org/docs/latest/api/python/getting_started/install.html#manually-downloading
-
 # Development Guide
 
 ## If you make changes to the package ( not just a new config)
@@ -48,9 +45,9 @@ databricks-connect configure
 ```
 * Fill out the credentials as so:
 ```
-DB Workspace: https://dbc-b854a7df-4e5e.cloud.databricks.com
-DB Token: dapiaca3916d64c45c3b454fd6bb0e5a20c3
-cluster_id: 0630-194840-lj2a32jr
+DB Workspace: https://your-workspace.cloud.databricks.com
+DB Token: your_token
+cluster_id: your_cluster_id
 ```
 
 ### Step 3: Confirm connection
@@ -65,11 +62,4 @@ from pyspark.sql.session import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 spark.sql("SELECT * FROM demo.sales_by_store")
-```
-
-
-# Run the flask server
-```bash
-source python3 -m venv env
-python3 app.py
 ```
