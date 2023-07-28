@@ -1,7 +1,16 @@
-# Serra
 ![Project Header](serra.png)
 
 Translate SQL to Object-Oriented Spark
+
+## What is Serra?
+Developers can retool long-winded SQL scripts into simple, object-oriented Spark code with one command `serra translate`. 
+
+Serra is an end-to-end, ETL framework that simplifies complex SQL scripts to a few lines of PySpark code with transformer and in-house connector objects.
+
+Serra provides fully-customizable error logging and local testing for every transformer and connector.
+
+With a command line tool, developers can easily translate their existing SQL scripts, create pipelines, auto document them, run local tests, and run Spark jobs in Databricks.
+
 
 ## Installation
 
