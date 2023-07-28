@@ -2,7 +2,7 @@
     "AddColumnTransformer": {
         "input_block": "string",
         "name": "string",
-        "value": "string",
+        "value": ["string", "boolean"],
         "column_type": "string"
     }, 
     "CaseWhenTransformer": {
@@ -20,7 +20,7 @@
     },
     "GetCountTransformer": {
         "input_block": "string",
-        "group_by": "string", 
+        "group_by": "array", 
         "count_col": "string"
     },
     "JoinTransformer": {
