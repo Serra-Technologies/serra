@@ -29,8 +29,8 @@ def save_as_yaml(content: str, file_path: str) -> None:
 def get_translated_yaml(file_path):
     url = TRANSLATE_URL
     response = send_post_request(file_path,url)
+    if response.status_code != 200:
+        return None
     generated_yaml = response.content.decode('utf-8')
     logger.info(generated_yaml)
     return generated_yaml
-
-# get_translated_yaml("./sql/easy_demo.sql")

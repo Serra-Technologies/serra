@@ -51,6 +51,9 @@ def translate_job(sql_path, is_run):
     sql_path = f"{sql_folder_path}/{sql_path}"
 
     translated_yaml = get_translated_yaml(sql_path)
+    if not translated_yaml:
+        logger.error("Unable to translate file")
+        return
 
     # Save in new yaml file (config folder with same name as sql path)
     user_configs_folder = get_path_to_user_configs_folder()
