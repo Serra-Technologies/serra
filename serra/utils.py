@@ -1,6 +1,8 @@
 from pyspark.sql import SparkSession
 from os.path import exists
 from loguru import logger
+import os
+import shutil
 
 def write_to_file(filename, content):
     try:
@@ -37,3 +39,26 @@ def validate_workspace():
         exit()
     return
 
+def copy_folder(source_folder, destination_folder):
+    try:
+        # Check if the source folder exists
+        if not os.path.exists(source_folder):
+            logger.info(f"Source folder '{source_folder}' does not exist.")
+            return
+
+        # Check if the destination folder exists
+        if not os.path.exists(destination_folder):
+            os.makedirs(destination_folder)
+
+        # Copy the contents of the source folder to the destination folder
+        for item in os.listdir(source_folder):
+            source_item = os.path.join(source_folder, item)
+            destination_item = os.path.join(destination_folder, item)
+            if os.path.isdir(source_item):
+                shutil.copytree(source_item, destination_item)
+            else:
+                shutil.copy2(source_item, destination_item)
+
+        logger.info(f"Folder copied successfully from '{source_folder}' to '{destination_folder}'.")
+    except Exception as e:
+        logger.error(f"An error occurred while copying the folder: {e}")
