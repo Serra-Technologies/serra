@@ -1,8 +1,12 @@
 # Entry point for serra command line tool
 import sys
 import click
+import boto3
+import botocore
+import os
 from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job
 from serra.databricks import create_job
+from serra.aws import download_folder_from_s3
 from serra.utils import validate_workspace
 
 @click.group()
@@ -39,6 +43,21 @@ def cli_create_job(job_name):
     """
     validate_workspace()
     create_job(job_name)
+
+@main.command(name="create")
+@click.argument("local_path", type=click.Path())
+def cli_create(local_path):
+    """Copy workspace_example folder from S3 to local_path"""
+    bucket_name = "serrademo"
+    example_folder_key = "workspace_example"
+
+    s3_client = boto3.client("s3")
+
+    try:
+        download_folder_from_s3(s3_client, bucket_name, example_folder_key, local_path)
+    except botocore.exceptions.ClientError as e:
+        print(f"Error: {e.response['Error']['Message']}")
+
 
 @main.command(name="update_package")
 def cli_update_package():
