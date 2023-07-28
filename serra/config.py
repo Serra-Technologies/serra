@@ -3,8 +3,6 @@ import os
 PACKAGE_PATH = os.path.dirname(__file__)
 
 # Used to place config files, wheel files
-AWS_ACCESS_KEY_ID = "AKIA3TOV3GZZHAH4MPAE"
-AWS_SECRET_ACCESS_KEY = "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"
 AWS_BUCKET = "serrademo"
 
 # WHEEL CONFIGS

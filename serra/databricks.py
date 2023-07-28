@@ -3,13 +3,14 @@ from loguru import logger
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import Task, PythonWheelTask
 from databricks.sdk.service.compute import Library, State
-from serra.aws import upload_file_to_bucket
+from serra.aws import upload_file_to_config_bucket
 from serra.utils import get_path_to_user_configs_folder
 from serra.profile import get_serra_profile
 from serra.config import (
     PATH_TO_WHEEL,
     S3_WHEEL_PATH
 )
+
 
 def create_databricks_workspace_client():
     serra_profile = get_serra_profile()
@@ -22,7 +23,7 @@ def create_databricks_workspace_client():
 def upload_wheel_to_bucket():
     # TODO: Add code to recreate wheel
     logger.info(f"Uploading wheel from {PATH_TO_WHEEL} to AWS")
-    upload_file_to_bucket(PATH_TO_WHEEL)
+    upload_file_to_config_bucket(PATH_TO_WHEEL)
 
 def create_job(config_name):
     """Use like this: submit_job("StripeExample")
@@ -33,7 +34,7 @@ def create_job(config_name):
     # Upload the config file to aws
     logger.info("Uploading config to AWS")
     config_path = f"{get_path_to_user_configs_folder()}/{config_name}.yml"
-    upload_file_to_bucket(config_path)
+    upload_file_to_config_bucket(config_path)
     
     # Create the job on databricks
     logger.info("Creating databricks job")

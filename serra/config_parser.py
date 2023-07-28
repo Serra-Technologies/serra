@@ -1,6 +1,6 @@
 # In case we ever want to change use of yaml file
 import yaml
-from serra.aws import retrieve_file_as_bytes_from_bucket
+from serra.aws import retrieve_file_from_config_bucket
 
 
 def convert_name_to_full(class_name):
@@ -26,7 +26,7 @@ class ConfigParser:
     def from_s3_config(config_name):
         # TODO: Make more generalizable
         # Currenltly 
-        config_bytes = retrieve_file_as_bytes_from_bucket(config_name)
+        config_bytes = retrieve_file_from_config_bucket(config_name)
         config = yaml.safe_load(config_bytes)
         return ConfigParser(config)
     

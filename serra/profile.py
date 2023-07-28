@@ -21,6 +21,10 @@ class SerraProfile:
         return self.config.get("AWS_SECRET_ACCESS_KEY")
     
     @property
+    def aws_config_bucket(self):
+        return self.config.get("AWS_CONFIG_BUCKET")
+    
+    @property
     def databricks_host(self):
         return self.config.get("DATABRICKS_HOST")
     
