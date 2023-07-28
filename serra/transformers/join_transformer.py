@@ -1,5 +1,5 @@
 from pyspark.sql import functions as F
-
+from serra.exceptions import SerraRunException
 from serra.transformers.transformer import Transformer
 from serra.readers.s3_reader import S3Reader
 import logging
@@ -40,7 +40,12 @@ class JoinTransformer(Transformer):
 
         df1 = df1.join(df2, df1[matching_col[0]] == df2[matching_col[1]], self.join_type).drop(df2[matching_col[1]])
         if df1.isEmpty():
-            raise Exception(f"Joiner - Invalid matching ID's: {matching_col[0]}, {matching_col[1]}. Dataframes — restaurants & ratings.")
+            raise SerraRunException(f"""Joiner - Join Key Error: sales.{matching_col[0]}, ratings.{matching_col[1]} columns do not match.
+                                    
+                                          Dataframes: restaurants & ratings. 
+                                          Suggestion: Look at the the type for {matching_col[0]}, {matching_col[1]}.
+                                          Upstream Job Dependencies: restaurants_load, ratings_load
+                                          Contact: Customer Sales Data Team""")
         return df1
     
     

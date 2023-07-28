@@ -63,8 +63,11 @@ def translate_job(sql_path, is_run):
         logger.info("Running job...")
         cf = ConfigParser.from_local_config(yaml_path)
     # run_job_simple_linear(cf, True)
-        run_job_with_graph(cf)
-    #     logger.info("Job run completed.")
+        try:
+            run_job_with_graph(cf)
+            logger.info("Job run completed.")
+        except SerraRunException as e:
+            logger.error(e)
 
 def run_job_from_aws(job_name):
     try:

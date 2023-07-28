@@ -67,7 +67,7 @@ FROM (
      r.rating
    FROM
      sales s
-     INNER JOIN rating r ON s.id = r.id
+     INNER JOIN rating r ON s.restaurant = r.id
    GROUP BY
      s.restaurant,
      s.region,

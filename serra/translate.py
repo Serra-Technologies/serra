@@ -76,7 +76,7 @@ from serra_dev.serra_subscriptions;
 
 assistant_context = """
 
-Every Serra configuration file follows this format, and you must follow it. DO NOT FORGET THE join_type param for JoinTransformer. The general structure of config file you must follow is this (the config should contain the necessary unique parameters and the exact block structure of this (no higher nested levels):
+Every Serra configuration file follows this format, and you must follow it. DO NOT FORGET THE join_type param for JoinTransformer. ONLY use the class names of the readers, transformers, and writers that we gave you here. DO not create any new class names. The general structure of config file you must follow is this (the config should contain the necessary unique parameters and the exact block structure of this (no higher nested levels):
 
 step_name: (VALUE IS EMPTY)
   class_name: (VALUE IS EMPTY)
