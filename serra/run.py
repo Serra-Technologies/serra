@@ -8,8 +8,8 @@ from os.path import exists
 from loguru import logger
 from serra.databricks import upload_wheel_to_bucket, restart_server
 from serra.runners.graph_runner import run_job_with_graph
-from serra.translate import Translator
 from serra.exceptions import SerraRunException
+from serra.translate_client import save_as_yaml, get_translated_yaml
 
 PACKAGE_PATH = os.path.dirname(os.path.dirname(__file__))
 
@@ -50,14 +50,13 @@ def translate_job(sql_path, is_run):
 
     sql_path = f"{sql_folder_path}/{sql_path}"
 
-    tl = Translator(sql_path)
-    response = tl.prompt_gpt()
+    translated_yaml = get_translated_yaml(sql_path)
 
     # Save in new yaml file (config folder with same name as sql path)
     user_configs_folder = get_path_to_user_configs_folder()
     yaml_path = f"{user_configs_folder}/{yaml_path}.yml"
     logger.info(f"Translation complete. Yaml file can be found at {os.path.abspath(yaml_path)}")
-    tl.save_as_yaml(response, yaml_path)
+    save_as_yaml(translated_yaml, yaml_path)
 
     if is_run:
         logger.info("Running job...")
