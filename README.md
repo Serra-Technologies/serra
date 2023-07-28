@@ -1,12 +1,19 @@
 # Serra
+![Project Header](serralongblue.png)
+
 Translate SQL to Object-Oriented Spark
 
-# Install
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+
 ```bash
 pip install serra==0.3
 ```
 
 # Setup
+
+Setup your virtual environment below.
 
 ```bash
 python3.10 -m venv env
@@ -15,17 +22,34 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+or
+
+```bash
+source run.sh
+```
+
 # Getting Started
 Navigate to the workspace_example folder and try out a couple of jobs!
 
 ```bash
+cd workspace_example
 serra run LocalExample
 ```
 Other jobs available can be found in the **workspace_example/jobs** folder.
 
-# Development Guide
+# SQL to Serra LLM (Beta)
+Translate monolithic SQL scripts to low-code, Serra spark configuration files with one line.
 
-## If you make changes to the package ( not just a new config)
+```bash
+cd workspace_example
+serra translate hard_demo.sql
+```
+Place your sql scripts in **workspace_example/sql** folder.
+
+
+# Databricks Development Guide
+
+## If you make changes to the package (not just a new config)
 
 ### Step 1: Create wheel
 ```bash
