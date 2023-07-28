@@ -7,10 +7,15 @@ from serra.aws import upload_file_to_config_bucket
 from serra.utils import get_path_to_user_configs_folder
 from serra.profile import get_serra_profile
 from serra.config import (
-    PATH_TO_WHEEL,
-    S3_WHEEL_PATH
+    WHEEL_FILE_NAME_IN_BUCKET,
+    LOCAL_PATH_TO_WHEEL
 )
 
+def get_remote_path_to_wheel():
+    serra_profile = get_serra_profile()
+    bucket = serra_profile.aws_config_bucket
+    s3_wheel_path = f"s3://{bucket}/{WHEEL_FILE_NAME_IN_BUCKET}"
+    return s3_wheel_path
 
 def create_databricks_workspace_client():
     serra_profile = get_serra_profile()
@@ -22,13 +27,15 @@ def create_databricks_workspace_client():
 
 def upload_wheel_to_bucket():
     # TODO: Add code to recreate wheel
-    logger.info(f"Uploading wheel from {PATH_TO_WHEEL} to AWS")
-    upload_file_to_config_bucket(PATH_TO_WHEEL)
+    logger.info(f"Uploading wheel from {LOCAL_PATH_TO_WHEEL} to AWS")
+    upload_file_to_config_bucket(LOCAL_PATH_TO_WHEEL)
 
 def create_job(config_name):
     """Use like this: submit_job("StripeExample")
     """
     serra_profile = get_serra_profile()
+    s3_wheel_path = get_remote_path_to_wheel()
+
     w = create_databricks_workspace_client()
 
     # Upload the config file to aws
@@ -49,7 +56,7 @@ def create_job(config_name):
                 python_wheel_task=PythonWheelTask(entry_point="serra_databricks",
                                                 package_name="serra",
                                                 parameters=[config_name]),
-                libraries=[Library(whl=S3_WHEEL_PATH)],
+                libraries=[Library(whl=s3_wheel_path)],
                 task_key="my-task"
             )
     ]
@@ -60,6 +67,7 @@ def create_job(config_name):
 def restart_server():
     w = create_databricks_workspace_client()
     serra_profile = get_serra_profile()
+    s3_wheel_path = get_remote_path_to_wheel()
     cluster_id = serra_profile.databricks_cluster_id
 
     logger.info("Restarting cluster")
@@ -67,7 +75,7 @@ def restart_server():
 
     logger.info("Uninstalling packages")
     w.libraries.uninstall(cluster_id=cluster_id,
-                          libraries=[Library(whl=S3_WHEEL_PATH)])
+                          libraries=[Library(whl=s3_wheel_path)])
     
     current_cluster_state = w.clusters.get(cluster_id).state
 
