@@ -9,7 +9,7 @@ Serra is an end-to-end, ETL framework that simplifies complex SQL scripts to a f
 
 Serra provides fully-customizable error logging and local testing for every transformer and connector.
 
-With a command line tool, developers can easily translate their existing SQL scripts, create pipelines, auto document them, run local tests, and run Spark jobs in Databricks.
+With a command line tool, developers can easily translate their existing SQL scripts to get the full benefit of object-oriented Spark, create pipelines, auto document them, run local tests, and run jobs in Databricks.
 
 
 ## Installation
@@ -55,6 +55,26 @@ serra translate hard_demo.sql
 ```
 Place your sql scripts in **workspace_example/sql** folder.
 
+# Command Line Tool
+Translate, test locally, and run Databricks jobs with single commands.
+
+## Translate
+```bash
+serra translate {sql_file}.sql
+```
+
+## Test Locally
+```bash
+serra run {job_name}
+```
+Your job name is what you name your configuration file. Place your configuration files in **workspace_example/jobs** folder.
+
+
+## Deploy to Databricks
+```bash
+serra deploy {job_name}
+```
+Run your job configuration files directly on Databricks. 
 
 # Databricks Development Guide
 
