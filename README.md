@@ -18,7 +18,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Serra.
 
 ```bash
 pip install serra==0.3
-```
+```P
 
 # Setup
 
@@ -76,6 +76,34 @@ serra deploy {job_name}
 ```
 Run your job configuration files directly on Databricks. 
 
+
+# AWS S3 Local Setup
+
+### Step 1: Install AWS CLI
+```bash
+pip install awscli
+```
+
+### Step 2: Configure AWS Credentials
+```bash
+aws configure
+```
+* Fill out the credentials as so:
+```
+AWS Access Key ID: [YOUR ACCESS KEY]
+AWS Secret Access Key: [YOUR SECRET ACCESS KEY]
+Default region name: [YOUR DEFAULT S3 REGION]
+Default output format: [DEFAULT FORMAT]
+```
+
+### Step 3: Update workspace_examples/profiles.yml
+* Update your credentials like you did in Step 2:
+```
+AWS Access Key ID: [YOUR ACCESS KEY]
+AWS Secret Access Key: [YOUR SECRET ACCESS KEY]
+```
+
+
 # Databricks Development Guide
 
 ## If you make changes to the package (not just a new config)
@@ -116,7 +144,16 @@ DB Token: your_token
 cluster_id: your_cluster_id
 ```
 
-### Step 3: Confirm connection
+### Step 3: Update workspace_examples/profiles.yml
+
+* Update with same credentials from Step 2:
+```
+DB Workspace: https://your-workspace.cloud.databricks.com
+DB Token: your_token
+cluster_id: your_cluster_id
+```
+
+### Step 4: Confirm connection
 * To test if your connection is setup
 ```bash
 databricks-connect test
