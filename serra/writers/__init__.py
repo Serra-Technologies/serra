@@ -3,3 +3,4 @@ from .writer import Writer
 from .s3_writer import S3Writer
 from .databricks_writer import DatabricksWriter
 from .amazon_writer import AmazonS3Writer
+from .snowflake_writer import SnowflakeWriter

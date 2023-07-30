@@ -19,19 +19,7 @@ class SnowflakeReader():
     @property
     def account(self):
         return self.snowflake_account.get("ACCOUNT")
-    
-    @property
-    def warehouse(self):
-        return self.snowflake_account.get("WAREHOUSE")
-    
-    @property
-    def database(self):
-        return self.snowflake_account.get("DATABASE")
-    
-    @property
-    def schema(self):
-        return self.snowflake_account.get("SCHEMA")
-    
+
     @property
     def dependencies(self):
         return []

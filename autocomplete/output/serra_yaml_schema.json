@@ -196,6 +196,18 @@
                         }
                     },
                     "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "SnowflakeWriter": {
+                            "$ref": "./SnowflakeWriter.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
                 }
             ],
             "type": "object"
