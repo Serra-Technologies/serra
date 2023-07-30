@@ -9,3 +9,4 @@ flask
 loguru
 wheel
 openai
+snowflake-connector-python

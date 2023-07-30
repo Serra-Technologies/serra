@@ -18,7 +18,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Serra.
 
 ```bash
 pip install serra==0.3
-```P
+```
 
 # Setup
 

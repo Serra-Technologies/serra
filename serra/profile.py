@@ -35,6 +35,10 @@ class SerraProfile:
     @property
     def databricks_cluster_id(self):
         return self.config.get("DATABRICKS_CLUSTER_ID")
+    
+    @property
+    def snowflake_account(self):
+        return self.config.get("SNOWFLAKE")
 
 def get_serra_profile():
     serra_profile = SerraProfile.from_yaml_path("./profiles.yml")
