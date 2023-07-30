@@ -78,6 +78,13 @@
     "LocalWriter": {
         "input_block": "string",
         "file_path": "string"
+    },
+    "SnowflakeWriter": {
+        "input_block": "string",
+        "warehouse": "string",
+        "database": "string",
+        "schema": "string",
+        "table": "string",
+        "type": "string"
     }
-
 }

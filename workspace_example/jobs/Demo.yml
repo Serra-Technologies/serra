@@ -14,7 +14,7 @@ join_tables:
  JoinTransformer:
    join_type: 'inner'
    join_on:
-     read_sales: restaurant
+     read_sales: id
      read_ratings: id
 
 map_state_names:
@@ -89,6 +89,11 @@ pivot:
    sum_col: "customers"
 
 step_write:
-  LocalWriter:
+  SnowflakeWriter:
    input_block: pivot
-   file_path: "../examples/Demo.csv"
+   warehouse: transforming
+   database: serra
+   schema: demo
+   table: test
+   type: create
+
