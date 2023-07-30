@@ -116,6 +116,18 @@
                 {
                     "additionalProperties": false,
                     "properties": {
+                        "SelectTransformer": {
+                            "$ref": "./SelectTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
                         "AmazonS3Reader": {
                             "$ref": "./AmazonS3Reader.json"
                         },

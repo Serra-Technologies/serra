@@ -2,7 +2,11 @@
     "additionalProperties": false,
     "properties": {
         "input_block": {
-            "type": "string"
+            "type": [
+                "object",
+                "any",
+                "array"
+            ]
         },
         "join_on": {
             "type": "object"

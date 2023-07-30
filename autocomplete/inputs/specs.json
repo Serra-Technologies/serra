@@ -24,7 +24,7 @@
         "count_col": "string"
     },
     "JoinTransformer": {
-        "input_block": "string",
+        "input_block": [ "object", "any", "array"],
         "join_type": "string", 
         "join_on": "object"
     },
@@ -45,6 +45,10 @@
         "input_block": "string",
         "old_name": "string", 
         "new_name": "string"
+    },
+    "SelectTransformer": {
+        "input_block": "string",
+        "columns": "array"
     },
     "AmazonS3Reader": {
         "bucket_name": "string",
