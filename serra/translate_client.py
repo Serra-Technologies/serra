@@ -3,6 +3,7 @@ import requests
 import yaml
 from loguru import logger
 from serra.config import TRANSLATE_URL
+import time
 
 def send_post_request(file_path, url):
     with open(file_path, 'r') as file:
@@ -28,9 +29,29 @@ def save_as_yaml(content: str, file_path: str) -> None:
 
 def get_translated_yaml(file_path):
     url = "https://serra-translate-59cfd3dacac9.herokuapp.com/"
-    response = send_post_request(file_path,url)
+    create_job_url = url + "start_job"
+    check_job_status_url = url + "get_job_status"
+    get_job_result_url = url + "get_job_result"
+
+    # Create the job
+    job_id_response = send_post_request(file_path,create_job_url)
+    if job_id_response.status_code != 200:
+        logger.error("Starting job failed")
+        return None
+    job_id = job_id_response.content.decode('utf-8')
+    logger.info(f"Received job id {job_id}")
+
+    while True:
+        time.sleep(5)
+        status_response = requests.get(check_job_status_url, params = {"id": job_id})
+        status = status_response.content.decode('utf-8')
+        logger.info(f"Polling translate status: {status}")
+        if status == "SUCCESS":
+            break
+    
+    response = requests.get(get_job_result_url, params={"id": job_id})
     if response.status_code != 200:
         return None
     generated_yaml = response.content.decode('utf-8')
-    logger.info(generated_yaml)
+    logger.info("YAML successfully generated")
     return generated_yaml
