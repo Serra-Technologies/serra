@@ -1,4 +1,5 @@
 from pyspark.sql import DataFrame
+
 from serra.writers import Writer
 from serra.utils import get_or_create_spark_session
 

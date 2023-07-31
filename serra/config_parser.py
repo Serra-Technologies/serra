@@ -1,5 +1,5 @@
-# In case we ever want to change use of yaml file
 import yaml
+
 from serra.aws import retrieve_file_from_config_bucket
 
 def convert_name_to_full(class_name):
@@ -56,6 +56,3 @@ class ConfigParser:
     
     def get_test(self):
         return self.config.get('debug')
-
-if __name__=="__main__":
-    cp = ConfigParser("")

@@ -1,6 +1,6 @@
 import boto3
-from serra.profile import get_serra_profile
 
+from serra.profile import get_serra_profile
 
 class AmazonS3Writer():
     def __init__(self, config):

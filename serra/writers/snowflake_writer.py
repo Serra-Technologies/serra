@@ -1,5 +1,6 @@
 import snowflake.connector
 from loguru import logger
+
 from serra.profile import get_serra_profile
 from serra.exceptions import SerraRunException
 

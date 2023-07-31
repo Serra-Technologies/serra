@@ -1,4 +1,5 @@
 from pyspark.sql.functions import when, count, isnull
+
 from serra.exceptions import SerraRunException
 
 def nulls_test(df):
