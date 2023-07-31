@@ -1,12 +1,9 @@
 pyspark
-findspark
 click
 pyyaml
 pandas
 boto3
 databricks-sdk
-flask
 loguru
 wheel
-openai
 snowflake-connector-python

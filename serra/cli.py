@@ -46,7 +46,7 @@ def cli_create_job(job_name):
 @click.argument("local_path", type=click.Path(), default=".")
 def cli_create(local_path):
     """Copy workspace_example folder from S3 to local_path"""
-    source_folder = f"{PACKAGE_PATH}/../workspace_example"
+    source_folder = f"{PACKAGE_PATH}/data/workspace_example"
     copy_folder(source_folder, local_path)
 
 @main.command(name="update_package")

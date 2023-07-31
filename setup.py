@@ -9,9 +9,19 @@ setup(name='serra',
       author_email='alan@serra.io',
       license='tbd',
       packages=setuptools.find_packages(),
-      package_data={"serra": ["data/*.yml"]},
+      package_data={"serra": ["data/workspace_example/*",
+                              "data/workspace_example/*/*",
+                              "data/autocomplete/*",
+                              "data/autocomplete/*/*"]},
       install_requires=[
-          "click","pyspark", "pyyaml", "pandas", "boto3", "databricks-sdk", "loguru", 'flask'
+          "click",
+          "pyspark",
+          "pyyaml", 
+          "pandas", 
+          "boto3", 
+          "databricks-sdk",
+          "loguru",
+          "snowflake-connector-python"
       ],
       zip_safe=False,
       entry_points={
