@@ -1,5 +1,5 @@
 from pyspark.sql import functions as F
-
+import json
 from serra.transformers.transformer import Transformer
 from serra.exceptions import SerraRunException
 
@@ -29,6 +29,10 @@ class MapTransformer(Transformer):
 
         if self.col_key not in df.columns:
             raise SerraRunException(f"Column '{self.col_key}' specified as col_key does not exist in the DataFrame.")
+
+        if self.map_dict is None:
+            with open(self.map_dict_path) as f:
+                self.map_dict = json.load(f)
 
         try:
             for key, value in self.map_dict.items():
