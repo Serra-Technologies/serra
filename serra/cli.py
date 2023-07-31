@@ -44,7 +44,7 @@ def cli_create_job(job_name):
     create_job(job_name)
 
 @main.command(name="create")
-@click.argument("local_path", type=click.Path(), default=".")
+@click.argument("local_path", type=click.Path(), default="./workspace")
 def cli_create(local_path):
     """Copy workspace_example folder from S3 to local_path"""
     source_folder = f"{PACKAGE_PATH}/data/workspace_example"
