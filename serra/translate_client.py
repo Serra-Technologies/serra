@@ -1,9 +1,11 @@
 import os
 import requests
+import time
+
 import yaml
 from loguru import logger
+
 from serra.config import TRANSLATE_URL
-import time
 
 def send_post_request(file_path, url):
     with open(file_path, 'r') as file:
@@ -28,7 +30,7 @@ def save_as_yaml(content: str, file_path: str) -> None:
             logger.info(f"Error saving content as YAML file: {str(e)}")
 
 def get_translated_yaml(file_path):
-    url = "https://serra-translate-59cfd3dacac9.herokuapp.com/"
+    url = TRANSLATE_URL
     create_job_url = url + "start_job"
     check_job_status_url = url + "get_job_status"
     get_job_result_url = url + "get_job_result"

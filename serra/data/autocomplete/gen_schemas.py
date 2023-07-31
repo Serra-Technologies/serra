@@ -1,6 +1,5 @@
 import json
 
-
 def read_json_file(file_path):
     # Opening JSON file
     data = {}
@@ -22,11 +21,9 @@ SCHEMA_TEMPLATE = "./templates/schema_template.json"
 BLOCK_TEMPLATE = "./templates/transformer_template.json"
 OUTPUT_DIR = "./output"
 
-
 specs = read_json_file(SPEC_PATH)
 schema_template = read_json_file(SCHEMA_TEMPLATE)
 transformer_template = read_json_file("./templates/transformer_template.json")
-
 
 # Create the main schema json
 for class_name in specs:
@@ -44,13 +41,6 @@ for class_name in specs:
 # Create the schemas for each class
 for class_name in specs:
     class_schema = read_json_file(BLOCK_TEMPLATE)
-    # class_schema = {
-    #     "type": "object",
-    #     "properties": {
-            
-    #     },
-    #     "additionalProperties": False
-    # }
 
     for property,property_type in specs[class_name].items():
         class_schema['properties'][property] = {"type": property_type}

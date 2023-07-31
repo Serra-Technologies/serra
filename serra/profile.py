@@ -1,4 +1,3 @@
-
 import yaml
 
 class SerraProfile:

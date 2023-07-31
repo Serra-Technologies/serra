@@ -1,9 +1,9 @@
-import boto3
-import json
-from serra.profile import get_serra_profile
 import os
-import botocore
-from serra.config import PACKAGE_PATH
+import json
+
+import boto3
+
+from serra.profile import get_serra_profile
 
 def get_s3_client():
     user_profile = get_serra_profile()
@@ -40,6 +40,7 @@ def read_json_s3(file, bucket):
     return json.loads(file_content)
 
 def write_json_s3(obj, file, bucket):
+    s3 = get_s3_client()
     json_dump_s3 = lambda obj, f: s3.Object(bucket, key=f).put(Body=json.dumps(obj))
     json_dump_s3(obj, f'{file}.json')
 

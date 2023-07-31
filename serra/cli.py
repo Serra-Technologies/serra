@@ -1,6 +1,7 @@
 # Entry point for serra command line tool
 import sys
 import click
+
 from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job
 from serra.databricks import create_job
 from serra.utils import validate_workspace
@@ -46,7 +47,7 @@ def cli_create_job(job_name):
 @click.argument("local_path", type=click.Path(), default=".")
 def cli_create(local_path):
     """Copy workspace_example folder from S3 to local_path"""
-    source_folder = f"{PACKAGE_PATH}/../workspace_example"
+    source_folder = f"{PACKAGE_PATH}/data/workspace_example"
     copy_folder(source_folder, local_path)
 
 @main.command(name="update_package")
