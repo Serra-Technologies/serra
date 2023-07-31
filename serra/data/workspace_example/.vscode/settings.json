@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/Serra-Technologies/serra/main/serra/data/autocomplete/output/serra_yaml_schema.json": ["jobs/*.yml"]
+    },
+    "yaml.format.enable": false
+}
