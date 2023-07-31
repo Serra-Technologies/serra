@@ -1,6 +1,6 @@
+from pyspark.sql import DataFrame
 from serra.writers import Writer
 from serra.utils import get_or_create_spark_session
-from pyspark.sql import DataFrame
 
 class S3Writer(Writer):
     def __init__(self, config):

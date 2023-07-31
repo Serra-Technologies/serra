@@ -1,8 +1,9 @@
+import os
+import shutil
+
 from pyspark.sql import SparkSession
 from os.path import exists
 from loguru import logger
-import os
-import shutil
 
 def write_to_file(filename, content):
     try:

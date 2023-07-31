@@ -1,11 +1,11 @@
 # Running a specific job
+import os
 import sys
 from sys import exit
-import os
-from serra.config_parser import ConfigParser
-from serra.utils import get_path_to_user_configs_folder, write_to_file
 from os.path import exists
 from loguru import logger
+from serra.config_parser import ConfigParser
+from serra.utils import get_path_to_user_configs_folder, write_to_file
 from serra.databricks import upload_wheel_to_bucket, restart_server
 from serra.runners.graph_runner import run_job_with_graph
 from serra.exceptions import SerraRunException

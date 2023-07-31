@@ -1,7 +1,8 @@
+from loguru import logger
+
 from serra.config_parser import ConfigParser, convert_name_to_full
 from serra.utils import import_class
 from serra.tests import duplicates_test, nulls_test
-from loguru import logger
 from serra.runners.ExecutionGraph import BlockGraph
 
 

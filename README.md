@@ -1,4 +1,4 @@
-![Project Header](serra.png)
+![Project Header](./etc/serra.png)
 
 Translate SQL to Object-Oriented Spark
 

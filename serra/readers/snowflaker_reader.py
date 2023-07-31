@@ -1,7 +1,9 @@
+import pandas as pd
 import snowflake.connector
+
 from serra.profile import get_serra_profile
 from serra.utils import get_or_create_spark_session
-import pandas as pd
+
 
 class SnowflakeReader():
     def __init__(self, config):

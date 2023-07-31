@@ -2,7 +2,6 @@
 import yaml
 from serra.aws import retrieve_file_from_config_bucket
 
-
 def convert_name_to_full(class_name):
     if "Reader" in class_name:
         return f"serra.readers.{class_name}"

@@ -1,10 +1,7 @@
 from pyspark.sql import functions as F
+
 from serra.exceptions import SerraRunException
 from serra.transformers.transformer import Transformer
-from serra.readers.s3_reader import S3Reader
-import logging
-
-logger = logging.getLogger(__name__)
 
 class JoinTransformer(Transformer):
     """

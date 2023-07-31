@@ -2,8 +2,6 @@ import boto3
 import json
 from serra.profile import get_serra_profile
 import os
-import botocore
-from serra.config import PACKAGE_PATH
 
 def get_s3_client():
     user_profile = get_serra_profile()
