@@ -61,7 +61,7 @@ def run_job_with_graph(cf: ConfigParser):
         elif is_writer(block_name, cf):
             assert len(block_obj.dependencies) == 1
             dependency = block_obj.dependencies[0]
-            block_obj.write(df_map[dependency]) # Get the 
+            block_obj.write(df_map[dependency])
         elif is_Transformer(block_name, cf):
             assert len(block_obj.dependencies) >= 1
             input_dfs = [df_map[dep] for dep in block_obj.dependencies]
@@ -78,9 +78,9 @@ def run_job_with_graph(cf: ConfigParser):
                 if test_name == 'duplicates':
                     df = df_map[block_name]
                     duplicates_test(df)
-    
-    df_map[dependency].show()
 
-    if cf.get_test():
-        logger.info("Debug is true—printing out rows.")
+    if cf.show_all():
+        logger.info("Showing 500 rows...")
         df.show(500)
+    else:
+        df.show()

@@ -44,7 +44,7 @@ class ConfigParser:
         return step.get("config")
     
     def get_blocks(self):
-        blocks = [name for name in self.config.keys() if name != 'debug']
+        blocks = [name for name in self.config.keys() if name != 'show_all']
         return blocks
     
     def get_config_for_block(self, block_name):
@@ -54,5 +54,5 @@ class ConfigParser:
     def get_tests_for_block(self, block_name):
         return self.config.get(block_name).get("tests")
     
-    def get_test(self):
-        return self.config.get('debug')
+    def show_all(self):
+        return self.config.get('show_all')

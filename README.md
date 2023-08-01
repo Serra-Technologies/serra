@@ -17,7 +17,7 @@ With a command line tool, developers can easily translate their existing SQL scr
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Serra.
 
 ```bash
-pip install serra==0.5
+pip install serra==0.6
 ```
 
 # Setup
@@ -38,7 +38,13 @@ source run.sh
 ```
 
 # Getting Started
-Navigate to the workspace_example folder and try out a couple of jobs!
+Run `serra create` to create a workspace folder. 
+
+```bash
+serra create
+```
+
+Navigate to the workspace folder and try out a couple of jobs!
 
 ```bash
 cd workspace_example
