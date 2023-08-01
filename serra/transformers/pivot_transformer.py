@@ -23,9 +23,10 @@ class PivotTransformer(Transformer):
         Add column with col_value to dataframe
         :return; Dataframe w/ new column containing col_value
         """
-
-        df = df.groupBy(self.row_level).pivot(self.column_level)
         
+        df = df.withColumn(self.sum_col, F.col(self.sum_col).cast("double"))
+        df = df.groupBy(self.row_level).pivot(self.column_level)
+
         # Perform aggregation
         if self.aggregate_type == "avg":
             df = df.avg(self.sum_col)
