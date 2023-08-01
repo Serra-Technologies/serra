@@ -44,6 +44,24 @@ Run `serra create` to create a workspace folder.
 serra create
 ```
 
+Update your credentials for AWS, Databricks, and Snowflake in `workspace/profiles.yml`
+
+```
+AWS Access Key ID: [YOUR ACCESS KEY]
+AWS Secret Access Key: [YOUR SECRET ACCESS KEY]
+
+AWS_CONFIG_BUCKET: ENTER_HERE # Bucket to use to place job config files (not needed for quickstart)
+
+DATABRICKS_HOST: ENTER_HERE
+DATABRICKS_TOKEN: ENTER_HERE
+DATABRICKS_CLUSTER_ID: ENTER_HERE
+
+SNOWFLAKE:
+  USER: ENTER_HERE
+  PASSWORD: ENTER_HERE
+  ACCOUNT: ENTER_HERE (Organization-Account)
+```
+
 Navigate to the workspace folder and try out a couple of jobs!
 
 ```bash
