@@ -44,6 +44,16 @@ Run `serra create` to create a workspace folder.
 serra create
 ```
 
+Navigate to the workspace folder and run your first job!
+
+```bash
+cd workspace
+serra run Demo
+```
+
+Other jobs available can be found in the **workspace_example/jobs** folder.
+
+# Connector Credentials
 Update your credentials for AWS, Databricks, and Snowflake in `workspace/profiles.yml`
 
 ```
@@ -62,13 +72,7 @@ SNOWFLAKE:
   ACCOUNT: ENTER_HERE (Organization-Account)
 ```
 
-Navigate to the workspace folder and try out a couple of jobs!
-
-```bash
-cd workspace_example
-serra run LocalExample
-```
-Other jobs available can be found in the **workspace_example/jobs** folder.
+Now your jobs can connect between AWS, Databricks, and Snowflake data sources!
 
 # SQL to Serra LLM (Beta)
 Translate monolithic SQL scripts to low-code, Serra spark configuration files with one line.
