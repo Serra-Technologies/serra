@@ -8,4 +8,5 @@ from .map_transformer import MapTransformer
 from .pivot_transformer import PivotTransformer
 from .rename_column_transformer import RenameColumnTransformer
 from .select_transformer import SelectTransformer
+from .filter_transformer import FilterTransformer
 from .transformer import Transformer

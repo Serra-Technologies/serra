@@ -1,6 +1,6 @@
 # There are some prints that are occuring when running this script? Not logs?
 # Duplicates across all column or a single column?
-debug: true
+show_all: true
 
 read_sales:
   LocalReader:
