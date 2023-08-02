@@ -5,9 +5,15 @@ from serra.exceptions import SerraRunException
 
 class AddColumnTransformer(Transformer):
     """
-    Test transformer to add a column to dataframe
-    :param config: Holds column value
+    A transformer to add a new column to the DataFrame with a specified value.
+
+    :param config: A dictionary containing the configuration for the transformer.
+                   It should have the following keys:
+                   - 'name': The name of the new column to be added.
+                   - 'value': The value to be set for the new column.
+                   - 'column_type': The data type of the new column. Must be a valid PySpark data type string.
     """
+
 
     def __init__(self, config):
         self.config = config
@@ -17,8 +23,11 @@ class AddColumnTransformer(Transformer):
         
     def transform(self, df):
         """
-        Add column with col_value to dataframe
-        :return; Dataframe w/ new column containing col_value
+        Add a new column to the DataFrame with the specified name, value, and data type.
+
+        :param df: The input DataFrame to be transformed.
+        :return: A new DataFrame with the new column added.
+        :raises: SerraRunException if the column with the specified name already exists in the DataFrame.
         """
         if self.name in df.columns:
             raise SerraRunException(f"Column '{self.name}' already exists in the DataFrame. Choose a different name.")
