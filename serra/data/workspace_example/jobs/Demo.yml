@@ -26,15 +26,15 @@ filter_states:
     column: 'region_abbr'
     condition: ['AK', 'AL', 'CA', 'TX', 'CO', 'DE', 'FL']
 
-cast_ratings:
+cast_customers:
   CastColumnTransformer:
     input_block: filter_states
     cast_columns:
-      rating: ['rating', 'double']
+      rating: ['customers', 'double']
 
 pivot:
  PivotTransformer:
-   input_block: cast_ratings
+   input_block: cast_customers
    row_level: 'restaurant'
    column_level: "region_abbr"
    aggregate_type: "sum"
