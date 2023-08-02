@@ -4,9 +4,13 @@ from serra.transformers.transformer import Transformer
 
 class DropColumnTransformer(Transformer):
     """
-    Test transformer to add a column to dataframe
-    :param config: Holds column value
+    A transformer to drop specified columns from the DataFrame.
+
+    :param config: A dictionary containing the configuration for the transformer.
+                   It should have the following key:
+                   - 'drop_names': A list of column names to be dropped from the DataFrame.
     """
+
 
     def __init__(self, config):
         self.config = config
@@ -14,9 +18,10 @@ class DropColumnTransformer(Transformer):
 
     def transform(self, df):
         """
-        Add column with col_value to dataframe
-        :return; Dataframe w/ new column containing col_value
-        """
+        Drop specified columns from the DataFrame.
 
+        :param df: The input DataFrame to be transformed.
+        :return: A new DataFrame with the specified columns dropped.
+        """
         return df.select([c for c in df.columns if c not in self.drop_names])
     

@@ -5,8 +5,15 @@ from serra.exceptions import SerraRunException
 
 class MapTransformer(Transformer):
     """
-    Test transformer to add a column to dataframe
-    :param config: Holds column value
+    A transformer to map values in a DataFrame column to new values based on a given mapping dictionary.
+
+    :param config: A dictionary containing the configuration for the transformer.
+                   It should have the following keys:
+                   - 'name': The name of the new column to be added after mapping.
+                   - 'map_dict': A dictionary containing the mapping of old values to new values.
+                                 If 'map_dict' is not provided, 'map_dict_path' should be specified.
+                   - 'map_dict_path': The path to a JSON file containing the mapping dictionary.
+                   - 'col_key': The name of the DataFrame column to be used as the key for mapping.
     """
 
     def __init__(self, config):
@@ -18,8 +25,12 @@ class MapTransformer(Transformer):
 
     def transform(self, df):
         """
-        Add column with col_value to dataframe
-        :return; Dataframe w/ new column containing col_value
+        Map values in the DataFrame column to new values based on the specified mapping.
+
+        :param df: The input DataFrame to be transformed.
+        :return: A new DataFrame with the new column containing the mapped values.
+        :raises: SerraRunException if any required config parameter is missing or if column specified
+                 as 'col_key' does not exist in the DataFrame.
         """
         if not self.name or not self.col_key:
             raise SerraRunException("Both 'name' and 'col_key' must be provided in the config.")

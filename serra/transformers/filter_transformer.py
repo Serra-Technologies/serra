@@ -4,8 +4,12 @@ from serra.transformers.transformer import Transformer
 
 class FilterTransformer(Transformer):
     """
-    Test transformer to add a column to dataframe
-    :param config: Holds column value
+    A transformer to filter the DataFrame based on a specified condition.
+
+    :param config: A dictionary containing the configuration for the transformer.
+                   It should have the following keys:
+                   - 'condition': A list of values to filter the DataFrame by.
+                   - 'column': The name of the column to apply the filter on.
     """
 
     def __init__(self, config):
@@ -15,8 +19,10 @@ class FilterTransformer(Transformer):
 
     def transform(self, df):
         """
-        Add column with col_value to dataframe
-        :return; Dataframe w/ new column containing col_value
+        Filter the DataFrame based on the specified condition.
+
+        :param df: The input DataFrame to be transformed.
+        :return: A new DataFrame with rows filtered based on the specified condition.
         """
 
         return df.filter(df[self.column].isin(self.condition))

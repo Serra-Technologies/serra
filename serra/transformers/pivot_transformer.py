@@ -5,10 +5,15 @@ from serra.exceptions import SerraRunException
 
 class PivotTransformer(Transformer):
     """
-    Join tables together
-    :param row_level: column used for row levels
-    :param column_level: column used for col levels
-    :param sum_col: column to summarise (values)
+    A transformer to pivot a DataFrame based on specified row and column levels, and perform aggregation.
+
+    :param config: A dictionary containing the configuration for the transformer.
+                   It should have the following keys:
+                   - 'row_level': The column used for row levels during pivoting.
+                   - 'column_level': The column used for column levels during pivoting.
+                   - 'sum_col': The column to be summarized (values) during pivoting.
+                   - 'aggregate_type': The type of aggregation to perform after pivoting.
+                                      Should be one of 'avg' (average) or 'sum' (sum).
     """
 
     def __init__(self, config):
@@ -20,8 +25,11 @@ class PivotTransformer(Transformer):
 
     def transform(self, df):
         """
-        Add column with col_value to dataframe
-        :return; Dataframe w/ new column containing col_value
+        Pivot the DataFrame based on the specified row and column levels, and perform aggregation.
+
+        :param df: The input DataFrame to be transformed.
+        :return: A new DataFrame resulting from the pivot operation with the specified aggregation.
+        :raises: SerraRunException if the specified aggregation type is invalid.
         """
         
         df = df.withColumn(self.sum_col, F.col(self.sum_col).cast("double"))
