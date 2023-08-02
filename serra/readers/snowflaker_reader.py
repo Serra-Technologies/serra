@@ -6,6 +6,17 @@ from serra.utils import get_or_create_spark_session
 
 
 class SnowflakeReader():
+    """
+    A reader to read data from Snowflake into a Spark DataFrame.
+
+    :param config: A dictionary containing the configuration for the reader.
+                   It should have the following keys:
+                   - 'warehouse': The Snowflake warehouse to use for the connection.
+                   - 'database': The Snowflake database to use for the connection.
+                   - 'schema': The Snowflake schema to use for the connection.
+                   - 'table': The name of the table to be read from Snowflake.
+    """
+
     def __init__(self, config):
         self.config = config
         self.snowflake_account = get_serra_profile().snowflake_account
@@ -27,7 +38,11 @@ class SnowflakeReader():
         return []
     
     def read(self):
-        # Establish snowflake connection
+        """
+        Read data from Snowflake and return a Spark DataFrame.
+
+        :return: A Spark DataFrame containing the data read from the specified Snowflake table.
+        """
         conn = snowflake.connector.connect(
             user=self.user,
             password=self.password,

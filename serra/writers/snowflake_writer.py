@@ -5,6 +5,18 @@ from serra.profile import get_serra_profile
 from serra.exceptions import SerraRunException
 
 class SnowflakeWriter():
+    """
+    A writer to write data from a Spark DataFrame to a Snowflake table.
+
+    :param config: A dictionary containing the configuration for the writer.
+                   It should have the following keys:
+                   - 'type': The type of operation to perform. Possible values are 'create' or 'insert'.
+                   - 'warehouse': The Snowflake warehouse to use for the connection.
+                   - 'database': The name of the Snowflake database to write to.
+                   - 'schema': The name of the Snowflake schema to write to.
+                   - 'table': The name of the Snowflake table to write to.
+    """
+
     def __init__(self, config):
         self.config = config
         self.type = self.config.get('type')
@@ -27,6 +39,11 @@ class SnowflakeWriter():
         return [self.config.get('input_block')]
     
     def write(self, spark_df):
+        """
+        Write data from a Spark DataFrame to a Snowflake table.
+
+        :param spark_df: The Spark DataFrame to be written to the Snowflake table.
+        """
         pandas_df = spark_df.toPandas()
 
         conn = snowflake.connector.connect(

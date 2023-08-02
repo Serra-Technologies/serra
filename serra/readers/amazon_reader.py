@@ -5,6 +5,16 @@ from serra.utils import get_or_create_spark_session
 from serra.profile import get_serra_profile
 
 class AmazonS3Reader():
+    """
+    A class to read data from Amazon S3 and return a Spark DataFrame.
+
+    :param config: A dictionary containing the configuration for the reader.
+                   It should have the following keys:
+                   - 'bucket_name': The name of the S3 bucket containing the file.
+                   - 'file_path': The path to the file within the S3 bucket.
+                   - 'file_type': The type of file to be read (e.g., 'csv', 'parquet').
+    """
+
     def __init__(self, config):
         self.config = config
         self.serra_profile = get_serra_profile()
@@ -26,6 +36,12 @@ class AmazonS3Reader():
         return []
     
     def read(self):
+        """
+        Read data from Amazon S3 and return a Spark DataFrame.
+
+        :return: A Spark DataFrame containing the data read from the S3 bucket.
+        :raises: Any exceptions that may occur during file reading or DataFrame creation.
+        """
         session = boto3.Session(
             aws_access_key_id=self.serra_profile.aws_access_key_id,
             aws_secret_access_key=self.serra_profile.aws_secret_access_key
