@@ -17,7 +17,7 @@ With a command line tool, developers can easily translate their existing SQL scr
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Serra.
 
 ```bash
-pip install serra==0.6
+pip install serra
 ```
 
 # Setup
