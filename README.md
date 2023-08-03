@@ -57,8 +57,8 @@ Other jobs available can be found in the **workspace_example/jobs** folder.
 Update your credentials for AWS, Databricks, and Snowflake in `workspace/profiles.yml`
 
 ```
-AWS Access Key ID: [YOUR ACCESS KEY]
-AWS Secret Access Key: [YOUR SECRET ACCESS KEY]
+AWS_ACCESS_KEY_ID: [YOUR ACCESS KEY]
+AWS_SECRET_ACCESS_KEY: [YOUR SECRET ACCESS KEY]
 
 AWS_CONFIG_BUCKET: ENTER_HERE # Bucket to use to place job config files (not needed for quickstart)
 
@@ -103,34 +103,6 @@ Your job name is what you name your configuration file. Place your configuration
 serra deploy {job_name}
 ```
 Run your job configuration files directly on Databricks. 
-
-
-# AWS S3 Local Setup
-
-### Step 1: Install AWS CLI
-```bash
-pip install awscli
-```
-
-### Step 2: Configure AWS Credentials
-```bash
-aws configure
-```
-* Fill out the credentials as so:
-```
-AWS Access Key ID: [YOUR ACCESS KEY]
-AWS Secret Access Key: [YOUR SECRET ACCESS KEY]
-Default region name: [YOUR DEFAULT S3 REGION]
-Default output format: [DEFAULT FORMAT]
-```
-
-### Step 3: Update workspace_examples/profiles.yml
-* Update your credentials like you did in Step 2:
-```
-AWS Access Key ID: [YOUR ACCESS KEY]
-AWS Secret Access Key: [YOUR SECRET ACCESS KEY]
-```
-
 
 # Databricks Development Guide
 
