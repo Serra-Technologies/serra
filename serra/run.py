@@ -38,12 +38,12 @@ def run_job_from_job_dir(job_name):
     except SerraRunException as e:
         logger.error(e)
 
-# translates your given sql file, gives you the config output, and saves the config in a new yml file
-
-# Use the paths as needed
-
-
 def translate_job(sql_path, is_run):
+    """
+    translates your given sql file, gives you the config output, and saves the config in a new yml file
+    """
+
+    # Get serra token from ~/.serra/credentials.json if it exists
     logger.info(f"Starting translation process for {sql_path}...")
     yaml_path = os.path.splitext(sql_path)[0]
 
@@ -54,7 +54,6 @@ def translate_job(sql_path, is_run):
 
     translated_yaml = get_translated_yaml(sql_path)
     if not translated_yaml:
-        logger.error("Unable to translate file")
         return
 
     # Save in new yaml file (config folder with same name as sql path)
