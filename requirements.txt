@@ -7,3 +7,4 @@ databricks-sdk
 loguru
 wheel
 snowflake-connector-python
+databricks-connect==13.2

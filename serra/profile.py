@@ -4,6 +4,19 @@ class SerraProfile:
 
     def __init__(self, config):
         self.config = config
+    
+    def get_databrickscfg(self):
+        host = self.databricks_host
+        token = self.databricks_token
+        cluster_id = self.databricks_cluster_id
+
+        databrickscfg = f"""[DEFAULT]
+host = {host}
+token = {token}
+cluster_id = {cluster_id}
+"""
+
+        return databrickscfg
 
     @staticmethod
     def from_yaml_path(config_path):
