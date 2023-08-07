@@ -62,11 +62,10 @@ def translate_job(sql_path, is_run):
     yaml_path = f"{user_configs_folder}/{yaml_path}.yml"
     
     save_as_yaml(translated_yaml, yaml_path)
-    clean_yaml_file(yaml_path)
-    # try:
-    #     clean_yaml_file(yaml_path)
-    # except:
-    #     logger.error(f"Error while cleaning translate file")
+    try:
+        clean_yaml_file(yaml_path)
+    except:
+        logger.error(f"Error while cleaning translate file")
     logger.info(f"Translation complete. Yaml file can be found at {os.path.abspath(yaml_path)}")
 
     if is_run:
