@@ -7,6 +7,7 @@ from serra.databricks import create_job
 from serra.utils import validate_workspace
 from serra.config import PACKAGE_PATH
 from serra.utils import copy_folder
+from serra.translate_module.translate_client import reset_serra_token
 
 @click.group()
 def main():
@@ -15,7 +16,7 @@ def main():
 @main.command(name="start")
 @click.argument("job_name")
 def cli_start(job_name):
-    """Create a yaml for job_name inside the data folder
+    """Create a yaml for job_name
     """
     create_job_yaml(job_name)
 
@@ -27,11 +28,17 @@ def cli_run_job_from_job_dir(job_name):
     validate_workspace()
     run_job_from_job_dir(job_name)
 
+@main.command(name='configure')
+def cli_configure():
+    """Configure serra_token for serra translate
+    """
+    reset_serra_token()
+
 @main.command(name="translate")
 @click.argument("sql_path")
 @click.option("--run", is_flag=True, default=False, required=False)
 def cli_translator(sql_path, run):
-    """Run a specific job locally
+    """Translate a sql file to a serra config file
     """
     translate_job(sql_path, run)
 
@@ -46,7 +53,7 @@ def cli_create_job(job_name):
 @main.command(name="create")
 @click.argument("local_path", type=click.Path(), default="./workspace")
 def cli_create(local_path):
-    """Copy workspace_example folder from S3 to local_path"""
+    """Create starter workspace folder"""
     source_folder = f"{PACKAGE_PATH}/data/workspace_example"
     copy_folder(source_folder, local_path)
 

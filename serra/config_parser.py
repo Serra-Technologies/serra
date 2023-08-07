@@ -32,6 +32,9 @@ class ConfigParser:
     def get_step(self, block_name):
         return self.config.get(block_name)
     
+    def get_metadata_tags(self):
+        return ['show_all']
+    
     def get_class_name_for_step(self, block_name):
         step = self.get_step(block_name)
         keys = [key for key in step.keys()]

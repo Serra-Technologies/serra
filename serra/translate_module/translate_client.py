@@ -30,6 +30,12 @@ def save_as_yaml(content: str, file_path: str) -> None:
         except Exception as e:
             logger.info(f"Error saving content as YAML file: {str(e)}")
 
+def reset_serra_token():
+    home_dir = os.path.expanduser("~")
+    serra_dir = os.path.join(home_dir, ".serra")
+    os.rmdir(serra_dir)
+    get_or_prompt_user_for_serra_token()
+
 def get_or_prompt_user_for_serra_token():
     home_dir = os.path.expanduser("~")
     serra_dir = os.path.join(home_dir, ".serra")
@@ -85,7 +91,7 @@ def get_translated_yaml(file_path):
         time.sleep(5)
         status_response = requests.get(check_job_status_url, params = {"id": job_id}, headers=headers)
         status = status_response.content.decode('utf-8')
-        logger.info(f"Polling translate status: {status}")
+        logger.info(f"Translate status: {status}")
         if status == "SUCCESS":
             break
     
