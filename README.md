@@ -78,7 +78,7 @@ Now your jobs can connect between AWS, Databricks, and Snowflake data sources!
 Translate monolithic SQL scripts to low-code, Serra spark configuration files with one line.
 
 ```bash
-cd workspace_example
+cd workspace
 serra translate hard_demo.sql
 ```
 Place your sql scripts in **workspace_example/sql** folder.
