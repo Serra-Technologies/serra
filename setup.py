@@ -2,7 +2,7 @@ import setuptools
 from setuptools import setup
 
 setup(name='serra',
-      version='0.7.13',
+      version='0.7.15',
       description='Simplified Data Pipelines',
       url='http://github.com',
       author='Serra Technologies',
