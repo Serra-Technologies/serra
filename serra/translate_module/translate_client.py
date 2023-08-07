@@ -2,6 +2,7 @@ import os
 import requests
 import time
 import json
+import shutil
 
 import yaml
 from loguru import logger
@@ -33,7 +34,7 @@ def save_as_yaml(content: str, file_path: str) -> None:
 def reset_serra_token():
     home_dir = os.path.expanduser("~")
     serra_dir = os.path.join(home_dir, ".serra")
-    os.rmdir(serra_dir)
+    shutil.rmtree(serra_dir)
     get_or_prompt_user_for_serra_token()
 
 def get_or_prompt_user_for_serra_token():
