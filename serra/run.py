@@ -12,7 +12,7 @@ from serra.databricks import upload_wheel_to_bucket, restart_server
 from serra.runners.graph_runner import run_job_with_graph
 from serra.exceptions import SerraRunException
 from serra.translate_module.translate_client import save_as_yaml, get_translated_yaml
-from serra.translate_module.clean import clean_yaml_file
+# from serra.translate_module.clean import clean_yaml_file
 
 PACKAGE_PATH = os.path.dirname(os.path.dirname(__file__))
 
@@ -62,10 +62,10 @@ def translate_job(sql_path, is_run):
     yaml_path = f"{user_configs_folder}/{yaml_path}.yml"
     
     save_as_yaml(translated_yaml, yaml_path)
-    try:
-        clean_yaml_file(yaml_path)
-    except:
-        logger.error(f"Error while cleaning translate file")
+    # try:
+    #     clean_yaml_file(yaml_path)
+    # except:
+    #     logger.error(f"Error while cleaning translate file")
     logger.info(f"Translation complete. Yaml file can be found at {os.path.abspath(yaml_path)}")
 
     if is_run:
