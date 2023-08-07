@@ -2,7 +2,7 @@ import setuptools
 from setuptools import setup
 
 setup(name='serra',
-      version='0.6',
+      version='0.7.12',
       description='Simplified Data Pipelines',
       url='http://github.com',
       author='Serra Technologies',
@@ -19,6 +19,7 @@ setup(name='serra',
           "pandas", 
           "boto3", 
           "databricks-sdk",
+          "wheel",
           "loguru",
           "snowflake-connector-python"
       ],
