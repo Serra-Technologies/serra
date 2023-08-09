@@ -11,33 +11,15 @@ Serra provides fully-customizable error logging and local testing for every tran
 
 With a command line tool, developers can easily translate their existing SQL scripts to get the full benefit of object-oriented Spark, create pipelines, auto document them, run local tests, and run jobs in Databricks.
 
-
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Serra.
-
-```bash
-pip install serra
-```
-
-# Setup
-
-Setup your virtual environment below.
-
-```bash
-python3.10 -m venv env
-source env/bin/activate
-pip install -r requirements.txt
-pip install -e .
-```
-
-or
-
-```bash
-source run.sh
-```
-
 # Getting Started
+Create a new directory and run an interactive bash shell with docker to get started with all the required dependencies:
+
+```bash
+mkdir serra-dev
+cd serra-dev
+docker run --mount type=bind,source="$(pwd)",target=/app -it albertjstanley/serra /bin/bash
+```
+
 Run `serra create` to create a workspace folder. 
 
 ```bash
