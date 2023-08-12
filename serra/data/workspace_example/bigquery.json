@@ -1,0 +1,13 @@
+{
+  "type": "ADD HERE",
+  "project_id": "ADD HERE",
+  "private_key_id": "ADD HERE",
+  "private_key": "ADD HERE",
+  "client_email": "ADD HERE",
+  "client_id": "ADD HERE",
+  "auth_uri": "ADD HERE",
+  "token_uri": "ADD HERE",
+  "auth_provider_x509_cert_url": "ADD HERE",
+  "client_x509_cert_url": "ADD HERE",
+  "universe_domain": "googleapis.com"
+}

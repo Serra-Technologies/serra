@@ -3,7 +3,7 @@ from pyspark.sql import functions as F
 from serra.exceptions import SerraRunException
 from serra.transformers.transformer import Transformer
 
-class JoinTransformer(Transformer):
+class JoinWithConditionTransformer(Transformer):
     """
     A transformer to join two DataFrames together based on a specified join condition.
 
@@ -19,6 +19,7 @@ class JoinTransformer(Transformer):
     def __init__(self, config):
         self.config = config
         self.join_type = config.get("join_type")
+        self.condition = config.get('condition')
         self.join_on = config.get("join_on")
 
     # @property
@@ -29,9 +30,6 @@ class JoinTransformer(Transformer):
     #     :return: A list of table names (keys from the 'join_on' dictionary).
     #     """
     #     return [key for key in self.config.get("join_on").keys()]
-    @property
-    def dependencies(self):
-        return self.config.get('input_block')
 
     def transform(self, df1, df2):
         """
@@ -42,19 +40,9 @@ class JoinTransformer(Transformer):
         :return: A new DataFrame resulting from the join operation.
         :raises: SerraRunException if the join condition columns do not match between the two DataFrames.
         """
-        assert self.join_type in "inner"
+        
+        df1 = df1.alias('a').join(df2.alias('b'), F.expr(self.condition), self.join_type)
 
-        join_keys = []
-        for table in self.join_on:
-            join_keys.append(self.join_on.get(table))
-
-        assert len(join_keys) == 2
-
-        matching_col = join_keys
-
-        df1 = df1.join(df2, df1[matching_col[0]] == df2[matching_col[1]], self.join_type).drop(df2[matching_col[1]])
-        if df1.isEmpty():
-            raise SerraRunException(f"""Joiner - Join Key Error: {matching_col[0]}, {matching_col[1]} columns do not match.""")
         return df1
     
     

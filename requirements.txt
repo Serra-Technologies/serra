@@ -1,9 +1,12 @@
 pyspark
 click
 pyyaml
-pandas
+pandas==1.5.3
 boto3
 databricks-sdk
 loguru
 wheel
 snowflake-connector-python
+google-cloud-bigquery
+db-dtypes
+geopy

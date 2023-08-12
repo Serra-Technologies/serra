@@ -15,9 +15,7 @@ class SelectTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.columns = self.config.get("columns", [])
-        self.distinct_col = self.config.get('distinct_col')
-        self.condition = self.config.get('condition')
+        self.sql_expr = config.get('sql_expr')
 
     def transform(self, df: DataFrame) -> DataFrame:
         """
@@ -28,21 +26,7 @@ class SelectTransformer(Transformer):
         :raises: SerraRunException if no columns are specified in the configuration
                  or if none of the specified columns exist in the DataFrame.
         """
-        if not self.columns:
-            raise SerraRunException("No columns specified in the configuration.")
-
-        selected_columns = [F.col(col) for col in self.columns if col in df.columns]
-
-        if not selected_columns:
-            raise SerraRunException("None of the specified columns exist in the DataFrame.")
-
-        df = df.select(*selected_columns)
-        
-        if self.distinct_col is not None:
-            df = df.dropDuplicates(self.distinct_col)
-
-        if self.condition is not None:
-            df = df.filter(F.expr(self.condition))
+        df = df.filter(F.expr(self.condition))
         return df
 
 

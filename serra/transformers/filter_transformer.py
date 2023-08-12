@@ -16,6 +16,7 @@ class FilterTransformer(Transformer):
         self.config = config
         self.condition = config.get("condition")
         self.column = config.get("column")
+        self.is_expr = config.get('is_expr')
 
     def transform(self, df):
         """
@@ -24,6 +25,8 @@ class FilterTransformer(Transformer):
         :param df: The input DataFrame to be transformed.
         :return: A new DataFrame with rows filtered based on the specified condition.
         """
+        if self.is_expr:
+            return df.filter(F.expr(self.condition))
 
         return df.filter(df[self.column].isin(self.condition))
     
