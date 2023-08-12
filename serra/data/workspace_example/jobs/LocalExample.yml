@@ -14,6 +14,7 @@ read_ratings:
 
 step_join:
   JoinTransformer:
+    input_block: [read_sales,read_ratings]
     join_type: 'inner'
     join_on:
       read_sales: id
