@@ -17,7 +17,7 @@ Create a new directory and run an interactive bash shell with docker to get star
 ```bash
 mkdir serra-dev
 cd serra-dev
-docker run --mount type=bind,source="$(pwd)",target=/app -it albertjstanley/serra /bin/bash
+docker run --mount type=bind,source="$(pwd)",target=/app -it serraio/serra /bin/bash
 ```
 
 Run `serra create` to create a workspace folder. 
