@@ -21,7 +21,9 @@ setup(name='serra',
           "databricks-sdk",
           "wheel",
           "loguru",
-          "snowflake-connector-python"
+          "snowflake-connector-python",
+          "google-cloud-biquery",
+          "geopy"
       ],
       zip_safe=False,
       entry_points={
