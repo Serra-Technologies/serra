@@ -42,7 +42,7 @@ def cli_translator(sql_path, run):
     """
     translate_job(sql_path, run)
 
-@main.command(name="create_job")
+@main.command(name="deploy")
 @click.argument("job_name")
 def cli_create_job(job_name):
     """Create a databricks job
