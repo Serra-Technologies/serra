@@ -2,7 +2,7 @@ import setuptools
 from setuptools import setup
 
 setup(name='serra',
-      version='0.7.15',
+      version='0.7.16',
       description='Simplified Data Pipelines',
       url='http://github.com',
       author='Serra Technologies',
@@ -22,7 +22,7 @@ setup(name='serra',
           "wheel",
           "loguru",
           "snowflake-connector-python",
-          "google-cloud-biquery",
+          "google-cloud-bigquery",
           "geopy"
       ],
       zip_safe=False,
