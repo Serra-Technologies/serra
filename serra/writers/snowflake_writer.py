@@ -62,7 +62,7 @@ class SnowflakeWriter():
 
         # If creating entirely new table
         if self.type == 'create': 
-            create_table_sql = f"CREATE TABLE {self.config.get('table')} ("
+            create_table_sql = f"CREATE OR REPLACE TABLE {self.config.get('table')} ("
 
             # Get schema
             for column in pandas_df.columns:
