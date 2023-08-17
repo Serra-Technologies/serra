@@ -1,6 +1,8 @@
+import os
 import yaml
 
 from serra.aws import retrieve_file_from_config_bucket
+from serra.exceptions import SerraRunException
 
 def convert_name_to_full(class_name):
     if "Reader" in class_name:
@@ -17,6 +19,9 @@ class ConfigParser:
 
     @staticmethod
     def from_local_config(config_path: str):
+        if (not os.path.isfile(config_path)):
+            raise SerraRunException(f"Unable to find config file: {config_path}")
+
         with open(config_path, 'r') as stream:
             config = yaml.safe_load(stream)
         return ConfigParser(config)

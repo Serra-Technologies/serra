@@ -39,24 +39,24 @@ def run_job_from_job_dir(job_name):
     except SerraRunException as e:
         logger.error(e)
 
-def translate_job(sql_path, is_run):
+def translate_job(sql_file_name, is_run):
     """
     translates your given sql file, gives you the config output, and saves the config in a new yml file
     """
-
-    # Get serra token from ~/.serra/credentials.json if it exists
-    logger.info(f"Starting translation process for {sql_path}...")
-    yaml_path = os.path.splitext(sql_path)[0]
-
-    # Translate job by getting root dir, sql folder, sql path, get response, package path is just serra/
+    # Find sql file and determine where to write yaml
+    yaml_path = os.path.splitext(sql_file_name)[0]
     sql_folder_path = './sql'
-
-    sql_path = f"{sql_folder_path}/{sql_path}"
-
-    translated_yaml = get_translated_yaml(sql_path)
-    if not translated_yaml:
+    sql_file_path = f"{sql_folder_path}/{sql_file_name}"
+    if (not os.path.isfile(sql_file_path)):
+        logger.error(f"Unable to find sql file: {sql_file_path}")
         return
 
+    # Translation process
+    logger.info(f"Starting translation process for {sql_file_name}...")
+    translated_yaml = get_translated_yaml(sql_file_path)
+    if not translated_yaml:
+        return
+ 
     # Save in new yaml file (config folder with same name as sql path)
     user_configs_folder = get_path_to_user_configs_folder()
     yaml_path = f"{user_configs_folder}/{yaml_path}.yml"
@@ -71,7 +71,6 @@ def translate_job(sql_path, is_run):
     if is_run:
         logger.info("Running job...")
         cf = ConfigParser.from_local_config(yaml_path)
-    # run_job_simple_linear(cf, True)
         try:
             run_job_with_graph(cf)
             logger.info("Job run completed.")
