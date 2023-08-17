@@ -20,11 +20,9 @@ def add_s3_config(spark_builder):
 def set_jar_packages(spark_builder):
     packages = [
         # for s3
-        'org.apache.hadoop:hadoop-aws:3.3.1',
-        'com.google.guava:guava:30.1.1-jre',
-        'org.apache.httpcomponents:httpcore:4.4.14',
-        'com.google.inject:guice:4.2.2', 
-        'com.google.inject.extensions:guice-servlet:4.2.2',
+        "org.apache.hadoop:hadoop-aws:3.3.4",
+        "com.amazonaws:aws-java-sdk-bundle:1.12.530",
+        "org.apache.hadoop:hadoop-common:3.3.4",
         # For bigquery
         "com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.32.2"
         ]  
