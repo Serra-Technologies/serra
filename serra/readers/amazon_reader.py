@@ -29,7 +29,17 @@ class AmazonS3Reader():
     
     @property
     def file_type(self):
+        file_type = self.config.get("file_type")
+        assert file_type in ['csv', 'parquet', 'json', 'orc']
         return self.config.get("file_type")
+    
+    @property
+    def options(self):
+        options = self.config.get('options')
+        if not options:
+            return {}
+        # is dict
+        return options
     
     @property
     def dependencies(self):
@@ -42,27 +52,14 @@ class AmazonS3Reader():
         :return: A Spark DataFrame containing the data read from the S3 bucket.
         :raises: Any exceptions that may occur during file reading or DataFrame creation.
         """
-        session = boto3.Session(
-            aws_access_key_id=self.serra_profile.aws_access_key_id,
-            aws_secret_access_key=self.serra_profile.aws_secret_access_key
-        )
-
-        # Create an S3 client using the session
-        s3_client = session.client('s3')
-
-        # Read the CSV file from the S3 bucket using pandas
-        # try:
-        response = s3_client.get_object(Bucket=self.bucket_name, 
-                                        Key=self.file_path)
-        csv_data = response['Body']
-        
-        # Read the CSV data into a pandas DataFrame
-        df = pd.read_csv(csv_data)
-                
-        # except Exception as e:
-        #     print(f"Error reading CSV file: {str(e)}")
-
         spark = get_or_create_spark_session()
-        spark_df = spark.createDataFrame(df)
+        s3_url = f"s3a://{self.bucket_name}/{self.file_path}"
+        df_read = spark.read
 
-        return spark_df
+        # To specify options like header: true
+        for option_key, option_value in self.options.items():
+            df_read = df_read.option(option_key, option_value)
+            
+        df = df_read.format(self.file_type).load(s3_url)
+
+        return df

@@ -31,6 +31,19 @@ class AmazonS3Writer():
         return self.config.get("file_type")
     
     @property
+    def options(self):
+        options = self.config.get('options')
+        if not options:
+            return {}
+        return options
+    
+    @property
+    def mode(self):
+        mode = self.config.get('mode')
+        assert mode in ['error', 'overwrite', 'ignore', 'errorifexists']
+        return mode
+    
+    @property
     def dependencies(self):
         return [self.config.get('input_block')]
     
@@ -40,26 +53,11 @@ class AmazonS3Writer():
 
         :param df: The Spark DataFrame to be written.
         """
-        # Convert DataFrame to CSV data
-        pandas_df = df.toPandas()
-        csv_data = pandas_df.to_csv(index=False)
-        
-        session = boto3.Session(
-            aws_access_key_id=self.serra_profile.aws_access_key_id,
-            aws_secret_access_key=self.serra_profile.aws_secret_access_key
-        )
+        df_write = df.write
 
-        # Create an S3 client using the session
-        s3_client = session.client('s3')
+        # To specify options like header: true
+        for option_key, option_value in self.options.items():
+            df_write = df_write.option(option_key, option_value)
         
-        # Write the CSV data to the S3 bucket
-        try:
-            response = s3_client.put_object(
-                Bucket=self.bucket_name,
-                Key=self.file_path,
-                Body=csv_data.encode('utf-8')
-            )
-            print(f"CSV file written to {self.bucket_name}/{self.file_path}")
-            
-        except Exception as e:
-            print(f"Error writing CSV file: {str(e)}")
+        s3_url = f"s3a://{self.bucket_name}/{self.file_path}"
+        df_write.mode(self.mode).format(self.file_type).save(s3_url)
