@@ -1,7 +1,7 @@
 from pyspark.sql import DataFrame
 
 from serra.writers import Writer
-from serra.utils import get_or_create_spark_session
+from serra.spark import get_or_create_spark_session
 
 class DatabricksWriter(Writer):
     """

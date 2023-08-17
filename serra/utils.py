@@ -1,7 +1,6 @@
 import os
 import shutil
 
-from pyspark.sql import SparkSession
 from os.path import exists
 from loguru import logger
 
@@ -18,10 +17,6 @@ def import_class(cl):
     classname = cl[d + 1 : len(cl)]
     m = __import__(cl[0:d], globals(), locals(), [classname])
     return getattr(m, classname)
-
-def get_or_create_spark_session():
-    # TODO: Take a look for spark session conf: https://engineeringfordatascience.com/posts/pyspark_unit_testing_with_pytest/
-    return SparkSession.builder.config("spark.logLevel", "ERROR").getOrCreate()
 
 def get_path_to_user_configs_folder():
     return "./jobs"

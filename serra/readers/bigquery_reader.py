@@ -1,7 +1,7 @@
 from google.cloud import bigquery
 
 from serra.config import BIGQUERY_ACCOUNT_INFO_PATH
-from serra.utils import get_or_create_spark_session
+from serra.spark import get_or_create_spark_session
 
 
 class BigQueryReader():
@@ -17,6 +17,7 @@ class BigQueryReader():
 
     def __init__(self, config):
         self.config = config
+        self.spark = get_or_create_spark_session()
     
     @property
     def project_id(self):
@@ -40,17 +41,24 @@ class BigQueryReader():
 
         :return: A Spark DataFrame containing the data read from the specified Snowflake table.
         """
+        df = self.spark.read("bigquery")\
+            .option('project', self.project_id)\
+                .load(f"{self.dataset_id}.{self.table_id}")
+        return df
+
         # Query to fetch data
-        query = f"SELECT * FROM `{self.project_id}.{self.dataset_id}.{self.table_id}`"
+        # query = f"SELECT * FROM `{self.project_id}.{self.dataset_id}.{self.table_id}`"
 
-        # Execute the query
-        client = bigquery.Client.from_service_account_json(BIGQUERY_ACCOUNT_INFO_PATH)
-        query_job = client.query(query)
+        # # Execute the query
+        # client = bigquery.Client.from_service_account_json(BIGQUERY_ACCOUNT_INFO_PATH)
+        # query_job = client.query(query)
 
-        # Fetch the results
-        df = query_job.to_dataframe()
+        # # Fetch the results
+        # df = query_job.to_dataframe()
+
         
-        # Change to spark dataframe
-        spark = get_or_create_spark_session()
-        spark_df = spark.createDataFrame(df)
-        return spark_df
+        
+        # # Change to spark dataframe
+        # spark = get_or_create_spark_session()
+        # spark_df = spark.createDataFrame(df)
+        # return spark_df

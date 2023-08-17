@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 
 from serra.readers import Reader
-from serra.utils import get_or_create_spark_session
+from serra.spark import get_or_create_spark_session
 
 class LocalReader(Reader):
     """

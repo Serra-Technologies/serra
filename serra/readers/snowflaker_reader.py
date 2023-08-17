@@ -2,7 +2,7 @@ import pandas as pd
 import snowflake.connector
 
 from serra.profile import get_serra_profile
-from serra.utils import get_or_create_spark_session
+from serra.spark import get_or_create_spark_session
 
 
 class SnowflakeReader():

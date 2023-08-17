@@ -1,5 +1,4 @@
 from serra.writers.writer import Writer
-from serra.utils import get_or_create_spark_session
 
 class LocalWriter(Writer):
     """
@@ -11,7 +10,6 @@ class LocalWriter(Writer):
     """
     
     def __init__(self, config):
-        self.spark = get_or_create_spark_session()
         self.config = config
         self.file_path = config.get("file_path")
     
