@@ -31,19 +31,10 @@ class BigQueryWriter():
     
     @property
     def mode(self):
-        WRITE_APPEND = "WRITE_APPEND"
-        """If the table already exists, BigQuery appends the data to the table."""
-
-        WRITE_TRUNCATE = "WRITE_TRUNCATE"
-        """If the table already exists, BigQuery overwrites the table data."""
-
-        WRITE_EMPTY = "WRITE_EMPTY"
-        """If the table already exists and contains data, a 'duplicate' error is
-        returned in the job result."""
         mode = self.config.get("mode")
-        valid_modes = ['append', 'truncate', 'empty']
+        valid_modes = ['append', 'overwrite', 'error', 'ignore']
         if mode not in valid_modes:
-            raise SerraRunException(f"Invalid BigQueryWriter mode: {mode}, should be one of [{valid_modes}]")
+            raise SerraRunException(f"Invalid BigQueryWriter mode: {mode}, should be one of {valid_modes}")
         return self.config.get("mode")
 
     @property
@@ -56,18 +47,9 @@ class BigQueryWriter():
 
         :return: A Spark DataFrame containing the data read from the specified Snowflake table.
         """
-        pandas_df = df.toPandas()
-        client = bigquery.Client.from_service_account_json(BIGQUERY_ACCOUNT_INFO_PATH)
-        # Query to fetch data
-        table_ref = f"{self.project_id}.{self.dataset_id}.{self.table_id}"
-
-        # Write pandas DataFrame to BigQuery table
-        job_config = bigquery.LoadJobConfig()
-        if self.mode == "append":
-            job_config.write_disposition = bigquery.WriteDisposition.WRITE_APPEND
-        elif self.mode == "truncate":
-            job_config.write_disposition = bigquery.WriteDisposition.WRITE_TRUNCATE
-        elif self.mode == "empty":
-            job_config.write_disposition = bigquery.WriteDisposition.WRITE_EMPTY
-        job = client.load_table_from_dataframe(pandas_df, table_ref, job_config=job_config)
-        job.result()  # Wait for the job to complete
+        df.write \
+            .format("bigquery") \
+            .option('project', self.project_id)\
+            .option("writeMethod", "direct") \
+            .mode(self.mode)\
+            .save(f"{self.dataset_id}.{self.table_id}")
