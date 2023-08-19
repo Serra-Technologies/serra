@@ -22,6 +22,8 @@ def run_job(job_name, config_location):
     """
     You can either run the job with a file that is found locally, or is uploaded to an s3 bucket
     The s3 bucket is specified through the profiles.yml
+
+    Returns a json representation of the run
     """
 
     assert config_location in ["local", 'aws']
@@ -34,15 +36,18 @@ def run_job(job_name, config_location):
         config_path = f"{job_name}.yml"
         cf = ConfigParser.from_s3_config(config_path)
 
-    run_job_with_graph(cf)
+    monitor = run_job_with_graph(cf)
+    return monitor.to_dict()
 
 def run_job_safely(job_name, config_location):
     """Wrapper of run job with exception catcher
     """
+    result = None
     try:
-        run_job(job_name, config_location)
+        result = run_job(job_name, config_location)
     except SerraRunException as s:
         logger.error(s)
+    return result
 
 
 def translate_job(sql_file_name):

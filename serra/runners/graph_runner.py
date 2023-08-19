@@ -4,7 +4,7 @@ from serra.config_parser import ConfigParser, convert_name_to_full
 from serra.utils import import_class
 from serra.tests import duplicates_test, nulls_test
 from serra.runners.ExecutionGraph import BlockGraph
-
+from serra.runners.monitor import Monitor
 
 # Returns instatiated reader,writer,transformer class with config already passed in
 def get_configured_block_object(block_name, cf: ConfigParser):
@@ -64,6 +64,8 @@ def run_job_with_graph(cf: ConfigParser):
     TODO: Verify there are no circular dependencies
     """
 
+    monitor = Monitor()
+
     ordered_block_names = get_order_of_execution(cf)
     logger.info(f"Decided order of execution: {ordered_block_names}")
     df_map = {}
@@ -93,6 +95,8 @@ def run_job_with_graph(cf: ConfigParser):
             # Set the dataframe reference in the map
             df_map[block_name] = df
 
+        monitor.log_job_step(block_name, df)
+
         if cf.get_tests_for_block(block_name) is not None:
             tests = cf.get_tests_for_block(block_name)
             for test_name in tests:
@@ -109,3 +113,10 @@ def run_job_with_graph(cf: ConfigParser):
         df.show(500)
     else:
         df.show()
+
+    # response = monitor.to_dict()
+    # for key, value in response.items():
+    #     print(key)
+    #     print(value)
+
+    return monitor
