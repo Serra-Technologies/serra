@@ -2,7 +2,7 @@
 import sys
 import click
 
-from serra.run import run_job_from_job_dir, update_package, create_job_yaml, run_job_from_aws, translate_job
+from serra.run import update_package, translate_job, run_job_safely
 from serra.databricks import create_job
 from serra.utils import validate_workspace
 from serra.config import PACKAGE_PATH
@@ -13,20 +13,13 @@ from serra.translate_module.translate_client import reset_serra_token
 def main():
     pass
 
-@main.command(name="start")
-@click.argument("job_name")
-def cli_start(job_name):
-    """Create a yaml for job_name
-    """
-    create_job_yaml(job_name)
-
 @main.command(name="run")
 @click.argument("job_name")
 def cli_run_job_from_job_dir(job_name):
     """Run a specific job locally
     """
     validate_workspace()
-    run_job_from_job_dir(job_name)
+    run_job_safely(job_name, "local")
 
 @main.command(name='configure')
 def cli_configure():
@@ -68,7 +61,7 @@ def cli_update_package():
 def serra_databricks():
     assert len(sys.argv) == 2
     job_name = sys.argv[1]
-    run_job_from_aws(job_name)
+    run_job_safely(job_name, 'aws')
     
 if __name__ == '__main__':
   main()

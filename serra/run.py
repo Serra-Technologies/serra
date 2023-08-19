@@ -1,8 +1,6 @@
 # Running a specific job
 import os
 import sys
-from sys import exit
-from os.path import exists
 
 from loguru import logger
 
@@ -20,26 +18,34 @@ PACKAGE_PATH = os.path.dirname(os.path.dirname(__file__))
 logger.remove()  # Remove the default sink
 logger.add(sink=sys.stdout, format="<green>{time}</green> - <level>{level}</level> - <cyan>{message}</cyan>", colorize=True)
 
-def create_job_yaml(job_name):
-    file_path = f"{get_path_to_user_configs_folder()}/{job_name}.yml"
+def run_job(job_name, config_location):
+    """
+    You can either run the job with a file that is found locally, or is uploaded to an s3 bucket
+    The s3 bucket is specified through the profiles.yml
+    """
 
-    if exists(file_path):
-        print("File already exists. Exiting.")
-        exit()
-    
-    starter_config = f"name: {job_name}\nsteps: []"
-    write_to_file(file_path, starter_config)
+    assert config_location in ["local", 'aws']
 
-def run_job_from_job_dir(job_name):
-    try:
+    if config_location == "local":
         user_configs_folder = get_path_to_user_configs_folder()
         config_path = f"{user_configs_folder}/{job_name}.yml"
         cf = ConfigParser.from_local_config(config_path)
-        run_job_with_graph(cf)
-    except SerraRunException as e:
-        logger.error(e)
+    elif config_location == "aws":
+        config_path = f"{job_name}.yml"
+        cf = ConfigParser.from_s3_config(config_path)
 
-def translate_job(sql_file_name, is_run):
+    run_job_with_graph(cf)
+
+def run_job_safely(job_name, config_location):
+    """Wrapper of run job with exception catcher
+    """
+    try:
+        run_job(job_name, config_location)
+    except SerraRunException as s:
+        logger.error(s)
+
+
+def translate_job(sql_file_name):
     """
     translates your given sql file, gives you the config output, and saves the config in a new yml file
     """
@@ -65,25 +71,8 @@ def translate_job(sql_file_name, is_run):
     # try:
     #     clean_yaml_file(yaml_path)
     # except:
-    #     logger.error(f"Error while cleaning translate file")
+    #     logger.error(f"Unable to clean translated file")
     logger.info(f"Translation complete. Yaml file can be found at {os.path.abspath(yaml_path)}")
-
-    if is_run:
-        logger.info("Running job...")
-        cf = ConfigParser.from_local_config(yaml_path)
-        try:
-            run_job_with_graph(cf)
-            logger.info("Job run completed.")
-        except SerraRunException as e:
-            logger.error(e)
-
-def run_job_from_aws(job_name):
-    try:
-        cf = ConfigParser.from_s3_config(f"{job_name}.yml")
-        run_job_with_graph(cf)
-    except SerraRunException as e:
-        logger.error(e)
-        exit(1)
 
 def update_package():
     # create wheel
