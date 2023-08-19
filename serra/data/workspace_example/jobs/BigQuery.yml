@@ -22,5 +22,6 @@ step_write:
     project_id: serrra-demo
     dataset_id: sales
     table_id: sales_new
+    mode: overwrite
 
 
