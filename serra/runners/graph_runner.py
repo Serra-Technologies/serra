@@ -50,7 +50,7 @@ def get_order_of_execution(cf: ConfigParser):
 
     return order
 
-def run_job_with_graph(cf: ConfigParser, serra_profile: SerraProfile):
+def run_job_with_graph(cf: ConfigParser, serra_profile: SerraProfile) -> Monitor:
     """
     This function allows us to run a job that contains blocks connected through the
     input_block parameter in each of the transformers and writers. The basic idea
