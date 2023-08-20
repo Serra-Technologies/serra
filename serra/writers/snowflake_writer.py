@@ -1,10 +1,10 @@
 import snowflake.connector
 from loguru import logger
 
-from serra.profile import get_serra_profile
 from serra.exceptions import SerraRunException
+from serra.writers import Writer
 
-class SnowflakeWriter():
+class SnowflakeWriter(Writer):
     """
     A writer to write data from a Spark DataFrame to a Snowflake table.
 
@@ -20,7 +20,10 @@ class SnowflakeWriter():
     def __init__(self, config):
         self.config = config
         self.type = self.config.get('type')
-        self.snowflake_account = get_serra_profile().snowflake_account
+
+    @property
+    def snowflake_account(self):
+        return self.serra_profile.snowflake_account
     
     @property
     def user(self):

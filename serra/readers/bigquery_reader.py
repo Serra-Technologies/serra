@@ -1,10 +1,7 @@
-from google.cloud import bigquery
-
-from serra.config import BIGQUERY_ACCOUNT_INFO_PATH
-from serra.spark import get_or_create_spark_session
+from serra.readers import Reader
 
 
-class BigQueryReader():
+class BigQueryReader(Reader):
     """
     A reader to read data from Snowflake into a Spark DataFrame.
 
@@ -17,7 +14,6 @@ class BigQueryReader():
 
     def __init__(self, config):
         self.config = config
-        self.spark = get_or_create_spark_session()
     
     @property
     def project_id(self):

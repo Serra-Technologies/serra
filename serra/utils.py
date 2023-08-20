@@ -3,6 +3,11 @@ import shutil
 
 from os.path import exists
 from loguru import logger
+from serra.profile import SerraProfile
+
+def get_local_serra_profile():
+    serra_profile = SerraProfile.from_yaml_path("./profiles.yml")
+    return serra_profile
 
 def write_to_file(filename, content):
     try:

@@ -1,10 +1,9 @@
 import boto3
 import pandas as pd
 
-from serra.spark import get_or_create_spark_session
-from serra.profile import get_serra_profile
+from serra.readers import Reader
 
-class AmazonS3Reader():
+class AmazonS3Reader(Reader):
     """
     A class to read data from Amazon S3 and return a Spark DataFrame.
 
@@ -17,7 +16,6 @@ class AmazonS3Reader():
 
     def __init__(self, config):
         self.config = config
-        self.serra_profile = get_serra_profile()
     
     @property
     def bucket_name(self):
@@ -52,7 +50,7 @@ class AmazonS3Reader():
         :return: A Spark DataFrame containing the data read from the S3 bucket.
         :raises: Any exceptions that may occur during file reading or DataFrame creation.
         """
-        spark = get_or_create_spark_session()
+        spark = self.spark
         s3_url = f"s3a://{self.bucket_name}/{self.file_path}"
         df_read = spark.read
 

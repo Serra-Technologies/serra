@@ -1,6 +1,7 @@
+from serra.base import Step
 from abc import ABC, abstractmethod
 
-class Reader(ABC):
+class Reader(Step):
     """
     Reader base class for ingesting data
     Enforce read method

@@ -3,21 +3,21 @@ import json
 
 import boto3
 
-from serra.profile import get_serra_profile
+from serra.utils import get_local_serra_profile
 
 def get_s3_client():
-    user_profile = get_serra_profile()
+    user_profile = get_local_serra_profile()
     s3 = boto3.resource('s3',
             aws_access_key_id=user_profile.aws_access_key_id,
             aws_secret_access_key=user_profile.aws_secret_access_key)
     return s3
 
 def upload_file_to_config_bucket(file_path):
-    bucket = get_serra_profile().aws_config_bucket
+    bucket = get_local_serra_profile().aws_config_bucket
     upload_file_to_bucket(file_path, bucket)
 
 def retrieve_file_from_config_bucket(filename):
-    bucket = get_serra_profile().aws_config_bucket
+    bucket = get_local_serra_profile().aws_config_bucket
     data = retrieve_file_as_bytes_from_bucket(filename, bucket)
     return data
 

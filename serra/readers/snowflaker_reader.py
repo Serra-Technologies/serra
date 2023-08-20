@@ -1,11 +1,10 @@
 import pandas as pd
 import snowflake.connector
 
-from serra.profile import get_serra_profile
-from serra.spark import get_or_create_spark_session
+from serra.readers import Reader
 
 
-class SnowflakeReader():
+class SnowflakeReader(Reader):
     """
     A reader to read data from Snowflake into a Spark DataFrame.
 
@@ -19,8 +18,11 @@ class SnowflakeReader():
 
     def __init__(self, config):
         self.config = config
-        self.snowflake_account = get_serra_profile().snowflake_account
     
+    @property
+    def snowflake_account(self):
+        return self.serra_profile.snowflake_account
+
     @property
     def user(self):
         return self.snowflake_account.get("USER")
@@ -59,6 +61,6 @@ class SnowflakeReader():
         column_names = [column[0] for column in ctx.description]
         df = pd.DataFrame(results, columns=column_names)
 
-        spark = get_or_create_spark_session()
+        spark = self.spark
         spark_df = spark.createDataFrame(df)
         return spark_df

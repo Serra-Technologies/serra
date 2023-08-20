@@ -1,6 +1,3 @@
-import boto3
-
-from serra.profile import get_serra_profile
 
 class AmazonS3Writer():
     """
@@ -16,7 +13,6 @@ class AmazonS3Writer():
     
     def __init__(self, config):
         self.config = config
-        self.serra_profile = get_serra_profile()
     
     @property
     def bucket_name(self):

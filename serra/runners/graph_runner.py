@@ -5,9 +5,12 @@ from serra.utils import import_class
 from serra.tests import duplicates_test, nulls_test
 from serra.runners.ExecutionGraph import BlockGraph
 from serra.runners.monitor import Monitor
+from serra.profile import SerraProfile
+from serra.base import Step
+from serra.spark import get_or_create_spark_session
 
 # Returns instatiated reader,writer,transformer class with config already passed in
-def get_configured_block_object(block_name, cf: ConfigParser):
+def get_configured_block_object(block_name, cf: ConfigParser) -> Step:
     config = cf.get_config_for_block(block_name)
     class_name = cf.get_class_name_for_step(block_name)
 
@@ -47,7 +50,7 @@ def get_order_of_execution(cf: ConfigParser):
 
     return order
 
-def run_job_with_graph(cf: ConfigParser):
+def run_job_with_graph(cf: ConfigParser, serra_profile: SerraProfile):
     """
     This function allows us to run a job that contains blocks connected through the
     input_block parameter in each of the transformers and writers. The basic idea
@@ -65,6 +68,7 @@ def run_job_with_graph(cf: ConfigParser):
     """
 
     monitor = Monitor()
+    spark = get_or_create_spark_session(serra_profile)
 
     ordered_block_names = get_order_of_execution(cf)
     logger.info(f"Decided order of execution: {ordered_block_names}")
@@ -74,6 +78,8 @@ def run_job_with_graph(cf: ConfigParser):
         logger.info(f"Executing step {block_name}")
 
         block_obj = get_configured_block_object(block_name, cf)
+        block_obj.add_serra_profile(serra_profile)
+        block_obj.add_spark_session(spark)
 
         if is_reader(block_name, cf):
             df = block_obj.read()

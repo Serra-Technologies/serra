@@ -1,6 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
+from serra.base import Step
 
-class Writer(ABC):
+class Writer(Step):
     """
     Writer base class for loading data
     Enforce write method

@@ -10,6 +10,7 @@ from serra.databricks import upload_wheel_to_bucket, restart_server
 from serra.runners.graph_runner import run_job_with_graph
 from serra.exceptions import SerraRunException
 from serra.translate_module.translate_client import save_as_yaml, get_translated_yaml
+from serra.profile import SerraProfile
 # from serra.translate_module.clean import clean_yaml_file
 
 PACKAGE_PATH = os.path.dirname(os.path.dirname(__file__))
@@ -28,15 +29,21 @@ def run_job(job_name, config_location):
 
     assert config_location in ["local", 'aws']
 
+    cf = None
+    serra_profile = None
+
     if config_location == "local":
         user_configs_folder = get_path_to_user_configs_folder()
         config_path = f"{user_configs_folder}/{job_name}.yml"
         cf = ConfigParser.from_local_config(config_path)
+
+        serra_profile = SerraProfile.from_yaml_path("./profiles.yml")
     elif config_location == "aws":
         config_path = f"{job_name}.yml"
         cf = ConfigParser.from_s3_config(config_path)
+        raise NotImplementedError("Must grab profiles.yml from AWS as well")
 
-    monitor = run_job_with_graph(cf)
+    monitor = run_job_with_graph(cf, serra_profile)
     return monitor.to_dict()
 
 def run_job_safely(job_name, config_location):

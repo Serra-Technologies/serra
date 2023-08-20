@@ -1,12 +1,11 @@
 from pyspark.sql import SparkSession
-from serra.profile import get_serra_profile
+from serra.profile import SerraProfile
 
 
 def misc_config(spark_builder):
     return spark_builder.config("spark.sql.debug.maxToStringFields", 100)
 
-def add_s3_config(spark_builder):
-     serra_profile = get_serra_profile()
+def add_s3_config(spark_builder, serra_profile: SerraProfile):
      s3_access_key = serra_profile.aws_access_key_id
      s3_secret_key = serra_profile.aws_secret_access_key
 
@@ -29,10 +28,10 @@ def set_jar_packages(spark_builder):
     spark_builder = spark_builder.config('spark.jars.packages', ','.join(packages))
     return spark_builder
 
-def get_or_create_spark_session():
+def get_or_create_spark_session(serra_profile: SerraProfile):
     # TODO: Take a look for spark session conf: https://engineeringfordatascience.com/posts/pyspark_unit_testing_with_pytest/
     builder = SparkSession.builder
     builder = set_jar_packages(builder)
-    builder = add_s3_config(builder)
+    builder = add_s3_config(builder, serra_profile)
     builder = misc_config(builder)
     return builder.getOrCreate()

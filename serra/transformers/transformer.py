@@ -1,6 +1,7 @@
-from abc import ABC, abstractmethod
+from serra.base import Step
+from abc import abstractmethod
 
-class Transformer(ABC):
+class Transformer(Step):
     """
     Transformer base class for data transformations
     Enforce transform method
