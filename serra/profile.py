@@ -6,6 +6,11 @@ class SerraProfile:
         self.config = config
 
     @staticmethod
+    def from_string(config_string):
+        config = yaml.safe_load(config_string)
+        return SerraProfile(config)
+
+    @staticmethod
     def from_yaml_path(config_path):
         with open(config_path, 'r') as stream:
             config = yaml.safe_load(stream)

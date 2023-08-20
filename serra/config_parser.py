@@ -16,6 +16,11 @@ class ConfigParser:
 
     def __init__(self, config):
         self.config = config
+    
+    @staticmethod
+    def from_string(config_string):
+        config = yaml.safe_load(config_string)
+        return ConfigParser(config)
 
     @staticmethod
     def from_local_config(config_path: str):
