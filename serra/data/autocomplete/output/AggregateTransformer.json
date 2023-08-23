@@ -1,0 +1,15 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "group_by": {
+            "type": "array"
+        },
+        "input_block": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

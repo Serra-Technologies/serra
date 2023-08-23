@@ -20,6 +20,18 @@
                 {
                     "additionalProperties": false,
                     "properties": {
+                        "AggregateTransformer": {
+                            "$ref": "./AggregateTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
                         "CaseWhenTransformer": {
                             "$ref": "./CaseWhenTransformer.json"
                         },
@@ -44,8 +56,68 @@
                 {
                     "additionalProperties": false,
                     "properties": {
+                        "CoalesceTransformer": {
+                            "$ref": "./CoalesceTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "CrossJoinTransformer": {
+                            "$ref": "./CrossJoinTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "DateTruncTransformer": {
+                            "$ref": "./DateTruncTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
                         "DropColumnTransformer": {
                             "$ref": "./DropColumnTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "FilterTransformer": {
+                            "$ref": "./FilterTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "GeoDistanceTransformer": {
+                            "$ref": "./GeoDistanceTransformer.json"
                         },
                         "tests": {
                             "type": "array"
@@ -68,6 +140,42 @@
                 {
                     "additionalProperties": false,
                     "properties": {
+                        "GetDistinctTransformer": {
+                            "$ref": "./GetDistinctTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "GetMaxOrMinTransformer": {
+                            "$ref": "./GetMaxOrMinTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "ImputeTransformer": {
+                            "$ref": "./ImputeTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
                         "JoinTransformer": {
                             "$ref": "./JoinTransformer.json"
                         },
@@ -80,8 +188,56 @@
                 {
                     "additionalProperties": false,
                     "properties": {
+                        "JoinWithConditionTransformer": {
+                            "$ref": "./JoinWithConditionTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
                         "MapTransformer": {
                             "$ref": "./MapTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "MultiJoinTransformer": {
+                            "$ref": "./MultiJoinTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "MultipleCaseWhenTransformer": {
+                            "$ref": "./MultipleCaseWhenTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "OrderByTransformer": {
+                            "$ref": "./OrderByTransformer.json"
                         },
                         "tests": {
                             "type": "array"
@@ -128,8 +284,44 @@
                 {
                     "additionalProperties": false,
                     "properties": {
+                        "SQLTransformer": {
+                            "$ref": "./SQLTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "WindowTransformer": {
+                            "$ref": "./WindowTransformer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
                         "AmazonS3Reader": {
                             "$ref": "./AmazonS3Reader.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "BigQueryReader": {
+                            "$ref": "./BigQueryReader.json"
                         },
                         "tests": {
                             "type": "array"
@@ -164,8 +356,32 @@
                 {
                     "additionalProperties": false,
                     "properties": {
+                        "SnowflakeReader": {
+                            "$ref": "./SnowflakeReader.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
                         "AmazonS3Writer": {
                             "$ref": "./AmazonS3Writer.json"
+                        },
+                        "tests": {
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "additionalProperties": false,
+                    "properties": {
+                        "BigQueryWriter": {
+                            "$ref": "./BigQueryWriter.json"
                         },
                         "tests": {
                             "type": "array"

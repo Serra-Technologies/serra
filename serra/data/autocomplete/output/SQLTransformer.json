@@ -1,0 +1,12 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "input_block": {
+            "type": "string"
+        },
+        "sql_expr": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

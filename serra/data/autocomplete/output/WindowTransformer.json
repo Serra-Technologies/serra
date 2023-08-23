@@ -1,0 +1,12 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "input_block": {
+            "type": "string"
+        },
+        "partition_by": {
+            "type": "array"
+        }
+    },
+    "type": "object"
+}

@@ -1,0 +1,18 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "col_dict": {
+            "type": "array"
+        },
+        "group_by": {
+            "type": "string"
+        },
+        "input_block": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

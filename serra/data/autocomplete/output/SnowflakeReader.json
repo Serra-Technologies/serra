@@ -1,0 +1,15 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "database": {
+            "type": "string"
+        },
+        "schema": {
+            "type": "string"
+        },
+        "warehouse": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

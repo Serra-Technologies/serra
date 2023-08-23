@@ -1,0 +1,9 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "input_block": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

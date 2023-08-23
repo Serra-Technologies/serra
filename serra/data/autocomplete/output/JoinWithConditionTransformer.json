@@ -1,0 +1,18 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "condition": {
+            "type": "string"
+        },
+        "input_block": {
+            "type": "string"
+        },
+        "join_on": {
+            "type": "object"
+        },
+        "join_type": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

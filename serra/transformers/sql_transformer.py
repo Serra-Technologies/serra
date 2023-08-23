@@ -4,7 +4,7 @@ from pyspark.sql import functions as F
 from serra.transformers.transformer import Transformer
 from serra.exceptions import SerraRunException
 
-class SelectTransformer(Transformer):
+class SQLTransformer(Transformer):
     """
     A transformer to perform a SELECT operation on a DataFrame.
 
@@ -26,7 +26,7 @@ class SelectTransformer(Transformer):
         :raises: SerraRunException if no columns are specified in the configuration
                  or if none of the specified columns exist in the DataFrame.
         """
-        df = df.filter(F.expr(self.condition))
+        df = df.filter(F.expr(self.sql_expr))
         return df
 
 

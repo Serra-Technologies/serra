@@ -1,0 +1,15 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "input_block": {
+            "type": "string"
+        },
+        "input_cols": {
+            "type": "array"
+        },
+        "output_col": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

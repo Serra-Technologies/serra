@@ -5,6 +5,11 @@
         "value": ["string", "boolean"],
         "column_type": "string"
     }, 
+    "AggregateTransformer": {
+        "input_block": "string",
+        "group_by": "array",
+        "type": "string"
+    }, 
     "CaseWhenTransformer": {
         "input_block": "string",
         "name": "string",
@@ -14,18 +19,64 @@
         "input_block": "string",
         "cast_columns": "object"
     },
+    "CoalesceTransformer": {
+        "input_block": "string",
+        "input_cols": "array",
+        "output_col": "string"
+    },
+    "CrossJoinTransformer": {
+        "input_block": "string"
+    },
+    "DateTruncTransformer": {
+        "input_block": "string",
+        "timestamp_col": "string",
+        "trunc_unit": "string",
+        "output_col": "string"
+    },
     "DropColumnTransformer": {
         "input_block": "string",
         "drop_names": "array"
+    },
+    "FilterTransformer": {
+        "input_block": "string",
+        "condition": "array", 
+        "column": "string",
+        "is_expr": "string"
+    },
+    "GeoDistanceTransformer": {
+        "input_block": "string",
+        "first_col": "string", 
+        "second_col": "string"
     },
     "GetCountTransformer": {
         "input_block": "string",
         "group_by": "array", 
         "count_col": "string"
     },
+    "GetDistinctTransformer": {
+        "input_block": "string",
+        "cols": "array"
+    },
+    "GetMaxOrMinTransformer": {
+        "input_block": "string",
+        "col_dict": "array", 
+        "name": "string",
+        "group_by": "string"
+    },
+    "ImputeTransformer": {
+        "input_block": "string",
+        "cols": "array", 
+        "type": "string"
+    },
     "JoinTransformer": {
         "input_block": [ "object", "any", "array"],
         "join_type": "string", 
+        "join_on": "object"
+    },
+    "JoinWithConditionTransformer": {
+        "input_block": "string",
+        "join_type": "string", 
+        "condition": "string",
         "join_on": "object"
     },
     "MapTransformer": {
@@ -33,6 +84,22 @@
         "name": "string", 
         "map_dict": "object",
         "col_key": "string"
+    },
+    "MultiJoinTransformer": {
+        "input_block": "string",
+        "join_type": "string", 
+        "join_on": "object"
+    },
+    "MultipleCaseWhenTransformer": {
+        "input_block": "string",
+        "col_dict": "object", 
+        "input_col": "string",
+        "type": "string"
+    },
+    "OrderByTransformer": {
+        "input_block": "string",
+        "cols": "array", 
+        "asecnding": "string"
     },
     "PivotTransformer": {
         "input_block": "string",
@@ -50,10 +117,23 @@
         "input_block": "string",
         "columns": "array"
     },
+    "SQLTransformer": {
+        "input_block": "string",
+        "sql_expr": "string"
+    },
+    "WindowTransformer": {
+        "input_block": "string",
+        "partition_by": "array"
+    },
     "AmazonS3Reader": {
         "bucket_name": "string",
         "file_path": "string",
         "file_type": "string"
+    }, 
+    "BigQueryReader": {
+        "project_id": "string",
+        "dataset_id": "string",
+        "table_id": "string"
     }, 
     "DatabricksReader": {
         "database": "string",
@@ -62,11 +142,21 @@
     "LocalReader": {
         "file_path": "string"
     },
+    "SnowflakeReader": {
+        "warehouse": "string",
+        "database": "string",
+        "schema": "string"
+    }, 
     "AmazonS3Writer": {
         "input_block": "string",
         "bucket_name": "string",
         "file_path": "string",
         "file_type": "string"
+    }, 
+    "BigQueryWriter": {
+        "project_id": "string",
+        "dataset_id": "string",
+        "table_id": "string"
     }, 
     "DatabricksWriter": {
         "input_block": "string",

@@ -1,0 +1,15 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "dataset_id": {
+            "type": "string"
+        },
+        "project_id": {
+            "type": "string"
+        },
+        "table_id": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

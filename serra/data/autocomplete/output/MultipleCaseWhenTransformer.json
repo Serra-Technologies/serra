@@ -1,0 +1,18 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "col_dict": {
+            "type": "object"
+        },
+        "input_block": {
+            "type": "string"
+        },
+        "input_col": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
