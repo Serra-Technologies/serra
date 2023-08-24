@@ -30,6 +30,9 @@ class JoinWithConditionTransformer(Transformer):
     #     :return: A list of table names (keys from the 'join_on' dictionary).
     #     """
     #     return [key for key in self.config.get("join_on").keys()]
+    @property
+    def dependencies(self):
+        return self.config.get('input_block')
 
     def transform(self, df1, df2):
         """

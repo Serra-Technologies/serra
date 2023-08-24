@@ -1,0 +1,20 @@
+step_read:
+  AmazonS3Reader:
+    bucket_name: serrademo
+    file_path: sales.csv
+    file_type: csv
+
+step_pivot:
+  PivotTransformer:
+    input_block: step_read
+    row_level: "restaurant"
+    column_level: "region"
+    aggregate_type: "sum"
+    sum_col: "customers"
+
+step_write:
+  AmazonS3Writer:
+    input_block: step_pivot
+    bucket_name: serrademo
+    file_path: output.csv
+    file_type: csv

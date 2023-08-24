@@ -1,0 +1,14 @@
+read_json:
+  JsonReader:
+    file_path: 'data/licenses.txt'
+
+explode_nested_columns:
+  ExplodeJsonTransformer:
+    input_block: read_json
+    nested_col: 'licenses'
+
+get_valid_users:
+  FilterTransformer:
+    input_block: explode_nested_columns
+    column: user
+    condition: user3

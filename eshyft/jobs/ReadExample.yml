@@ -1,0 +1,12 @@
+step_read:
+  DatabricksReader:
+    database: 'demo'
+    table: 'test_table'
+
+step_write:
+  DatabricksWriter:
+    input_block: step_read
+    database: 'demo'
+    table: 'db_test'
+    format: 'delta'
+    mode: 'overwrite'

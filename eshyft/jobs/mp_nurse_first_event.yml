@@ -1,0 +1,47 @@
+#___________MP_NURSE_FIRST_EVENT_____________
+
+# Implement DQ Check to make sure all rows of a certain type
+
+read_first_event:
+  BigQueryReader:
+    project_id: serrra-demo
+    dataset_id: sales
+    table_id: first_event
+  # tests: 
+  #   - date_check
+
+get_time_for_events:
+  MultipleCaseWhenTransformer:
+    input_block: read_first_event
+    input_col: [mp_event_name]
+    type: like
+    col_dict:
+      login: ['User Login', 'col:time']
+      apply: ['Apply Shift', 'col:time']
+      timecard_first: ['Work Shift', 'col:time', 'Submit Timecard', 'col:time']
+      timecard_last: ['Work Shift', 'col:time', 'Submit Timecard', 'col:time']
+
+get_min_max_time_by_user:
+  GetMaxOrMinTransformer:
+    input_block: get_time_for_events
+    name: [first_login,first_apply,timecard_first,timecard_last]
+    group_by: mp_user_id
+    col_dict: 
+      login: 'min'
+      apply: 'min'
+      timecard_first: 'min'
+      timecard_last: 'max'
+
+select_distinct_user:
+  SelectTransformer:
+    input_block: get_min_max_time_by_user
+    columns: [mp_user_id,first_login,first_apply,timecard_first,timecard_last]
+    distinct_col: [mp_user_id]
+
+write_mp_nurse_first_event:
+  BigQueryWriter:
+    input_block: select_distinct_user
+    project_id: serrra-demo
+    dataset_id: sales
+    table_id: mp_nurse_first_teset
+    mode: empty

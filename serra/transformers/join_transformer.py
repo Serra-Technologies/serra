@@ -42,7 +42,6 @@ class JoinTransformer(Transformer):
         :return: A new DataFrame resulting from the join operation.
         :raises: SerraRunException if the join condition columns do not match between the two DataFrames.
         """
-        assert self.join_type in "inner"
 
         join_keys = []
         for table in self.join_on:

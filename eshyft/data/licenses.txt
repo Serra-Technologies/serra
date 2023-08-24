@@ -1,0 +1,3 @@
+{"user": "user1", "licenses": [{"type": "Driver", "number": "DL12345", "state": "CA", "expires": "2023-12-31"}]}
+{"user": "user2", "licenses": [{"type": "Driver", "number": "DL67890", "state": "NY", "expires": "2024-06-30"}]}
+{"user": "user3", "licenses": [{"type": "Driver", "number": "DL54321", "state": "TX", "expires": "2023-09-15"}, {"type": "Forklift Operator", "number": "FO98765", "state": "TX", "expires": "2023-11-30"}]}

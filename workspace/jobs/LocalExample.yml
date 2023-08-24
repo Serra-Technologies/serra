@@ -1,0 +1,22 @@
+# There are some prints that are occuring when running this script? Not logs?
+# Duplicates across all column or a single column?
+show_all: true
+
+read_sales:
+  LocalReader:
+    file_path: "./examples/sales.csv"
+  tests:
+    - duplicates
+
+read_ratings:
+  LocalReader:
+    file_path: "./examples/ratings.csv"
+
+step_join:
+  JoinTransformer:
+    input_block: [read_sales,read_ratings]
+    join_type: 'inner'
+    join_on:
+      read_sales: id
+      read_ratings: id
+

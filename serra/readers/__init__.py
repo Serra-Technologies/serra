@@ -4,3 +4,4 @@ from .databricks_reader import DatabricksReader
 from .amazon_reader import AmazonS3Reader
 from .snowflaker_reader import SnowflakeReader
 from .bigquery_reader import BigQueryReader
+from .json_reader import JsonReader

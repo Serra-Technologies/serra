@@ -1,0 +1,28 @@
+read_sales:
+  AmazonS3Reader:
+    bucket_name: serrademo
+    file_path: sales.csv
+    file_type: csv
+
+read_ratings:
+  AmazonS3Reader:
+    bucket_name: serrademo
+    file_path: rating_df.csv
+    file_type: csv
+
+join_tables:
+  JoinTransformer:
+    input_block: [read_sales,read_ratings]
+    join_type: 'inner'
+    join_on:
+      read_sales: id
+      read_ratings: id
+
+step_write:
+  AmazonS3Writer:
+    input_block: join_tables
+    bucket_name: serrademo
+    file_path: output.csv
+    file_type: csv
+
+

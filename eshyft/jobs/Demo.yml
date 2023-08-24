@@ -1,0 +1,47 @@
+read_sales:
+  LocalReader:
+    file_path: "./examples/sales.csv"
+
+read_ratings:
+  LocalReader:
+    file_path: "./examples/ratings.csv"
+
+join_tables:
+ JoinTransformer:
+   input_block: [read_sales,read_ratings]
+   join_type: 'inner'
+   join_on:
+     read_sales: id
+     read_ratings: id
+
+map_state_names:
+  MapTransformer:
+   input_block: join_tables
+   name: 'region_abbr'
+   map_dict_path: 'examples/states_to_abbreviation.json'
+   col_key: 'region'
+
+filter_states:
+  FilterTransformer:
+    input_block: map_state_names
+    column: 'region_abbr'
+    condition: ['AK', 'AL', 'CA', 'TX', 'CO', 'DE', 'FL']
+
+cast_customers:
+  CastColumnTransformer:
+    input_block: filter_states
+    cast_columns:
+      rating: ['customers', 'double']
+
+pivot:
+ PivotTransformer:
+   input_block: cast_customers
+   row_level: 'restaurant'
+   column_level: "region_abbr"
+   aggregate_type: "sum"
+   sum_col: "customers"
+
+local_write:
+  LocalWriter:
+   input_block: pivot
+   file_path: "./examples/sum_customers.csv"

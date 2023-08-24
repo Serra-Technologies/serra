@@ -1,0 +1,48 @@
+read_sales:
+ AmazonS3Reader:
+   bucket_name: serrademo
+   file_path: sales.csv
+   file_type: csv
+
+read_ratings:
+ AmazonS3Reader:
+   bucket_name: serrademo
+   file_path: rating_df.csv
+   file_type: csv
+
+join_tables:
+ JoinTransformer:
+   join_type: 'inner'
+   join_on:
+     read_sales: id
+     read_ratings: id
+
+map_state_names:
+  MapTransformer:
+   input_block: join_tables
+   name: 'region_abbr'
+   map_dict_path: 'examples/states_to_abbreviation.json'
+   col_key: 'region'
+
+cast_ratings:
+  CastColumnTransformer:
+    input_block: map_state_names
+    cast_columns:
+      rating: ['rating', 'double']
+
+pivot:
+ PivotTransformer:
+   input_block: cast_ratings
+   row_level: 'restaurant'
+   column_level: "region"
+   aggregate_type: "avg"
+   sum_col: "customers"
+
+step_write:
+  SnowflakeWriter:
+   input_block: pivot
+   warehouse: transforming
+   database: serra
+   schema: demo
+   table: serra_tests
+   type: create

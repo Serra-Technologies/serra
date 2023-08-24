@@ -1,0 +1,186 @@
+# #___________MP_NURSE_FIRST_EVENT______________
+
+# # Implement DQ Check to make sure all rows of a certain type
+
+# read_first_event:
+#   LocalReader:
+#     file_path: "./examples/eshyft/first_event.csv"
+#   # tests: 
+#   #   - date_check
+
+read_first_event:
+  BigQueryReader:
+    project_id: serrra-demo
+    dataset_id: sales
+    table_id: first_event
+  # tests: 
+  #   - date_check
+
+get_time_for_events:
+  MultipleCaseWhenTransformer:
+    input_block: read_sales
+    input_col: [mp_event_name]
+    type: like
+    col_dict:
+      login: ['User Login', 'col:time']
+      apply: ['Apply Shift', 'col:time']
+      timecard_first: ['Work Shift', 'col:time', 'Submit Timecard', 'col:time']
+      timecard_last: ['Work Shift', 'col:time', 'Submit Timecard', 'col:time']
+
+get_min_max_time_by_user:
+  GetMaxOrMinTransformer:
+    input_block: get_time_for_events
+    name: [first_login,first_apply,timecard_first,timecard_last]
+    group_by: mp_user_id
+    col_dict: 
+      login: 'min'
+      apply: 'min'
+      timecard_first: 'min'
+      timecard_last: 'max'
+
+select_distinct_user:
+  SelectTransformer:
+    input_block: get_min_max_time_by_user
+    columns: [mp_user_id,first_login,first_apply,timecard_first,timecard_last]
+    distinct_col: [mp_user_id]
+
+write_mp_nurse_first_event:
+  BigQueryWriter:
+    input_block: select_distinct_user
+    project_id: serrra-demo
+    dataset_id: sales
+    table_id: mp_nurse_first_event
+    mode: empty
+
+
+#___________SECOND VIEW______________
+
+# Implement DQ Check to make sure all rows of a certain type
+read_first_view:
+  LocalReader:
+    file_path: "./examples/eshyft/first_view.csv"
+
+read_users:
+  BigQueryReader:
+    project_id: serrra-demo
+    dataset_id: sales
+    table_id: users_extract
+
+read_license:
+  BigQueryReader:
+    project_id: serrra-demo
+    dataset_id: sales
+    table_id: nurse_top_license_mapping
+
+multi_join:
+  MultiJoinTransformer:
+    input_block: [read_first_view,read_users,read_license]
+    join_type: ['left', 'left']
+    join_on:
+      read_first_view: mp_user_id
+      read_users: user # city for error
+      read_license: user
+
+write_nurse_info:
+  LocalWriter:
+    input_block: multi_join
+    file_path: "./examples/nurse_info.csv"
+
+
+# #___________THIRD VIEW______________
+
+# # Implement DQ Check to make sure all rows of a certain type
+
+# read_shifts_extract:
+#   LocalReader:
+#     file_path: "./examples/eshyft/shifts_extract.csv"
+# # read_shifts_extract:
+# #   BigQueryReader:
+# #     project_id: serrra-demo
+# #     dataset_id: sales
+# #     table_id: shifts_extract
+
+# truncate_start_time:
+#   DateTruncTransformer:
+#     timestamp_col: shift_start_time
+#     output_col: shift_start_time_trunc
+#     trunc_unit: day
+#     input_block: read_shifts_extract
+
+# # all_dates
+# select_distinct_start:
+#   SelectTransformer:
+#     input_block: truncate_start_time
+#     columns:
+#       - shift_start_time_trunc
+#     distinct_col: 
+#       - shift_start_time_trunc
+
+# # all_slots
+# select_distinct_slots:
+#   SelectTransformer:
+#     input_block: read_shifts_extract
+#     columns:
+#       - slots
+#     distinct_col:
+#       - slots
+#     filter_condition: "slots <> 0"
+  
+# rename_all_slots:
+#   RenameColumnTransformer:
+#     input_block: select_distinct_slots
+#     old_name: slots
+#     new_name: slot
+
+# # single_slots
+# single_slot_join:
+#   CrossJoinTransformer:
+#     input_block: [read_shifts_extract, select_distinct_start]
+
+# filter_single_slots:
+#   FilterTransformer:
+#     input_block: single_slot_join
+#     condition: date_trunc('day', a.shift_start_time) >= b.shift_start_time_trunc AND date_trunc('day', a.published_time) <= b.shift_start_time_trunc
+#     is_expr: True
+
+# # # one_by_one
+# one_by_one:
+#   CrossJoinTransformer:
+#     input_block: ['filter_single_slots','rename_all_slots']
+
+# filter_one_by_one:
+#   FilterTransformer:
+#     input_block: one_by_one
+#     condition: a.slots >= b.slot
+#     is_expr: True
+
+# read_applicants:
+#   LocalReader:
+#     file_path: "./examples/eshyft/applicants_extract.csv"
+
+# confirms:
+#   SelectTransformer:
+#     input_block: read_applicants
+#     columns: [shift, user, updatedDate, updatedTime, status]
+#     condition: "status LIKE 'confirmed'"
+
+# ranked_confirms:
+#   AddColumnTransformer:
+#     input_block: confirms
+#     name: slot
+#     expression: RANK() OVER (PARTITION BY shift ORDER BY updatedTime ASC, user ASC)
+
+# final_join:
+#   JoinWithConditionTransformer:
+#     input_block: ['filter_single_slots','rename_all_slots']
+#     join_type: 'left'
+#     join_on:
+#       one_by_one: 'condition'
+#       ranked_confirms: 'condition'
+#     condition: a.shift = b.shift AND a.slot = b.slot AND a.shift_time >= updatedDate AND date_trunc('day', a.published_time) <= b.updatedDate
+
+# final_write:
+#   LocalWriter:
+#     input_block: final_join
+#     file_path: './examples/eshyft/final_write.csv'
+

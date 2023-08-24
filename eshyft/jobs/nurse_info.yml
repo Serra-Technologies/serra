@@ -1,0 +1,87 @@
+# read_mp_nurse_first_event:
+#   BigQueryReader:
+#     project_id: serrra-demo
+#     dataset_id: sales
+#     table_id: mp_nurse_first_event
+
+# read_users:
+#   BigQueryReader:
+#     project_id: serrra-demo
+#     dataset_id: sales
+#     table_id: users_extract
+
+# read_license:
+#   BigQueryReader:
+#     project_id: serrra-demo
+#     dataset_id: sales
+#     table_id: nurse_top_license_mapping
+
+# join_all_tables:
+#   MultiJoinTransformer:
+#     join_type: ['left', 'left']
+#     join_on:
+#       read_mp_nurse_first_event: mp_user_id
+#       read_users: user # city for error
+#       read_license: user
+
+# write_nurse_info:
+#   BigQueryWriter:
+#     input_block: join_all_tables
+#     project_id: serrra-demo
+#     dataset_id: sales
+#     table_id: nurse_info
+#     mode: empty
+
+read_users:
+  BigQueryReader:
+    project_id: serrra-demo
+    dataset_id: sales
+    table_id: users_extract
+
+write_users:
+  LocalWriter:
+    file_path: "./examples/eshyft/users_extract.csv"
+
+# read_facilities:
+#   LocalReader:
+#     file_path: "./examples/eshyft/facilities_extract.csv"
+
+# join_tables:
+#   CrossJoinTransformer:
+#     input_block: [read_users,'read_facilities']
+
+# geo_test:
+#   GeoDistanceTransformer:
+#     input_block: join_tables
+#     first_col: 'a.coordinates'
+#     second_col: 'b.coordinates'
+#   tests:
+#     -valid_range
+
+# case_when:
+#   CaseWhenTransformer:
+#     input_block: geo_test
+#     input_col: 'a.state'
+#     output_col: state_match
+#     conditions: [[b.state, 1]]
+#     type: ==
+#     is_col: True
+#     otherwise_val: 0
+
+# case_when_2:
+#   CaseWhenTransformer:
+#     input_block: case_when
+#     input_col: 'a.zip'
+#     output_col: zip_match
+#     conditions: [[b.zip, 1]]
+#     type: ==
+#     is_col: True
+#     otherwise_val: 0
+
+# write_nurse_info:
+#   BigQueryWriter:
+#     input_block: join_all_tables
+#     project_id: serrra-demo
+#     dataset_id: sales
+#     table_id: nurse_info
+#     mode: truncate

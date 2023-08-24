@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "serrra-demo",
+    "private_key_id": "fc00f5d436de97681931ade06106a7cbd208159b",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCZxDDSJcxp6w16\nbfyDPNZQBbTVJiU3fkRB3tMgcKycsGpUv2I1ftDxPI6Cl28X57jASGYgBmG+IQ6G\nTtBYwMtRspXJLvyc2yvH/pP8xROZrVJDLMC9/pLbSB++lEWwuADuore5teM1G52K\n4LB9bRC4HCmOUSELxCF2RmYnqZKITxqa0WzsYrTKCaMiMOCEfyeDqNuc9XQs2n0s\nnl/jdUUbFjNrMLGuqy3ZN9d9x3bEVTXH7JfYWgW86fIraqUxdpgAZF15WOVWG+mj\nsbusZp94OA57Xd7NnZQ7jpEXx+ieZR0WVCyzOW23KvESqSL68zPs341Q4gQu4Awv\nu01gBHDdAgMBAAECggEAAz9jCT/gyjM7iiSXiuK2jg3IzMsCSeKXU3gpfQu+1uJc\n+eQ+5pgClrhriXOPAPIVHgPexaS3h29QTLg5FfQgdzMZOcdjG3b/kjjyFt/HXbK3\nmZFGPYe1F1TgeBh5Q6sR4025fqkfnt1cnZ8dldCUuVFoSUgKYCK+KC7YH9So3SBy\nMnoF5rUWEoBzY/m13eVXpZSSgxujRA91vMGNPb+Bwf6y8ywHWJk0Cmxwtq22XtXS\npFkDN1UknhfAuvnUbhDffkIvoSP36CHaTSqp1tmCmdd/P62QBmJkkaZdniEidTiw\ny4ZwApNDo8X7O5vDHLhimsQi5l8y2vopcbHpiHI/WwKBgQDLHR6tmSmD7mIN3Gdb\nLj4vgbh1JpjF0dQAQnUrSsZNAVNWI4Fdza9rINWXvhsRgXxM0v3d1ikOW2WFQFn7\nFNeoAI0K6boICE413EEIAO+vp3rZpxTYmYYmm+ZDG2C8tF9K0U63ZVw9nrF7Pvwg\nneiJ4XCXmvg2UbRCz4gvEPmxhwKBgQDBzb2HHqN8FckzucsHlTiTmDsqAyw/cS1t\nH47GEJuUSiIfi9+QrDPGPdvT1wWAQT1PgpsGg3c5rBtAy+Pc1oACYKDv/AtMIZ1J\n7FAuOg6igNqYszbcmY0YWrblnTM/FT4S1qgFj9cLeAJKWObLtt2ZlkkThERjFcsC\n4/ixrW/zewKBgQC/0fd4EU7g1w/pcT53ITv/V64hjVr4b8qcmCbZxNt0PA09K3jw\nYuEI9lBh51re9H+0egrhJ3FMqso8xuJzumJUunh5VvSmw1lBioosCd5S8IOX7DBG\nwu6rpc4XkFKSxHG+Ud/aWbJ8S1PoRjqMfzTuimbv9p31hsIL2r0NXiXCHwKBgAFW\n77lwX8bqy6I85Yde4645ficzMGob2SmI7061LK4guQ2oxNnWJuF26f8T3GjfipHz\nICkyXW+bnfCbuC59mRLrIhGml1lmXhT1ujQnmJRM+bXWf0mVEiGZ9uutY35LIku1\nCiJHtT/SC4oCBU5hLDT0kfq9jk91Bhs2AjEQNtbjAoGBAJbs+PeZUpjC7NAkZRIA\nmU8OPy2EajwiAa7LELaYMYlihk4CVsBLQmRd3fz3mCKT8E7acLRl1m0Wl9RnQk7s\nFZoLrktSNrv+5RutqvdOcbZ1CzitzlZgit5NXMzerulguB9zV2rUVH7QbqVhusne\npxIRmfoTi5ujaApvuES2n1LG\n-----END PRIVATE KEY-----\n",
+    "client_email": "serra-demo-service-account@serrra-demo.iam.gserviceaccount.com",
+    "client_id": "117451225627190019431",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/serra-demo-service-account%40serrra-demo.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }

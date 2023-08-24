@@ -1,0 +1,26 @@
+step_read:
+  AmazonS3Reader:
+    bucket_name: serra-dev
+    file_path: sales.csv
+    file_type: csv
+    options:
+      header: true
+
+step_map:
+  MapTransformer:
+    input_block: step_read
+    name: 'state_abbreviation'
+    map_dict:
+      Alabama: 'AL'
+      Alaska: 'AL'
+    col_key: 'region'
+
+step_write:
+  AmazonS3Writer:
+    input_block: step_map
+    bucket_name: serra-dev
+    file_path: output.csv
+    file_type: csv
+    mode: "overwrite"
+    options:
+      header: true
