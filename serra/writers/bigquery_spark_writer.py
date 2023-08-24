@@ -1,11 +1,12 @@
 from google.cloud import bigquery
 
-from serra.readers import Reader
+from serra.config import BIGQUERY_ACCOUNT_INFO_PATH
 from serra.exceptions import SerraRunException
+from serra.writers import Writer
 
-class BigQueryReader(Reader):
+class BigQueryWriter(Writer):
     """
-    A reader to read data from Snowflake into a Spark DataFrame.
+    A reader to write data to BigQuery from a Spark DataFrame.
 
     :param config: A dictionary containing the configuration for the reader.
                    It should have the following keys:
@@ -28,30 +29,28 @@ class BigQueryReader(Reader):
     @property
     def table_id(self):
         return self.config.get("table_id")
+    
+    @property
+    def mode(self):
+        mode = self.config.get("mode")
+        valid_modes = ['append', 'overwrite', 'error', 'ignore']
+        if mode not in valid_modes:
+            raise SerraRunException(f"Invalid BigQueryWriter mode: {mode}, should be one of {valid_modes}")
+        return self.config.get("mode")
 
     @property
     def dependencies(self):
-        return []
+        return [self.config.get('input_block')]
     
-    def read(self):
+    def write(self, df):
         """
         Read data from Snowflake and return a Spark DataFrame.
 
         :return: A Spark DataFrame containing the data read from the specified Snowflake table.
         """
-        # Query to fetch data
-        query = f"SELECT * FROM `{self.project_id}.{self.dataset_id}.{self.table_id}`"
-
-        # Execute the query
-        bigquery_account_json_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-        if not bigquery_account_json_path:
-            raise SerraRunException("Please set environment variable GOOGLE_APPLICATION_CREDENTIALS to path to Google Cloud Service Account")
-        client = bigquery.Client.from_service_account_json(bigquery_account_json_path)
-        query_job = client.query(query)
-
-        # Fetch the results
-        df = query_job.to_dataframe()
-
-        # Change to spark dataframe
-        spark_df = self.spark.createDataFrame(df)
-        return spark_df
+        df.write \
+            .format("bigquery") \
+            .option('project', self.project_id)\
+            .option("writeMethod", "direct") \
+            .mode(self.mode)\
+            .save(f"{self.dataset_id}.{self.table_id}")
