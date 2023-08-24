@@ -20,4 +20,9 @@ RUN ${PIP} install --upgrade pip
 RUN git clone https://github.com/Serra-Technologies/serra.git
 RUN ${PIP} install ./serra
 
+# Some helpful things for development
+RUN apt-get -y install vim
+RUN apt-get -y install screen
+
+
 WORKDIR "/app"
