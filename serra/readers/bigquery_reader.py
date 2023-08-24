@@ -1,5 +1,5 @@
 from google.cloud import bigquery
-
+import os
 from serra.readers import Reader
 from serra.exceptions import SerraRunException
 

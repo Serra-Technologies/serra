@@ -23,7 +23,8 @@ setup(name='serra',
           "loguru",
           "snowflake-connector-python",
           "google-cloud-bigquery",
-          "geopy"
+          "geopy",
+          "db-dtypes"
       ],
       zip_safe=False,
       entry_points={
