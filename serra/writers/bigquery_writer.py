@@ -2,8 +2,9 @@ from google.cloud import bigquery
 
 from serra.config import BIGQUERY_ACCOUNT_INFO_PATH
 from serra.exceptions import SerraRunException
+from serra.writers import Writer
 
-class BigQueryWriter():
+class BigQueryWriter(Writer):
     """
     A reader to write data to BigQuery from a Spark DataFrame.
 
