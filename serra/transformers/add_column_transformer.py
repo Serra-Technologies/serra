@@ -9,17 +9,17 @@ class AddColumnTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following keys:
-                   - 'name': The name of the new column to be added.
+                   - 'new_column_name': The name of the new column to be added.
                    - 'value': The value to be set for the new column.
-                   - 'column_type': The data type of the new column. Must be a valid PySpark data type string.
+                   - 'new_column_type': The data type of the new column. Must be a valid PySpark data type string.
     """
 
 
     def __init__(self, config):
         self.config = config
-        self.name = config.get("name")
+        self.new_column_name = config.get("new_column_name")
         self.value = config.get("value")
-        self.column_type = config.get("column_type")
+        self.new_column_type = config.get("new_column_type")
         
     def transform(self, df):
         """
@@ -29,10 +29,10 @@ class AddColumnTransformer(Transformer):
         :return: A new DataFrame with the new column added.
         :raises: SerraRunException if the column with the specified name already exists in the DataFrame.
         """
-        if self.name in df.columns:
-            raise SerraRunException(f"Column '{self.name}' already exists in the DataFrame. Choose a different name.")
+        if self.new_column_name in df.columns:
+            raise SerraRunException(f"Column '{self.new_column_name}' already exists in the DataFrame. Choose a different name.")
         
         return df.withColumn(
-            self.name, F.lit(self.value).cast(self.column_type)  
+            self.new_column_name, F.lit(self.value).cast(self.new_column_type)  
         )
     

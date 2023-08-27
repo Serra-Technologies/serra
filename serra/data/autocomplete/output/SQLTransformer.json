@@ -4,7 +4,7 @@
         "input_block": {
             "type": "string"
         },
-        "sql_expr": {
+        "sql_expression": {
             "type": "string"
         }
     },

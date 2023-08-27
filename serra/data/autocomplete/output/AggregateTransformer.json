@@ -1,13 +1,13 @@
 {
     "additionalProperties": false,
     "properties": {
-        "group_by": {
+        "aggregation_type": {
+            "type": "string"
+        },
+        "group_by_columns": {
             "type": "array"
         },
         "input_block": {
-            "type": "string"
-        },
-        "type": {
             "type": "string"
         }
     },

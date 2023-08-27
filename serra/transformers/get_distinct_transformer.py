@@ -13,7 +13,7 @@ class DropDuplicatesTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.cols = self.config.get('cols')
+        self.columns_to_check = self.config.get('columns_to_check')
 
     def transform(self, df):
         """
@@ -23,4 +23,4 @@ class DropDuplicatesTransformer(Transformer):
         :return: A new DataFrame with duplicate rows removed based on the specified columns.
         """
 
-        return df.dropDuplicates(self.cols)
+        return df.dropDuplicates(self.columns_to_check)

@@ -8,14 +8,14 @@ class GetCountTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following keys:
-                   - 'group_by': A list of column names to group the DataFrame by.
-                   - 'count_col': The name of the column for which the count is to be calculated.
+                   - 'group_by_columns': A list of column names to group the DataFrame by.
+                   - 'count_column': The name of the column for which the count is to be calculated.
     """
 
     def __init__(self, config):
         self.config = config
-        self.group_by = config.get("group_by")
-        self.count_col = config.get("count_col")
+        self.group_by_columns = config.get("group_by_columns")
+        self.count_column = config.get("count_column")
 
     def transform(self, df):
         """
@@ -26,5 +26,5 @@ class GetCountTransformer(Transformer):
                  for each group defined by the 'group_by' column(s).
         """
 
-        return df.groupBy(*self.group_by).agg(F.count(self.count_col))
+        return df.groupBy(*self.group_by_columns).agg(F.count(self.count_column))
     

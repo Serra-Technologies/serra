@@ -16,7 +16,7 @@ class CastColumnTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.column_dict = self.config.get("cast_columns")
+        self.columns_to_cast = self.config.get("columns_to_cast")
 
     def transform(self, df):
         """
@@ -25,7 +25,7 @@ class CastColumnTransformer(Transformer):
         :param df: The input DataFrame to be transformed.
         :return: A new DataFrame with the specified columns cast to the target data types.
         """
-        for target, [source, target_data_type] in self.column_dict.items():
+        for target, [source, target_data_type] in self.columns_to_cast.items():
             df = df.withColumn(target, F.col(source).cast(target_data_type))
 
         return df

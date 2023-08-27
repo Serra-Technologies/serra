@@ -8,13 +8,13 @@ class DropColumnTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following key:
-                   - 'drop_names': A list of column names to be dropped from the DataFrame.
+                   - 'columns_to_drop': A list of column names to be dropped from the DataFrame.
     """
 
 
     def __init__(self, config):
         self.config = config
-        self.drop_names = config.get("drop_names")
+        self.columns_to_drop = config.get("columns_to_drop")
 
     def transform(self, df):
         """
@@ -23,5 +23,5 @@ class DropColumnTransformer(Transformer):
         :param df: The input DataFrame to be transformed.
         :return: A new DataFrame with the specified columns dropped.
         """
-        return df.select([c for c in df.columns if c not in self.drop_names])
+        return df.select([c for c in df.columns if c not in self.columns_to_drop])
     

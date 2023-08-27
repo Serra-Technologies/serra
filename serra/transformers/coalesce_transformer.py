@@ -14,8 +14,8 @@ class CoalesceTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.input_cols = self.config.get('input_cols')
-        self.output_col = self.config.get('output_col')
+        self.input_columns = self.config.get('input_columns')
+        self.output_column = self.config.get('output_column')
 
     def transform(self, df):
         """
@@ -25,4 +25,4 @@ class CoalesceTransformer(Transformer):
         :return: A new DataFrame with the coalesced column.
         """
 
-        return df.withColumn(self.output_col, F.coalesce(*self.input_cols))
+        return df.withColumn(self.output_column, F.coalesce(*self.input_columns))

@@ -1,13 +1,25 @@
 {
     "additionalProperties": false,
     "properties": {
+        "comparison_type": {
+            "type": "string"
+        },
+        "conditions": {
+            "type": "array"
+        },
         "input_block": {
             "type": "string"
         },
-        "name": {
+        "input_column": {
             "type": "string"
         },
-        "value": {
+        "is_column_condition": {
+            "type": "string"
+        },
+        "otherwise_value": {
+            "type": "string"
+        },
+        "output_column": {
             "type": "string"
         }
     },

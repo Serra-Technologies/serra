@@ -1,16 +1,16 @@
 {
     "additionalProperties": false,
     "properties": {
-        "column": {
+        "filter_column": {
             "type": "string"
         },
-        "condition": {
+        "filter_values": {
             "type": "array"
         },
         "input_block": {
             "type": "string"
         },
-        "is_expr": {
+        "is_expression": {
             "type": "string"
         }
     },

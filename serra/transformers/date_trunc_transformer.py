@@ -14,15 +14,15 @@ class DateTruncTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following keys:
-                   - 'timestamp_col': The name of the timestamp column to be truncated.
+                   - 'timestamp_column': The name of the timestamp column to be truncated.
                    - 'trunc_unit': The unit for truncating the timestamp (e.g., 'day', 'month', 'year').
     """
 
     def __init__(self, config):
         self.config = config
-        self.timestamp_col = config.get("timestamp_col")
+        self.timestamp_column = config.get("timestamp_column")
         self.trunc_unit = config.get("trunc_unit")
-        self.output_col = config.get('output_col')
+        self.output_column = config.get('output_column')
 
     def transform(self, df):
         """
@@ -31,7 +31,7 @@ class DateTruncTransformer(Transformer):
         :param df: The input DataFrame to be transformed.
         :return: A new DataFrame with the truncated timestamp column.
         """
-        dt = F.to_timestamp(self.timestamp_col, "yyyy-MM-dd HH:mm:ss")
+        dt = F.to_timestamp(self.timestamp_column, "yyyy-MM-dd HH:mm:ss")
         
         if self.trunc_unit == "day":
             truncated_time = F.date_trunc("day", dt)
@@ -42,4 +42,4 @@ class DateTruncTransformer(Transformer):
         else:
             truncated_time = None
         
-        return df.withColumn(self.output_col, truncated_time)
+        return df.withColumn(self.output_column, truncated_time)

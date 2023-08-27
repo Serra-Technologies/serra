@@ -6,14 +6,14 @@ class OrderByTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following keys:
-                   - 'cols': A list of column names to sort the DataFrame by.
+                   - 'columns': A list of column names to sort the DataFrame by.
                    - 'ascending': Optional. If True (default), sort in ascending order.
                                   If False, sort in descending order.
     """
 
     def __init__(self, config):
         self.config = config
-        self.cols = config.get("cols")
+        self.columns = config.get("columns")
         self.ascending = config.get("ascending")
 
         if self.ascending is None:
@@ -27,4 +27,4 @@ class OrderByTransformer(Transformer):
         :return: A new DataFrame with the rows sorted based on the specified columns.
         """
 
-        return df.orderBy(*self.cols, ascending = self.ascending)
+        return df.orderBy(*self.columns, ascending = self.ascending)

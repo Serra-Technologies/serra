@@ -14,8 +14,8 @@ class AggregateTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.group_by = self.config.get('group_by')
-        self.type = self.config.get('type')
+        self.group_by_columns = self.config.get('group_by_columns')
+        self.aggregation_type = self.config.get('aggregation_type')
 
     def transform(self, df):
         """
@@ -24,9 +24,9 @@ class AggregateTransformer(Transformer):
         :param df: The input DataFrame to be transformed.
         :return: A new DataFrame with the aggregated data.
         """
-        df = df.groupBy(*self.group_by)
+        df = df.groupBy(*self.group_by_columns)
 
-        if self.type == 'sum':
+        if self.aggregation_type == 'sum':
             df = df.sum()
         if self.type == 'avg':
             df = df.mean()

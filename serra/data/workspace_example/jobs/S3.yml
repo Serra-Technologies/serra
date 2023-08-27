@@ -9,11 +9,11 @@ step_read:
 step_map:
   MapTransformer:
     input_block: step_read
-    name: 'state_abbreviation'
-    map_dict:
+    output_column: 'state_abbreviation'
+    mapping_disctionary:
       Alabama: 'AL'
       Alaska: 'AL'
-    col_key: 'region'
+    input_column: 'region'
 
 step_write:
   AmazonS3Writer:

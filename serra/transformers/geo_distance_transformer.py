@@ -9,16 +9,16 @@ class GeoDistanceTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following keys:
-                   - 'user_coordinates_col': The name of the column containing user coordinates.
-                   - 'facility_coordinates_col': The name of the column containing facility coordinates.
+                   - 'start_column': The name of the column containing user coordinates.
+                   - 'end_column': The name of the column containing facility coordinates.
                    - 'distance_km_col': The name of the column to store the calculated distance in kilometers.
                    - 'distance_mi_col': The name of the column to store the calculated distance in miles.
     """
 
     def __init__(self, config):
         self.config = config
-        self.user_coordinates_col = config.get("first_col")
-        self.facility_coordinates_col = config.get("second_col")
+        self.start_column = config.get("start_column")
+        self.end_column = config.get("end_column")
         
     def transform(self, df):
         """
@@ -46,10 +46,10 @@ class GeoDistanceTransformer(Transformer):
         # Calculate distances and add them to the DataFrame
         df_with_distances = df.withColumn(
             'distance_km_col',
-            calculate_distance_km_udf(df[self.user_coordinates_col], df[self.facility_coordinates_col])
+            calculate_distance_km_udf(df[self.start_column], df[self.end_column])
         ).withColumn(
             'distance_mi_col',
-            calculate_distance_mi_udf(df[self.user_coordinates_col], df[self.facility_coordinates_col])
+            calculate_distance_mi_udf(df[self.start_column], df[self.end_column])
         )
 
         return df_with_distances

@@ -4,16 +4,16 @@
         "aggregate_type": {
             "type": "string"
         },
-        "column_level": {
+        "column_level_column": {
             "type": "string"
         },
         "input_block": {
             "type": "string"
         },
-        "row_level": {
+        "row_level_column": {
             "type": "string"
         },
-        "sum_col": {
+        "value_column": {
             "type": "string"
         }
     },

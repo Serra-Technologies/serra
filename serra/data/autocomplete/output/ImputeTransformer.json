@@ -1,13 +1,13 @@
 {
     "additionalProperties": false,
     "properties": {
-        "cols": {
+        "columns_to_impute": {
             "type": "array"
         },
-        "input_block": {
+        "imputation_strategy": {
             "type": "string"
         },
-        "type": {
+        "input_block": {
             "type": "string"
         }
     },

@@ -4,10 +4,10 @@
         "input_block": {
             "type": "string"
         },
-        "input_cols": {
+        "input_columns": {
             "type": "array"
         },
-        "output_col": {
+        "output_column": {
             "type": "string"
         }
     },

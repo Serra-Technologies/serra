@@ -1,13 +1,13 @@
 {
     "additionalProperties": false,
     "properties": {
-        "col_dict": {
+        "columns_and_conditions": {
             "type": "object"
         },
         "input_block": {
             "type": "string"
         },
-        "input_col": {
+        "input_column": {
             "type": "string"
         },
         "type": {

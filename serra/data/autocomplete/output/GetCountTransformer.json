@@ -1,10 +1,10 @@
 {
     "additionalProperties": false,
     "properties": {
-        "count_col": {
+        "count_column": {
             "type": "string"
         },
-        "group_by": {
+        "group_by_columns": {
             "type": "array"
         },
         "input_block": {

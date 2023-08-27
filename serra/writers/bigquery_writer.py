@@ -10,25 +10,25 @@ class BigQueryWriter(Writer):
 
     :param config: A dictionary containing the configuration for the reader.
                    It should have the following keys:
-                   - 'project_id'
-                   - 'dataset_id'
-                   - 'table_id'
+                   - 'project'
+                   - 'dataset'
+                   - 'table'
     """
 
     def __init__(self, config):
         self.config = config
     
     @property
-    def project_id(self):
-        return self.config.get("project_id")
+    def project(self):
+        return self.config.get("project")
     
     @property
-    def dataset_id(self):
-        return self.config.get("dataset_id")
+    def dataset(self):
+        return self.config.get("dataset")
     
     @property
-    def table_id(self):
-        return self.config.get("table_id")
+    def table(self):
+        return self.config.get("table")
     
     @property
     def mode(self):
@@ -63,7 +63,7 @@ class BigQueryWriter(Writer):
             raise SerraRunException("Please set environment variable GOOGLE_APPLICATION_CREDENTIALS to path to Google Cloud Service Account")
         client = bigquery.Client.from_service_account_json(bigquery_account_json_path)
         # Query to fetch data
-        table_ref = f"{self.project_id}.{self.dataset_id}.{self.table_id}"
+        table_ref = f"{self.project}.{self.dataset}.{self.table}"
 
         # Write pandas DataFrame to BigQuery table
         job_config = bigquery.LoadJobConfig()

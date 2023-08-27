@@ -1,7 +1,7 @@
 {
     "additionalProperties": false,
     "properties": {
-        "cast_columns": {
+        "columns_to_cast": {
             "type": "object"
         },
         "input_block": {

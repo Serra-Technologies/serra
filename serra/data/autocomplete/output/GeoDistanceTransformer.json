@@ -1,13 +1,13 @@
 {
     "additionalProperties": false,
     "properties": {
-        "first_col": {
+        "end_column": {
             "type": "string"
         },
         "input_block": {
             "type": "string"
         },
-        "second_col": {
+        "start_column": {
             "type": "string"
         }
     },

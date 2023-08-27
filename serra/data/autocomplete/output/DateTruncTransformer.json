@@ -4,10 +4,10 @@
         "input_block": {
             "type": "string"
         },
-        "output_col": {
+        "output_column": {
             "type": "string"
         },
-        "timestamp_col": {
+        "timestamp_column": {
             "type": "string"
         },
         "trunc_unit": {

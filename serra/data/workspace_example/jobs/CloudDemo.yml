@@ -20,23 +20,23 @@ join_tables:
 map_state_names:
   MapTransformer:
    input_block: join_tables
-   name: 'region_abbr'
-   map_dict_path: 'examples/states_to_abbreviation.json'
-   col_key: 'region'
+   output_column: 'region_abbr'
+   mapping_dict_path: 'examples/states_to_abbreviation.json'
+   input_column: 'region'
 
 cast_ratings:
   CastColumnTransformer:
     input_block: map_state_names
-    cast_columns:
+    columns_to_cast:
       rating: ['rating', 'double']
 
 pivot:
  PivotTransformer:
    input_block: cast_ratings
-   row_level: 'restaurant'
-   column_level: "region"
+   row_level_column: 'restaurant'
+   column_level_column: "region"
    aggregate_type: "avg"
-   sum_col: "customers"
+   value_column: "customers"
 
 step_write:
   SnowflakeWriter:

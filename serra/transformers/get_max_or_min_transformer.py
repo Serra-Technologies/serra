@@ -15,9 +15,9 @@ class GetMaxOrMinTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.col_dict = self.config.get('col_dict')
-        self.name = self.config.get('name')
-        self.group_by = self.config.get("group_by")
+        self.columns_and_operations = self.config.get('columns_and_operations')
+        self.new_column_names = self.config.get('new_column_names')
+        self.group_by_columns = self.config.get("group_by_columns")
 
     def transform(self, df):
         """
@@ -26,16 +26,16 @@ class GetMaxOrMinTransformer(Transformer):
         :param df: The input DataFrame.
         :return: A new DataFrame with an additional column containing the maximum or minimum value.
         """
-        window_spec = Window.partitionBy(self.group_by)
+        window_spec = Window.partitionBy(self.group_by_columns)
 
         i = 0
-        for input_col_name, agg_type in self.col_dict.items():
+        for input_col_name, agg_type in self.columns_and_operations.items():
             if agg_type == 'max':
                 result_col = max(input_col_name).over(window_spec)
             elif agg_type == 'min':
                 result_col = min(input_col_name).over(window_spec)
             
-            df = df.withColumn(self.name[i], result_col)
+            df = df.withColumn(self.new_column_names[i], result_col)
             i+=1
         
         return df

@@ -8,14 +8,14 @@ class ImputeTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following keys:
-                   - 'cols': A list of column names to impute missing values.
-                   - 'type': The imputation strategy. Supported values: 'mean', 'median', 'mode'.
+                   - 'columns_to_impute': A list of column names to impute missing values.
+                   - 'imputation_strategy': The imputation strategy. Supported values: 'mean', 'median', 'mode'.
     """
 
     def __init__(self, config):
         self.config = config
-        self.cols = config.get("cols")
-        self.type = config.get('type')
+        self.columns_to_impute = config.get("columns_to_impute")
+        self.imputation_strategy = config.get('imputation_strategy')
 
     def transform(self, df):
         """
@@ -23,15 +23,15 @@ class ImputeTransformer(Transformer):
         :return; Dataframe w/ new column containing col_value
         """
 
-        imputer = Imputer(inputCols=self.cols,
-                        outputCols=["{}_imputed".format(c) for c in self.cols]
-                        ).setStrategy(self.type)
+        imputer = Imputer(inputCols=self.columns_to_impute,
+                        outputCols=["{}_imputed".format(c) for c in self.columns_to_impute]
+                        ).setStrategy(self.imputation_strategy)
 
         df_imputed = imputer.fit(df).transform(df)
-        df_imputed = df_imputed.drop(*self.cols)
+        df_imputed = df_imputed.drop(*self.columns_to_impute)
         
         # Rename back to original columns
-        for c in self.cols:
+        for c in self.columns_to_impute:
             df_imputed = df_imputed.withColumnRenamed("{}_imputed".format(c), c)
 
         return df_imputed

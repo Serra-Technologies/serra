@@ -1,75 +1,79 @@
 {
     "AddColumnTransformer": {
         "input_block": "string",
-        "name": "string",
+        "new_column_name": "string",
         "value": ["string", "boolean"],
-        "column_type": "string"
+        "new_column_type": "string"
     }, 
     "AggregateTransformer": {
         "input_block": "string",
-        "group_by": "array",
-        "type": "string"
+        "group_by_columns": "array",
+        "aggregation_type": "string"
     }, 
     "CaseWhenTransformer": {
         "input_block": "string",
-        "name": "string",
-        "value": "string"
+        "output_column": "string",
+        "input_column": "string",
+        "conditions": "array",
+        "comparison_type": "string",
+        "is_column_condition": "string",
+        "otherwise_value": "string"
     },
     "CastColumnTransformer": {
         "input_block": "string",
-        "cast_columns": "object"
+        "columns_to_cast": "object"
     },
     "CoalesceTransformer": {
         "input_block": "string",
-        "input_cols": "array",
-        "output_col": "string"
+        "input_columns": "array",
+        "output_column": "string"
     },
     "CrossJoinTransformer": {
         "input_block": "string"
     },
     "DateTruncTransformer": {
         "input_block": "string",
-        "timestamp_col": "string",
+        "timestamp_column": "string",
         "trunc_unit": "string",
-        "output_col": "string"
+        "output_column": "string"
     },
     "DropColumnTransformer": {
         "input_block": "string",
-        "drop_names": "array"
+        "columns_to_drop": "array"
     },
     "FilterTransformer": {
         "input_block": "string",
-        "condition": "array", 
-        "column": "string",
-        "is_expr": "string"
+        "filter_values": "array", 
+        "filter_column": "string",
+        "is_expression": "string"
     },
     "GeoDistanceTransformer": {
         "input_block": "string",
-        "first_col": "string", 
-        "second_col": "string"
+        "start_column": "string", 
+        "end_column": "string"
     },
     "GetCountTransformer": {
         "input_block": "string",
-        "group_by": "array", 
-        "count_col": "string"
+        "group_by_columns": "array", 
+        "count_column": "string"
     },
     "GetDistinctTransformer": {
         "input_block": "string",
-        "cols": "array"
+        "columns_to_check": "array"
     },
     "GetMaxOrMinTransformer": {
         "input_block": "string",
-        "col_dict": "array", 
-        "name": "string",
-        "group_by": "string"
+        "columns_and_operations": "array", 
+        "new_column_names": "string",
+        "group_by_columns": "string"
     },
     "ImputeTransformer": {
         "input_block": "string",
-        "cols": "array", 
-        "type": "string"
+        "columns_to_impute": "array", 
+        "imputation_strategy": "string"
     },
     "JoinTransformer": {
-        "input_block": [ "object", "any", "array"],
+        "input_block": ["object", "any", "array"],
         "join_type": "string", 
         "join_on": "object"
     },
@@ -81,9 +85,10 @@
     },
     "MapTransformer": {
         "input_block": "string",
-        "name": "string", 
-        "map_dict": "object",
-        "col_key": "string"
+        "output_column": "string", 
+        "mapping_dictionary": "object",
+        "mapping_dict_path": "string",
+        "input_column": "string"
     },
     "MultiJoinTransformer": {
         "input_block": "string",
@@ -92,20 +97,20 @@
     },
     "MultipleCaseWhenTransformer": {
         "input_block": "string",
-        "col_dict": "object", 
-        "input_col": "string",
+        "columns_and_conditions": "object", 
+        "input_column": "string",
         "type": "string"
     },
     "OrderByTransformer": {
         "input_block": "string",
-        "cols": "array", 
+        "columns": "array", 
         "asecnding": "string"
     },
     "PivotTransformer": {
         "input_block": "string",
-        "row_level": "string",
-        "column_level": "string",
-        "sum_col": "string",
+        "row_level_column": "string",
+        "column_level_column": "string",
+        "value_column": "string",
         "aggregate_type": "string"
     },
     "RenameColumnTransformer": {
@@ -115,11 +120,13 @@
     },
     "SelectTransformer": {
         "input_block": "string",
-        "columns": "array"
+        "columns": "array",
+        "distinct_column": "string",
+        "filter_expression": "string"
     },
     "SQLTransformer": {
         "input_block": "string",
-        "sql_expr": "string"
+        "sql_expression": "string"
     },
     "WindowTransformer": {
         "input_block": "string",
@@ -131,9 +138,9 @@
         "file_type": "string"
     }, 
     "BigQueryReader": {
-        "project_id": "string",
-        "dataset_id": "string",
-        "table_id": "string"
+        "project": "string",
+        "dataset": "string",
+        "table": "string"
     }, 
     "DatabricksReader": {
         "database": "string",
@@ -154,9 +161,9 @@
         "file_type": "string"
     }, 
     "BigQueryWriter": {
-        "project_id": "string",
-        "dataset_id": "string",
-        "table_id": "string"
+        "project": "string",
+        "dataset": "string",
+        "table": "string"
     }, 
     "DatabricksWriter": {
         "input_block": "string",

@@ -1,13 +1,13 @@
 {
     "additionalProperties": false,
     "properties": {
-        "column_type": {
-            "type": "string"
-        },
         "input_block": {
             "type": "string"
         },
-        "name": {
+        "new_column_name": {
+            "type": "string"
+        },
+        "new_column_type": {
             "type": "string"
         },
         "value": {

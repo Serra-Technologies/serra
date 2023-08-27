@@ -1,16 +1,19 @@
 {
     "additionalProperties": false,
     "properties": {
-        "col_key": {
-            "type": "string"
-        },
         "input_block": {
             "type": "string"
         },
-        "map_dict": {
+        "input_column": {
+            "type": "string"
+        },
+        "mapping_dict_path": {
+            "type": "string"
+        },
+        "mapping_dictionary": {
             "type": "object"
         },
-        "name": {
+        "output_column": {
             "type": "string"
         }
     },

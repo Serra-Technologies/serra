@@ -4,6 +4,12 @@
         "columns": {
             "type": "array"
         },
+        "distinct_column": {
+            "type": "string"
+        },
+        "filter_expression": {
+            "type": "string"
+        },
         "input_block": {
             "type": "string"
         }

@@ -15,7 +15,7 @@ class SQLTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.sql_expr = config.get('sql_expr')
+        self.sql_expression = config.get('sql_expression')
 
     def transform(self, df: DataFrame) -> DataFrame:
         """
@@ -26,7 +26,7 @@ class SQLTransformer(Transformer):
         :raises: SerraRunException if no columns are specified in the configuration
                  or if none of the specified columns exist in the DataFrame.
         """
-        df = df.filter(F.expr(self.sql_expr))
+        df = df.filter(F.expr(self.sql_expression))
         return df
 
 

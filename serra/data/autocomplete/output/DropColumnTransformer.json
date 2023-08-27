@@ -1,7 +1,7 @@
 {
     "additionalProperties": false,
     "properties": {
-        "drop_names": {
+        "columns_to_drop": {
             "type": "array"
         },
         "input_block": {

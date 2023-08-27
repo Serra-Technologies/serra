@@ -16,8 +16,8 @@ class SelectTransformer(Transformer):
     def __init__(self, config):
         self.config = config
         self.columns = self.config.get("columns", [])
-        self.distinct_col = self.config.get('distinct_col')
-        self.condition = self.config.get('condition')
+        self.distinct_column = self.config.get('distinct_column')
+        self.filter_expression = self.config.get('filter_expression')
 
     def transform(self, df: DataFrame) -> DataFrame:
         """
@@ -38,11 +38,11 @@ class SelectTransformer(Transformer):
 
         df = df.select(*selected_columns)
         
-        if self.distinct_col is not None:
-            df = df.dropDuplicates(self.distinct_col)
+        if self.distinct_column is not None:
+            df = df.dropDuplicates(self.distinct_column)
 
-        if self.condition is not None:
-            df = df.filter(F.expr(self.condition))
+        if self.filter_expression is not None:
+            df = df.filter(F.expr(self.filter_expression))
         return df
 
 

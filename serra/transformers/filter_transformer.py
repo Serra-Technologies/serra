@@ -14,9 +14,9 @@ class FilterTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.condition = config.get("condition")
-        self.column = config.get("column")
-        self.is_expr = config.get('is_expr')
+        self.filter_values = config.get("filter_values")
+        self.filter_column = config.get("filter_column")
+        self.is_expression = config.get('is_expression')
 
     def transform(self, df):
         """
@@ -25,8 +25,8 @@ class FilterTransformer(Transformer):
         :param df: The input DataFrame to be transformed.
         :return: A new DataFrame with rows filtered based on the specified condition.
         """
-        if self.is_expr:
-            return df.filter(F.expr(self.condition))
+        if self.is_expression:
+            return df.filter(F.expr(self.filter_values))
 
-        return df.filter(df[self.column].isin(self.condition))
+        return df.filter(df[self.filter_column].isin(self.filter_values))
     

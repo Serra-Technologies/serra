@@ -8,7 +8,7 @@ class MultipleCaseWhenTransformer(Transformer):
 
     :param config: A dictionary containing the configuration for the transformer.
                    It should have the following keys:
-                   - 'input_col' (str): The name of the column containing the values to be evaluated.
+                   - 'input_column' (str): The name of the column containing the values to be evaluated.
                    - 'output_col' (str): The name of the new column to be added with the results of the conditions.
                    - 'conditions' (list): A list of tuples representing the conditions and their corresponding results.
                                          Each tuple should be in the format (condition_value, result_value).
@@ -20,8 +20,8 @@ class MultipleCaseWhenTransformer(Transformer):
 
     def __init__(self, config):
         self.config = config
-        self.col_dict = config.get('col_dict')
-        self.input_col = self.config.get("input_col")
+        self.columns_and_conditions = config.get('columns_and_conditions')
+        self.input_column = self.config.get("input_column")
         self.type = self.config.get('type')
 
     def transform(self, df):
@@ -41,17 +41,17 @@ class MultipleCaseWhenTransformer(Transformer):
 
         # Get the particular condition function based on the comparison type
         comparison_func = type_dict.get(self.type)
-        output_cols = list(self.col_dict.keys())
-        conditions = list(self.col_dict.values())
+        output_cols = list(self.columns_and_conditions.keys())
+        conditions = list(self.columns_and_conditions.values())
 
         if comparison_func is None:
             raise ValueError(f"Unsupported comparison type: {self.type}")
         
         for i in range(len(output_cols)):
             if len(conditions[i]) == 2:
-                case_expr = when(comparison_func(df[self.input_col[0]], conditions[i][0]), self.parse_result_value(conditions[i][1]))
+                case_expr = when(comparison_func(df[self.input_column[0]], conditions[i][0]), self.parse_result_value(conditions[i][1]))
             else: 
-                case_expr = when(comparison_func(df[self.input_col[0]], conditions[i][0]) | comparison_func(df[self.input_col[0]], conditions[i][2]), self.parse_result_value(conditions[i][1]))
+                case_expr = when(comparison_func(df[self.input_column[0]], conditions[i][0]) | comparison_func(df[self.input_column[0]], conditions[i][2]), self.parse_result_value(conditions[i][1]))
             case_expr = case_expr.otherwise(None)
             df = df.withColumn(output_cols[i], case_expr)
 

@@ -1,13 +1,13 @@
 {
     "additionalProperties": false,
     "properties": {
-        "dataset_id": {
+        "dataset": {
             "type": "string"
         },
-        "project_id": {
+        "project": {
             "type": "string"
         },
-        "table_id": {
+        "table": {
             "type": "string"
         }
     },
