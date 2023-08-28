@@ -1,7 +1,7 @@
 # Running a specific job
 import os
 import sys
-
+from datetime import datetime
 from loguru import logger
 
 from serra.config_parser import ConfigParser
@@ -51,6 +51,7 @@ def run_job_safely(job_name, config_location):
     """
     result = None
     try:
+        print('#####JOB RUN#####', datetime.now())
         result = run_job(job_name, config_location)
     except SerraRunException as s:
         logger.error(s)

@@ -10,3 +10,4 @@ snowflake-connector-python
 google-cloud-bigquery
 db-dtypes
 geopy
+schedule

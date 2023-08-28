@@ -1,6 +1,7 @@
 # Entry point for serra command line tool
 import sys
 import click
+import schedule, time
 
 from serra.run import update_package, translate_job, run_job_safely
 from serra.databricks import create_job
@@ -20,6 +21,32 @@ def cli_run_job_from_job_dir(job_name):
     """
     validate_workspace()
     run_job_safely(job_name, "local")
+
+
+@main.command(name="schedule")
+@click.argument("job_name")
+@click.argument("interval", type=int)
+@click.argument("unit")
+def cli_schedule_job(job_name, interval, unit):
+    def job_scheduler():
+        print('Running...')
+
+        validate_workspace()
+        run_job_safely(job_name, "local")
+
+    if unit == 'seconds':
+        schedule.every(interval).seconds.do(job_scheduler)
+    elif unit == 'minutes':
+        schedule.every(interval).minutes.do(job_scheduler)
+    elif unit == 'daily':
+        schedule.every(interval).days.do(job_scheduler)
+    elif unit == 'weekly':
+        schedule.every(interval).weeks.do(job_scheduler)
+
+    job_scheduler()
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 @main.command(name='configure')
 def cli_configure():
