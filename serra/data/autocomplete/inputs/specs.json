@@ -135,7 +135,8 @@
     "AmazonS3Reader": {
         "bucket_name": "string",
         "file_path": "string",
-        "file_type": "string"
+        "file_type": "string",
+        "options": "object"
     }, 
     "BigQueryReader": {
         "project": "string",
@@ -158,7 +159,9 @@
         "input_block": "string",
         "bucket_name": "string",
         "file_path": "string",
-        "file_type": "string"
+        "file_type": "string",
+        "options": "object",
+        "mode": "string"
     }, 
     "BigQueryWriter": {
         "project": "string",

@@ -9,6 +9,9 @@
         },
         "file_type": {
             "type": "string"
+        },
+        "options": {
+            "type": "object"
         }
     },
     "type": "object"

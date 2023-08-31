@@ -12,6 +12,12 @@
         },
         "input_block": {
             "type": "string"
+        },
+        "mode": {
+            "type": "string"
+        },
+        "options": {
+            "type": "object"
         }
     },
     "type": "object"
