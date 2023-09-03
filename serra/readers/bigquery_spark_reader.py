@@ -1,7 +1,7 @@
 from serra.readers import Reader
 
 
-class BigQuerySparkReader(Reader):
+class BigQueryReader(Reader):
     """
     A reader to read data from Snowflake into a Spark DataFrame.
 
