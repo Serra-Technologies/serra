@@ -58,8 +58,7 @@ class CaseWhenTransformer(Transformer):
             return df.withColumn(self.output_column, case_expr)
     
     def parse_result_value(self, result_value):
-        if isinstance(result_value,str):
-            if 'col:' in result_value:
-                return col(result_value[4:])
+        if isinstance(result_value,str) and 'col:' in result_value:
+            return col(result_value[4:])
         else:
             return(result_value)
