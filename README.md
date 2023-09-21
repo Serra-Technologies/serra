@@ -48,6 +48,12 @@ These are defined in the folders readers, writers, and transformers. If you deci
   export SPARK_HOME=`pwd`
   ```
 
+## Setup and Activate Virtual Environment
+```bash
+python3 -m venv env
+source env/bin/activate
+```
+
 ## Install Serra
 ```bash
 git clone https://github.com/Serra-Technologies/serra.git
