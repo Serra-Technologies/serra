@@ -58,6 +58,7 @@ source env/bin/activate
 ```bash
 git clone https://github.com/Serra-Technologies/serra.git
 cd serra
+pip install -r requirements.txt
 pip install -e .
 ```
 
