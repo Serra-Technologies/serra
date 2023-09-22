@@ -43,7 +43,7 @@ These are defined in the folders readers, writers, and transformers. If you deci
   First download Spark 3.5.0 from https://spark.apache.org/downloads.html.
   ```bash
   cd path/to/downloads
-  tar xzvf spark-3.5.0-bin-hadoop3.tgz
+  tar xzvf spark-3.5.0-bin-hadoop3.tar
   cd spark-3.5.0-bin-hadoop3
   export SPARK_HOME=`pwd`
   ```
