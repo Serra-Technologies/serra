@@ -6,17 +6,21 @@ class CastColumnTransformer(Transformer):
     """
     A transformer to cast columns in a DataFrame to specified data types.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following key:
-                   - 'cast_columns': A dictionary where the keys are the target column names
-                                     and the values are lists containing the source column name
-                                     and the target data type to which the source column will be cast.
-                                     Example: {'target_column': ['source_column', 'target_data_type']}
+    :param columns_to_cast: A dictionary where the keys are the target column names
+                            and the values are lists containing the source column name
+                            and the target data type to which the source column will be cast.
+                            Example: {'target_column': ['source_column', 'target_data_type']}
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.columns_to_cast = self.config.get("columns_to_cast")
+    def __init__(self, columns_to_cast):
+        self.columns_to_cast = columns_to_cast
+
+    @classmethod
+    def from_config(cls, config):
+        columns_to_cast = config.get("columns_to_cast")
+        obj = cls(columns_to_cast)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

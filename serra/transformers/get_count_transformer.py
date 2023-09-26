@@ -6,16 +6,22 @@ class GetCountTransformer(Transformer):
     """
     A transformer to get the count of occurrences of a column in the DataFrame.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'group_by_columns': A list of column names to group the DataFrame by.
-                   - 'count_column': The name of the column for which the count is to be calculated.
+    :param group_by_columns: A list of column names to group the DataFrame by.
+    :param count_column: The name of the column for which the count is to be calculated.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.group_by_columns = config.get("group_by_columns")
-        self.count_column = config.get("count_column")
+    def __init__(self, group_by_columns, count_column):
+        self.group_by_columns = group_by_columns
+        self.count_column = count_column
+
+    @classmethod
+    def from_config(cls, config):
+        group_by_columns = config.get("group_by_columns")
+        count_column = config.get("count_column")
+
+        obj = cls(group_by_columns, count_column)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

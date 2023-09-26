@@ -1,5 +1,6 @@
 from serra.readers import Reader
 
+
 class LocalReader(Reader):
     """
     A reader to read data from a local file into a Spark DataFrame.
@@ -9,9 +10,14 @@ class LocalReader(Reader):
                    - 'file_path': The path to the local file to be read.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.file_path = config.get("file_path")
+
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    @classmethod
+    def from_config(cls, config):
+        file_path = config.get("file_path")
+        return cls(file_path)
         
     def read(self):
         """
@@ -23,4 +29,7 @@ class LocalReader(Reader):
         df = self.spark.read.format("csv").option("header",True).load(self.file_path)
         return df
 
+    def read_with_spark(self, spark):
+        self.spark = spark
+        return self.read()
 

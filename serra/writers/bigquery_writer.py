@@ -15,42 +15,23 @@ class BigQueryWriter(Writer):
                    - 'table'
     """
 
-    def __init__(self, config):
-        self.config = config
-    
-    @property
-    def project(self):
-        return self.config.get("project")
-    
-    @property
-    def dataset(self):
-        return self.config.get("dataset")
-    
-    @property
-    def table(self):
-        return self.config.get("table")
-    
-    @property
-    def mode(self):
-        WRITE_APPEND = "WRITE_APPEND"
-        """If the table already exists, BigQuery appends the data to the table."""
+    def __init__(self, project, dataset, table, mode):
+        self.project = project
+        self.dataset = dataset
+        self.table = table
+        self.mode = mode
 
-        WRITE_TRUNCATE = "WRITE_TRUNCATE"
-        """If the table already exists, BigQuery overwrites the table data."""
+    @classmethod
+    def from_config(cls, config):
+        project = config.get('project')
+        dataset = config.get('dataset')
+        table = config.get('table')
+        mode = config.get('mode')
 
-        WRITE_EMPTY = "WRITE_EMPTY"
-        """If the table already exists and contains data, a 'duplicate' error is
-        returned in the job result."""
-        mode = self.config.get("mode")
-        valid_modes = ['append', 'overwrite', 'error']
-        if mode not in valid_modes:
-            raise SerraRunException(f"Invalid BigQueryWriter mode: {mode}, should be one of [{valid_modes}]")
-        return self.config.get("mode")
+        obj = cls(project, dataset, table, mode)
+        obj.input_block = config.get('input_block')
+        return obj
 
-    @property
-    def dependencies(self):
-        return [self.config.get('input_block')]
-    
     def write(self, df):
         """
         Read data from Snowflake and return a Spark DataFrame.

@@ -1,5 +1,5 @@
-from pyspark.sql.functions import col, when
-from pyspark.sql.utils import AnalysisException
+from pyspark.sql.functions import col
+
 from serra.exceptions import SerraRunException
 from serra.transformers.transformer import Transformer
 
@@ -7,28 +7,24 @@ class MultiJoinTransformer(Transformer):
     """
     A transformer to join multiple DataFrames together based on specified join conditions.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'join_type': The type of join to perform. Currently only 'inner' join is supported.
-                   - 'join_on': A dictionary where the keys are the table names (or DataFrame aliases)
-                                and the values are the column names to join on for each table.
-                   Example: {'table1': 'column1', 'table2': 'column2'}
+    :param join_type: The type of join to perform. Currently only 'inner' join is supported.
+    :param join_on: A dictionary where the keys are the table names (or DataFrame aliases)
+                    and the values are the column names to join on for each table.
+                    Example: {'table1': 'column1', 'table2': 'column2'}
     """
 
+    def __init__(self, join_type, join_on):
+        self.join_type = join_type
+        self.join_on = join_on
 
-    def __init__(self, config):
-        self.config = config
-        self.join_type = config.get("join_type")
-        self.join_on = config.get("join_on")
+    @classmethod
+    def from_config(cls, config):
+        join_type = config.get("join_type")
+        join_on = config.get("join_on")
 
-    # @property
-    # def dependencies(self):
-    #     """
-    #     Get the list of table names that this transformer depends on.
-
-    #     :return: A list of table names (keys from the 'join_on' dictionary).
-    #     """
-    #     return [key for key in self.config.get("join_on").keys()]
+        obj = cls(join_type, join_on)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, *dfs):
         """

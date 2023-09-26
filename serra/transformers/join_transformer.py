@@ -16,22 +16,21 @@ class JoinTransformer(Transformer):
     """
 
 
-    def __init__(self, config):
-        self.config = config
-        self.join_type = config.get("join_type")
-        self.join_on = config.get("join_on")
+    def __init__(self, join_type, join_on):
+        self.join_type = join_type
+        self.join_on = join_on
 
-    # @property
-    # def dependencies(self):
-    #     """
-    #     Get the list of table names that this transformer depends on.
-
-    #     :return: A list of table names (keys from the 'join_on' dictionary).
-    #     """
-    #     return [key for key in self.config.get("join_on").keys()]
+    @classmethod
+    def from_config(cls, config):
+        join_type = config.get("join_type")
+        join_on = config.get("join_on")
+        obj = cls(join_type, join_on)
+        obj.input_block = config.get("input_block")
+        return obj
+    
     @property
     def dependencies(self):
-        return self.config.get('input_block')
+        return self.input_block
 
     def transform(self, df1, df2):
         """

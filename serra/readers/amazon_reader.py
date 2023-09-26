@@ -14,30 +14,41 @@ class AmazonS3Reader(Reader):
                    - 'file_type': The type of file to be read (e.g., 'csv', 'parquet').
     """
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, bucket_name, file_path, file_type, options):
+        self.bucket_name = bucket_name
+        self.file_path = file_path
+        self.file_type = file_type
+        self.options = options
+
+    @classmethod
+    def from_config(cls, config):
+        bucket_name = config.get("bucket_name")
+        file_path = config.get("file_path")
+        file_type = config.get("file_type")
+        options = config.get("options")
+        return cls(bucket_name, file_path, file_type, options)
     
-    @property
-    def bucket_name(self):
-        return self.config.get("bucket_name")
+    # @property
+    # def bucket_name(self):
+    #     return self.config.get("bucket_name")
     
-    @property
-    def file_path(self):
-        return self.config.get("file_path")
+    # @property
+    # def file_path(self):
+    #     return self.config.get("file_path")
     
-    @property
-    def file_type(self):
-        file_type = self.config.get("file_type")
-        assert file_type in ['csv', 'parquet', 'json', 'orc']
-        return self.config.get("file_type")
+    # @property
+    # def file_type(self):
+    #     file_type = self.config.get("file_type")
+    #     assert file_type in ['csv', 'parquet', 'json', 'orc']
+    #     return self.config.get("file_type")
     
-    @property
-    def options(self):
-        options = self.config.get('options')
-        if not options:
-            return {}
-        # is dict
-        return options
+    # @property
+    # def options(self):
+    #     options = self.config.get('options')
+    #     if not options:
+    #         return {}
+    #     # is dict
+    #     return options
     
     @property
     def dependencies(self):
@@ -55,8 +66,9 @@ class AmazonS3Reader(Reader):
         df_read = spark.read
 
         # To specify options like header: true
-        for option_key, option_value in self.options.items():
-            df_read = df_read.option(option_key, option_value)
+        if self.options is not None:
+            for option_key, option_value in self.options.items():
+                df_read = df_read.option(option_key, option_value)
             
         df = df_read.format(self.file_type).load(s3_url)
 

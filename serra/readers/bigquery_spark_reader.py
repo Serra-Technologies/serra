@@ -12,25 +12,22 @@ class BigQueryReader(Reader):
                    - 'table_id'
     """
 
-    def __init__(self, config):
-        self.config = config
-    
-    @property
-    def project_id(self):
-        return self.config.get("project_id")
-    
-    @property
-    def dataset_id(self):
-        return self.config.get("dataset_id")
-    
-    @property
-    def table_id(self):
-        return self.config.get("table_id")
+    def __init__(self, project, dataset, table, mode):
+        self.project = project
+        self.dataset = dataset
+        self.table = table
+        self.mode = mode
 
-    @property
-    def dependencies(self):
-        return []
-    
+    @classmethod
+    def from_config(cls, config):
+        project = config.get('project')
+        dataset = config.get('dataset')
+        table = config.get('table')
+        mode = config.get('mode')
+
+        obj = cls(project, dataset, table, mode)
+        return obj
+
     def read(self):
         """
         Read data from Snowflake and return a Spark DataFrame.
@@ -38,6 +35,10 @@ class BigQueryReader(Reader):
         :return: A Spark DataFrame containing the data read from the specified Snowflake table.
         """
         df = self.spark.read.format("bigquery")\
-            .option('project', self.project_id)\
-                .load(f"{self.dataset_id}.{self.table_id}")
+            .option('parentProject', self.project)\
+            .load(f"{self.dataset}.{self.table}")
         return df
+    
+    def read_with_spark(self, spark):
+        self.spark = spark
+        return self.read()

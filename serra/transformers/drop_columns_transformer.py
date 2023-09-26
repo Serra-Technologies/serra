@@ -11,10 +11,13 @@ class DropColumnTransformer(Transformer):
                    - 'columns_to_drop': A list of column names to be dropped from the DataFrame.
     """
 
+    def __init__(self, columns_to_drop):
+        self.columns_to_drop = columns_to_drop
 
-    def __init__(self, config):
-        self.config = config
-        self.columns_to_drop = config.get("columns_to_drop")
+    @classmethod
+    def from_config(cls, config):
+        columns_to_drop = config.get("columns_to_drop")
+        return cls(columns_to_drop)
 
     def transform(self, df):
         """

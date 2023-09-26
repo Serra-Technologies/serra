@@ -15,13 +15,21 @@ class MapTransformer(Transformer):
                    - 'mapping_dict_path': The path to a JSON file containing the mapping dictionary.
                    - 'input_column': The name of the DataFrame column to be used as the key for mapping.
     """
+    def __init__(self, output_col, map_dict, map_dict_path, input_col):
+        self.output_column = output_col
+        self.mapping_dictionary = map_dict
+        self.mapping_dict_path = map_dict_path
+        self.input_column = input_col
 
-    def __init__(self, config):
-        self.config = config
-        self.output_column = config.get("output_column")
-        self.mapping_dictionary = config.get("mapping_dictionary")
-        self.mapping_dict_path = config.get("mapping_dict_path")
-        self.input_column = config.get('input_column')
+    @classmethod
+    def from_config(cls, config): 
+        output_col = config.get("output_column")
+        map_dict = config.get("mapping_dictionary")
+        map_dict_path = config.get("mapping_dict_path")
+        input_col = config.get('input_column')
+        obj = cls(output_col, map_dict, map_dict_path, input_col)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

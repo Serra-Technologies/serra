@@ -6,16 +6,22 @@ class CoalesceTransformer(Transformer):
     """
     A transformer to create a new column by coalescing multiple columns.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'input_cols': A list of column names to coalesce.
-                   - 'output_col': The name of the new column to create with the coalesced values.
+    :param input_columns: A list of column names to coalesce.
+    :param output_column: The name of the new column to create with the coalesced values.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.input_columns = self.config.get('input_columns')
-        self.output_column = self.config.get('output_column')
+    def __init__(self, input_columns, output_column):
+        self.input_columns = input_columns
+        self.output_column = output_column
+
+    @classmethod
+    def from_config(cls, config):
+        input_columns = config.get('input_columns')
+        output_column = config.get('output_column')
+
+        obj = cls(input_columns, output_column)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

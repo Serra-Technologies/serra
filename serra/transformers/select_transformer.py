@@ -8,16 +8,25 @@ class SelectTransformer(Transformer):
     """
     A transformer to perform a SELECT operation on a DataFrame.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following key:
-                   - 'columns': A list of column names to select from the DataFrame.
+    :param columns: A list of column names to select from the DataFrame.
+    :param distinct_column: Optional. The column for which distinct values should be retained.
+    :param filter_expression: Optional. A filter expression to apply to the DataFrame.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.columns = self.config.get("columns", [])
-        self.distinct_column = self.config.get('distinct_column')
-        self.filter_expression = self.config.get('filter_expression')
+    def __init__(self, columns=None, distinct_column=None, filter_expression=None):
+        self.columns = columns or []
+        self.distinct_column = distinct_column
+        self.filter_expression = filter_expression
+
+    @classmethod
+    def from_config(cls, config):
+        columns = config.get("columns", [])
+        distinct_column = config.get('distinct_column')
+        filter_expression = config.get('filter_expression')
+
+        obj = cls(columns, distinct_column, filter_expression)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df: DataFrame) -> DataFrame:
         """

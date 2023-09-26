@@ -4,14 +4,18 @@ class LocalWriter(Writer):
     """
     A writer to write data from a Spark DataFrame to a local file.
 
-    :param config: A dictionary containing the configuration for the writer.
-                   It should have the following key:
-                   - 'file_path': The path of the local file to write to.
+    :param file_path: The path of the local file to write to.
     """
-    
-    def __init__(self, config):
-        self.config = config
-        self.file_path = config.get("file_path")
+
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    @classmethod
+    def from_config(cls, config):
+        file_path = config.get("file_path")
+        obj = cls(file_path)
+        obj.input_block = config.get('input_block')
+        return obj
     
     def write(self, df):
         """

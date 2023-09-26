@@ -12,4 +12,4 @@ class Writer(Step):
 
     @property
     def dependencies(self):
-        return [self.config.get('input_block')]
+        return [self.input_block]

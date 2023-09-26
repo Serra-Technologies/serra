@@ -3,12 +3,16 @@ read_sales:
     bucket_name: serrademo
     file_path: sales.csv
     file_type: csv
+    options:
+      header: True
 
 read_ratings:
   AmazonS3Reader:
     bucket_name: serrademo
     file_path: rating_df.csv
     file_type: csv
+    options:
+      header: True
 
 join_tables:
   JoinTransformer:
@@ -24,5 +28,6 @@ step_write:
     bucket_name: serrademo
     file_path: output.csv
     file_type: csv
+    mode: overwrite
 
 

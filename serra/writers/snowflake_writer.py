@@ -1,6 +1,7 @@
 import snowflake.connector
 from loguru import logger
 
+from serra.utils import get_local_serra_profile
 from serra.exceptions import SerraRunException
 from serra.writers import Writer
 
@@ -17,9 +18,25 @@ class SnowflakeWriter(Writer):
                    - 'table': The name of the Snowflake table to write to.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.type = self.config.get('type')
+    def __init__(self, warehouse, database, schema, table, type):
+        self.warehouse = warehouse
+        self.database = database
+        self.schema = schema
+        self.table = table
+        self.type = type
+        self.serra_profile = get_local_serra_profile()
+
+    @classmethod
+    def from_config(cls, config):
+        warehouse = config.get('warehouse')
+        database = config.get('database')
+        schema = config.get('schema')
+        table = config.get('table')
+        type = config.get('type')
+
+        obj = cls(warehouse, database, schema, table, type)
+        obj.input_block = config.get('input_block')
+        return obj
 
     @property
     def snowflake_account(self):
@@ -37,10 +54,6 @@ class SnowflakeWriter(Writer):
     def account(self):
         return self.snowflake_account.get("ACCOUNT")
     
-    @property
-    def dependencies(self):
-        return [self.config.get('input_block')]
-    
     def write(self, spark_df):
         """
         Write data from a Spark DataFrame to a Snowflake table.
@@ -53,9 +66,9 @@ class SnowflakeWriter(Writer):
             user=self.user,
             password=self.password,
             account=self.account,
-            warehouse=self.config.get('warehouse'),
-            database=self.config.get('database'),
-            schema=self.config.get('schema')
+            warehouse=self.warehouse,
+            database=self.database,
+            schema=self.schema
         )
 
         ctx = conn.cursor()
@@ -65,7 +78,7 @@ class SnowflakeWriter(Writer):
 
         # If creating entirely new table
         if self.type == 'create': 
-            create_table_sql = f"CREATE OR REPLACE TABLE {self.config.get('table')} ("
+            create_table_sql = f"CREATE OR REPLACE TABLE {self.table} ("
 
             # Get schema
             for column in pandas_df.columns:
@@ -95,7 +108,7 @@ class SnowflakeWriter(Writer):
             create_table_sql = create_table_sql.rstrip(', ') + ")"
             ctx.execute(create_table_sql)
 
-        insert_sql = f"INSERT INTO {self.config.get('table')} VALUES ({placeholders})"
+        insert_sql = f"INSERT INTO {self.table} VALUES ({placeholders})"
 
         try:
             ctx.executemany(insert_sql, data)

@@ -1,6 +1,5 @@
 from pyspark.sql import functions as F
 
-from serra.exceptions import SerraRunException
 from serra.transformers.transformer import Transformer
 
 class JoinWithConditionTransformer(Transformer):
@@ -15,21 +14,31 @@ class JoinWithConditionTransformer(Transformer):
                    Example: {'table1': 'column1', 'table2': 'column2'}
     """
 
+class JoinWithConditionTransformer(Transformer):
+    """
+    A transformer to join two DataFrames together based on a specified join condition.
 
-    def __init__(self, config):
-        self.config = config
-        self.join_type = config.get("join_type")
-        self.condition = config.get('condition')
-        self.join_on = config.get("join_on")
+    :param join_type: The type of join to perform. Currently only 'inner' join is supported.
+    :param condition: The condition for the join.
+    :param join_on: A dictionary where the keys are the table names (or DataFrame aliases)
+                    and the values are the column names to join on for each table.
+                    Example: {'table1': 'column1', 'table2': 'column2'}
+    """
 
-    # @property
-    # def dependencies(self):
-    #     """
-    #     Get the list of table names that this transformer depends on.
+    def __init__(self, join_type, condition, join_on):
+        self.join_type = join_type
+        self.condition = condition
+        self.join_on = join_on
 
-    #     :return: A list of table names (keys from the 'join_on' dictionary).
-    #     """
-    #     return [key for key in self.config.get("join_on").keys()]
+    @classmethod
+    def from_config(cls, config):
+        join_type = config.get("join_type")
+        condition = config.get('condition')
+        join_on = config.get("join_on")
+
+        obj = cls(join_type, condition, join_on)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df1, df2):
         """

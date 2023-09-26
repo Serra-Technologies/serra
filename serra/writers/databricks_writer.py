@@ -14,12 +14,22 @@ class DatabricksWriter(Writer):
                    - 'mode': The write mode to use, such as 'overwrite', 'append', etc.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.database = self.config.get('database')
-        self.table = self.config.get('table')
-        self.format = self.config.get('format')
-        self.mode = self.config.get('mode')
+    def __init__(self, database, table, format, mode):
+        self.database = database
+        self.table = table
+        self.format = format
+        self.mode = mode
+
+    @classmethod
+    def from_config(cls, config):
+        database = config.get('database')
+        table = config.get('table')
+        format = config.get('format')
+        mode = config.get('mode')
+
+        obj = cls(database, table, format, mode)
+        obj.input_block = config.get('input_block')
+        return obj
         
     def write(self, df: DataFrame):
         """

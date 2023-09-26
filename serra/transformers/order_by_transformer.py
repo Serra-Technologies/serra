@@ -4,20 +4,22 @@ class OrderByTransformer(Transformer):
     """
     A transformer to sort the DataFrame based on specified columns in ascending or descending order.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'columns': A list of column names to sort the DataFrame by.
-                   - 'ascending': Optional. If True (default), sort in ascending order.
-                                  If False, sort in descending order.
+    :param columns: A list of column names to sort the DataFrame by.
+    :param ascending: Optional. If True (default), sort in ascending order. If False, sort in descending order.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.columns = config.get("columns")
-        self.ascending = config.get("ascending")
+    def __init__(self, columns, ascending=True):
+        self.columns = columns
+        self.ascending = ascending
 
-        if self.ascending is None:
-            self.ascending = True
+    @classmethod
+    def from_config(cls, config):
+        columns = config.get("columns")
+        ascending = config.get("ascending", True)
+
+        obj = cls(columns, ascending)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

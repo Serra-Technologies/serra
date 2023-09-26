@@ -1,10 +1,3 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf, lit
-from pyspark.sql.types import TimestampType
-from datetime import datetime
-
-
-
 from pyspark.sql import functions as F
 from serra.transformers.transformer import Transformer
 
@@ -12,17 +5,25 @@ class DateTruncTransformer(Transformer):
     """
     A transformer to truncate a timestamp column to a specified unit.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'timestamp_column': The name of the timestamp column to be truncated.
-                   - 'trunc_unit': The unit for truncating the timestamp (e.g., 'day', 'month', 'year').
+    :param timestamp_column: The name of the timestamp column to be truncated.
+    :param trunc_unit: The unit for truncating the timestamp (e.g., 'day', 'month', 'year').
+    :param output_column: The name of the new column to create with the truncated timestamps.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.timestamp_column = config.get("timestamp_column")
-        self.trunc_unit = config.get("trunc_unit")
-        self.output_column = config.get('output_column')
+    def __init__(self, timestamp_column, trunc_unit, output_column):
+        self.timestamp_column = timestamp_column
+        self.trunc_unit = trunc_unit
+        self.output_column = output_column
+
+    @classmethod
+    def from_config(cls, config):
+        timestamp_column = config.get("timestamp_column")
+        trunc_unit = config.get("trunc_unit")
+        output_column = config.get('output_column')
+
+        obj = cls(timestamp_column, trunc_unit, output_column)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

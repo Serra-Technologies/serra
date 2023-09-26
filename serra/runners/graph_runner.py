@@ -16,7 +16,8 @@ def get_configured_block_object(block_name, cf: ConfigParser) -> Step:
 
     full_class_name = convert_name_to_full(class_name)
     block_class = import_class(full_class_name)
-    configured_block_object = block_class(config)
+    configured_block_object = block_class.from_config(config)
+    # configured_block_object = block_class(config)
     return configured_block_object
 
 # TODO: Add execute method to all blocks to remove this design

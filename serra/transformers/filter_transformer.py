@@ -6,17 +6,25 @@ class FilterTransformer(Transformer):
     """
     A transformer to filter the DataFrame based on a specified condition.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'condition': A list of values to filter the DataFrame by.
-                   - 'column': The name of the column to apply the filter on.
+    :param filter_values: A list of values to filter the DataFrame by.
+    :param filter_column: The name of the column to apply the filter on.
+    :param is_expression: Whether the filter is an expression (boolean condition).
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.filter_values = config.get("filter_values")
-        self.filter_column = config.get("filter_column")
-        self.is_expression = config.get('is_expression')
+    def __init__(self, filter_values, filter_column, is_expression=False):
+        self.filter_values = filter_values
+        self.filter_column = filter_column
+        self.is_expression = is_expression
+
+    @classmethod
+    def from_config(cls, config):
+        filter_values = config.get("filter_values")
+        filter_column = config.get("filter_column")
+        is_expression = config.get("is_expression", False)
+        obj = cls(filter_values, filter_column, is_expression)
+        obj.input_block = config.get('input_block')
+        return obj
+        
 
     def transform(self, df):
         """
@@ -29,4 +37,3 @@ class FilterTransformer(Transformer):
             return df.filter(F.expr(self.filter_values))
 
         return df.filter(df[self.filter_column].isin(self.filter_values))
-    

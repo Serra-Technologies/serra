@@ -7,21 +7,29 @@ class PivotTransformer(Transformer):
     """
     A transformer to pivot a DataFrame based on specified row and column levels, and perform aggregation.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'row_level_column': The column used for row levels during pivoting.
-                   - 'column_level_column': The column used for column levels during pivoting.
-                   - 'value_column': The column to be summarized (values) during pivoting.
-                   - 'aggregate_type': The type of aggregation to perform after pivoting.
-                                      Should be one of 'avg' (average) or 'sum' (sum).
+    :param row_level_column: The column used for row levels during pivoting.
+    :param column_level_column: The column used for column levels during pivoting.
+    :param value_column: The column to be summarized (values) during pivoting.
+    :param aggregate_type: The type of aggregation to perform after pivoting.
+                           Should be one of 'avg' (average) or 'sum' (sum).
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.row_level_column = config.get("row_level_column")
-        self.column_level_column = config.get("column_level_column")
-        self.value_column = config.get("value_column")
-        self.aggregate_type = config.get("aggregate_type")
+    def __init__(self, row_level_column, column_level_column, value_column, aggregate_type):
+        self.row_level_column = row_level_column
+        self.column_level_column = column_level_column
+        self.value_column = value_column
+        self.aggregate_type = aggregate_type
+
+    @classmethod
+    def from_config(cls, config):
+        row_level_column = config.get("row_level_column")
+        column_level_column = config.get("column_level_column")
+        value_column = config.get("value_column")
+        aggregate_type = config.get("aggregate_type")
+
+        obj = cls(row_level_column, column_level_column, value_column, aggregate_type)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

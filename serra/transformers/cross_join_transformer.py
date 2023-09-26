@@ -15,9 +15,14 @@ class CrossJoinTransformer(Transformer):
                    Example: {'table1': 'column1', 'table2': 'column2'}
     """
 
+    def __init__(self):
+        self = self
 
-    def __init__(self, config):
-        self.config = config
+    @classmethod
+    def from_config(cls, config):
+        obj = cls()
+        obj.input_block = config.get('input_block')
+        return obj
 
     # @property
     # def dependencies(self):

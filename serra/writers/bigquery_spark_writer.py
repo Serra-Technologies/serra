@@ -14,32 +14,22 @@ class BigQueryWriter(Writer):
                    - 'table_id'
     """
 
-    def __init__(self, config):
-        self.config = config
-    
-    @property
-    def project_id(self):
-        return self.config.get("project_id")
-    
-    @property
-    def dataset_id(self):
-        return self.config.get("dataset_id")
-    
-    @property
-    def table_id(self):
-        return self.config.get("table_id")
-    
-    @property
-    def mode(self):
-        mode = self.config.get("mode")
-        valid_modes = ['append', 'overwrite', 'error', 'ignore']
-        if mode not in valid_modes:
-            raise SerraRunException(f"Invalid BigQueryWriter mode: {mode}, should be one of {valid_modes}")
-        return self.config.get("mode")
+    def __init__(self, project_id, dataset_id, table_id, mode):
+        self.project_id = project_id
+        self.dataset_id = dataset_id
+        self.table_id = table_id
+        self.mode = mode
 
-    @property
-    def dependencies(self):
-        return [self.config.get('input_block')]
+    @classmethod
+    def from_config(cls, config):
+        project_id = config.get('project_id')
+        dataset_id = config.get('dataset_id')
+        table_id = config.get('table_id')
+        mode = config.get('mode')
+
+        obj = cls(project_id, dataset_id, table_id, mode)
+        obj.input_block = config.get('input_block')
+        return obj
     
     def write(self, df):
         """

@@ -1,8 +1,8 @@
 import pandas as pd
 import snowflake.connector
 
+from serra.utils import get_local_serra_profile
 from serra.readers import Reader
-
 
 class SnowflakeReader(Reader):
     """
@@ -16,8 +16,22 @@ class SnowflakeReader(Reader):
                    - 'table': The name of the table to be read from Snowflake.
     """
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, warehouse, database, schema, table):
+        self.warehouse = warehouse
+        self.database = database
+        self.schema = schema
+        self.table = table
+        self.serra_profile = get_local_serra_profile()
+
+    @classmethod
+    def from_config(cls, config):
+        warehouse = config.get('warehouse')
+        database = config.get('database')
+        schema = config.get('schema')
+        table =  config.get('table')
+
+        obj = cls(warehouse, database, schema, table)
+        return obj
     
     @property
     def snowflake_account(self):
@@ -34,10 +48,6 @@ class SnowflakeReader(Reader):
     @property
     def account(self):
         return self.snowflake_account.get("ACCOUNT")
-
-    @property
-    def dependencies(self):
-        return []
     
     def read(self):
         """
@@ -49,13 +59,13 @@ class SnowflakeReader(Reader):
             user=self.user,
             password=self.password,
             account=self.account,
-            warehouse=self.config.get('warehouse'),
-            database=self.config.get('database'),
-            schema=self.config.get('schema')
+            warehouse=self.warehouse,
+            database=self.database,
+            schema=self.schema
             )
 
         ctx = conn.cursor()
-        ctx.execute(f"select * from {self.config.get('table')}")
+        ctx.execute(f"select * from {self.table}")
 
         results = ctx.fetchall()
         column_names = [column[0] for column in ctx.description]
@@ -64,3 +74,7 @@ class SnowflakeReader(Reader):
         spark = self.spark
         spark_df = spark.createDataFrame(df)
         return spark_df
+
+    def read_with_spark(self, spark):
+        self.spark = spark
+        return self.read()

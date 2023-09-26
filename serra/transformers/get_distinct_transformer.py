@@ -6,14 +6,19 @@ class DropDuplicatesTransformer(Transformer):
     """
     A transformer to drop duplicate rows from the DataFrame based on specified column(s).
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'cols': A list of column names to identify rows for duplicates removal.
+    :param columns_to_check: A list of column names to identify rows for duplicates removal.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.columns_to_check = self.config.get('columns_to_check')
+    def __init__(self, columns_to_check):
+        self.columns_to_check = columns_to_check
+
+    @classmethod
+    def from_config(cls, config):
+        columns_to_check = config.get('columns_to_check')
+
+        obj = cls(columns_to_check)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

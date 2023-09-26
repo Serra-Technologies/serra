@@ -6,18 +6,28 @@ class GetMaxOrMinTransformer(Transformer):
     """
     Test transformer to add a column to the dataframe with the maximum or minimum value from another column.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following key:
-                   - 'col_dict' (dict): A dictionary specifying the column to be transformed and the operation to be performed.
-                                       The dictionary format should be {'input_column': 'aggregation_type'}.
-                                       The output_column will contain the result of the aggregation operation.
+    :param columns_and_operations: A dictionary specifying the column to be transformed and the operation to be performed.
+                                   The dictionary format should be {'input_column': 'aggregation_type'}.
+                                   The output_column will contain the result of the aggregation operation.
+    :param new_column_names: A dictionary specifying the names of the new columns to create for each aggregation operation.
+                             The dictionary format should be {'aggregation_type': 'new_column_name'}.
+    :param group_by_columns: A list of column names to group the DataFrame by.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.columns_and_operations = self.config.get('columns_and_operations')
-        self.new_column_names = self.config.get('new_column_names')
-        self.group_by_columns = self.config.get("group_by_columns")
+    def __init__(self, columns_and_operations, new_column_names, group_by_columns):
+        self.columns_and_operations = columns_and_operations
+        self.new_column_names = new_column_names
+        self.group_by_columns = group_by_columns
+
+    @classmethod
+    def from_config(cls, config):
+        columns_and_operations = config.get('columns_and_operations')
+        new_column_names = config.get('new_column_names')
+        group_by_columns = config.get("group_by_columns")
+
+        obj = cls(columns_and_operations, new_column_names, group_by_columns)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

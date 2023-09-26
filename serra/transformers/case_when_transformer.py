@@ -5,17 +5,34 @@ from serra.transformers.transformer import Transformer
 class CaseWhenTransformer(Transformer):
     """
     Test transformer to add a column to dataframe
-    :param config: Holds column value
+    :param output_column: The name of the new output column to be added.
+    :param input_column: The name of the input column.
+    :param conditions: A list of conditions to evaluate. Each condition should be a tuple of (condition_column, operator, value).
+    :param comparison_type: The type of comparison to use (e.g., 'equals', 'greater_than').
+    :param is_column_condition: Boolean indicating whether the condition is based on a column value.
+    :param otherwise_value: The value to use when none of the conditions are met.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.output_column = self.config.get("output_column")
-        self.input_column = self.config.get("input_column")
-        self.conditions = self.config.get('conditions')
-        self.comparison_type = self.config.get('comparison_type')
-        self.is_column_condition = self.config.get('is_column_condition')
-        self.otherwise_value = config.get('otherwise_value')
+    def __init__(self, output_column, input_column, conditions, comparison_type, is_column_condition, otherwise_value):
+        self.output_column = output_column
+        self.input_column = input_column
+        self.conditions = conditions
+        self.comparison_type = comparison_type
+        self.is_column_condition = is_column_condition
+        self.otherwise_value = otherwise_value
+
+    @classmethod
+    def from_config(cls, config):
+        output_column = config.get("output_column")
+        input_column = config.get("input_column")
+        conditions = config.get('conditions')
+        comparison_type = config.get('comparison_type')
+        is_column_condition = config.get('is_column_condition')
+        otherwise_value = config.get('otherwise_value')
+
+        obj = cls(output_column, input_column, conditions, comparison_type, is_column_condition, otherwise_value)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

@@ -11,11 +11,18 @@ class DatabricksReader(Reader):
                    - 'table': The name of the table to be read.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.database = self.config.get('database')
-        self.table = self.config.get('table')
+    def __init__(self, database, table):
+        self.database = database
+        self.table = table
         
+    @classmethod
+    def from_config(cls, config):
+        database = config.get('database')
+        table = config.get('table')
+
+        obj = cls(database, table)
+        return obj
+
     def read(self):
         """
         Read data from a Databricks Delta Lake table and return a Spark DataFrame.
@@ -29,4 +36,6 @@ class DatabricksReader(Reader):
             raise SerraRunException(e)
         return df
 
-
+    def read_with_spark(self, spark):
+        self.spark = spark
+        return self.read()

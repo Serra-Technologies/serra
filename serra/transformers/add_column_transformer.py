@@ -7,19 +7,25 @@ class AddColumnTransformer(Transformer):
     """
     A transformer to add a new column to the DataFrame with a specified value.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'new_column_name': The name of the new column to be added.
-                   - 'value': The value to be set for the new column.
-                   - 'new_column_type': The data type of the new column. Must be a valid PySpark data type string.
+    :param new_column_name: The name of the new column to be added.
+    :param value: The value to be set for the new column.
+    :param new_column_type: The data type of the new column. Must be a valid PySpark data type string.
     """
 
+    def __init__(self, new_column_name, value, new_column_type):
+        self.new_column_name = new_column_name
+        self.value = value
+        self.new_column_type = new_column_type
 
-    def __init__(self, config):
-        self.config = config
-        self.new_column_name = config.get("new_column_name")
-        self.value = config.get("value")
-        self.new_column_type = config.get("new_column_type")
+    @classmethod
+    def from_config(cls, config):
+        new_column_name = config.get("new_column_name")
+        value = config.get("value")
+        new_column_type = config.get("new_column_type")
+
+        obj = cls(new_column_name, value, new_column_type)
+        obj.input_block = config.get('input_block')
+        return obj
         
     def transform(self, df):
         """

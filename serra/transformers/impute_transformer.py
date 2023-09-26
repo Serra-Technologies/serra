@@ -6,16 +6,22 @@ class ImputeTransformer(Transformer):
     """
     A transformer to clean/impute missing values in specified columns.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'columns_to_impute': A list of column names to impute missing values.
-                   - 'imputation_strategy': The imputation strategy. Supported values: 'mean', 'median', 'mode'.
+    :param columns_to_impute: A list of column names to impute missing values.
+    :param imputation_strategy: The imputation strategy. Supported values: 'mean', 'median', 'mode'.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.columns_to_impute = config.get("columns_to_impute")
-        self.imputation_strategy = config.get('imputation_strategy')
+    def __init__(self, columns_to_impute, imputation_strategy):
+        self.columns_to_impute = columns_to_impute
+        self.imputation_strategy = imputation_strategy
+
+    @classmethod
+    def from_config(cls, config):
+        columns_to_impute = config.get("columns_to_impute")
+        imputation_strategy = config.get('imputation_strategy')
+
+        obj = cls(columns_to_impute, imputation_strategy)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

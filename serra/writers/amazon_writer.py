@@ -12,37 +12,24 @@ class AmazonS3Writer(Writer):
                    - 'input_block': The name of the input block used as a dependency for this writer.
     """
     
-    def __init__(self, config):
-        self.config = config
-    
-    @property
-    def bucket_name(self):
-        return self.config.get("bucket_name")
-    
-    @property
-    def file_path(self):
-        return self.config.get("file_path")
-    
-    @property
-    def file_type(self):
-        return self.config.get("file_type")
-    
-    @property
-    def options(self):
-        options = self.config.get('options')
-        if not options:
-            return {}
-        return options
-    
-    @property
-    def mode(self):
-        mode = self.config.get('mode')
-        assert mode in ['error', 'overwrite', 'ignore', 'errorifexists']
-        return mode
-    
-    @property
-    def dependencies(self):
-        return [self.config.get('input_block')]
+    def __init__(self, bucket_name, file_path, file_type, options, mode):
+        self.bucket_name = bucket_name
+        self.file_path = file_path
+        self.file_type = file_type
+        self.options = options
+        self.mode = mode
+
+    @classmethod
+    def from_config(cls, config):
+        bucket_name = config.get("bucket_name")
+        file_path = config.get("file_path")
+        file_type = config.get("file_type")
+        options = config.get("options")
+        mode = config.get("mode")
+
+        obj = cls(bucket_name, file_path, file_type, options, mode)
+        obj.input_block = config.get("input_block")
+        return obj
     
     def write(self, df):
         """
@@ -53,8 +40,9 @@ class AmazonS3Writer(Writer):
         df_write = df.write
 
         # To specify options like header: true
-        for option_key, option_value in self.options.items():
-            df_write = df_write.option(option_key, option_value)
+        if self.options is not None:
+            for option_key, option_value in self.options.items():
+                df_write = df_write.option(option_key, option_value)
         
         s3_url = f"s3a://{self.bucket_name}/{self.file_path}"
         df_write.mode(self.mode).format(self.file_type).save(s3_url)

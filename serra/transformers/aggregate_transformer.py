@@ -6,16 +6,22 @@ class AggregateTransformer(Transformer):
     """
     A transformer to aggregate data based on specified columns and aggregation type.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'group_by': A list of column names to group the DataFrame by.
-                   - 'type': The type of aggregation to be performed. Supported values: 'sum', 'avg', 'count'.
+    :param group_by_columns: A list of column names to group the DataFrame by.
+    :param aggregation_type: The type of aggregation to be performed. Supported values: 'sum', 'avg', 'count'.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.group_by_columns = self.config.get('group_by_columns')
-        self.aggregation_type = self.config.get('aggregation_type')
+    def __init__(self, group_by_columns, aggregation_type):
+        self.group_by_columns = group_by_columns
+        self.aggregation_type = aggregation_type
+
+    @classmethod
+    def from_config(cls, config):
+        group_by_columns = config.get('group_by_columns')
+        aggregation_type = config.get('aggregation_type')
+
+        obj = cls(group_by_columns, aggregation_type)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

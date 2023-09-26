@@ -7,18 +7,28 @@ class GeoDistanceTransformer(Transformer):
     """
     A transformer to calculate distances between pairs of geographical coordinates.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'start_column': The name of the column containing user coordinates.
-                   - 'end_column': The name of the column containing facility coordinates.
-                   - 'distance_km_col': The name of the column to store the calculated distance in kilometers.
-                   - 'distance_mi_col': The name of the column to store the calculated distance in miles.
+    :param start_column: The name of the column containing user coordinates.
+    :param end_column: The name of the column containing facility coordinates.
+    :param distance_km_col: The name of the column to store the calculated distance in kilometers.
+    :param distance_mi_col: The name of the column to store the calculated distance in miles.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.start_column = config.get("start_column")
-        self.end_column = config.get("end_column")
+    def __init__(self, start_column, end_column, distance_km_col, distance_mi_col):
+        self.start_column = start_column
+        self.end_column = end_column
+        self.distance_km_col = distance_km_col
+        self.distance_mi_col = distance_mi_col
+
+    @classmethod
+    def from_config(cls, config):
+        start_column = config.get("start_column")
+        end_column = config.get("end_column")
+        distance_km_col = config.get("distance_km_col")
+        distance_mi_col = config.get("distance_mi_col")
+
+        obj = cls(start_column, end_column, distance_km_col, distance_mi_col)
+        obj.input_block = config.get('input_block')
+        return obj
         
     def transform(self, df):
         """

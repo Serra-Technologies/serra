@@ -6,23 +6,31 @@ class MultipleCaseWhenTransformer(Transformer):
     """
     A transformer that adds a new column to the DataFrame based on conditional rules (similar to SQL's CASE WHEN).
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'input_column' (str): The name of the column containing the values to be evaluated.
-                   - 'output_col' (str): The name of the new column to be added with the results of the conditions.
-                   - 'conditions' (list): A list of tuples representing the conditions and their corresponding results.
-                                         Each tuple should be in the format (condition_value, result_value).
-                                         The condition_value can be a specific value or a pattern for LIKE comparisons.
-                                         The result_value will be assigned to the output_col if the condition is met.
-                   - 'type' (str): The type of comparison to be used. It can be either '==' for equality comparison
-                                   or 'like' for pattern matching using the LIKE operator.
+    :param columns_and_conditions: A list of tuples representing the conditions and their corresponding results.
+                                   Each tuple should be in the format (condition_value, result_value).
+                                   The condition_value can be a specific value or a pattern for LIKE comparisons.
+                                   The result_value will be assigned to the output_col if the condition is met.
+    :param input_column: The name of the column containing the values to be evaluated.
+    :param output_col: The name of the new column to be added with the results of the conditions.
+    :param type: The type of comparison to be used. It can be either '==' for equality comparison or 'like' for pattern matching using the LIKE operator.
     """
 
-    def __init__(self, config):
-        self.config = config
-        self.columns_and_conditions = config.get('columns_and_conditions')
-        self.input_column = self.config.get("input_column")
-        self.type = self.config.get('type')
+    def __init__(self, columns_and_conditions, input_column, output_col, type):
+        self.columns_and_conditions = columns_and_conditions
+        self.input_column = input_column
+        self.output_col = output_col
+        self.type = type
+
+    @classmethod
+    def from_config(cls, config):
+        columns_and_conditions = config.get('columns_and_conditions')
+        input_column = config.get("input_column")
+        output_col = config.get('output_col')
+        type = config.get('type')
+
+        obj = cls(columns_and_conditions, input_column, output_col, type)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """
