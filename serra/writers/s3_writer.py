@@ -1,6 +1,6 @@
 from serra.writers import Writer
 
-class AmazonS3Writer(Writer):
+class S3Writer(Writer):
     """
     A writer to write data from a Spark DataFrame to Amazon S3 as a CSV file.
 

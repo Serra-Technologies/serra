@@ -9,3 +9,4 @@ serra.egg-info
 node_modules
 .DS_Store
 serra_key_pair.pem
+workspace

@@ -44,8 +44,8 @@
                 {
                     "additionalProperties": false,
                     "properties": {
-                        "CastColumnTransformer": {
-                            "$ref": "./CastColumnTransformer.json"
+                        "CastColumnsTransformer": {
+                            "$ref": "./CastColumnsTransformer.json"
                         },
                         "tests": {
                             "type": "array"
@@ -308,8 +308,8 @@
                 {
                     "additionalProperties": false,
                     "properties": {
-                        "AmazonS3Reader": {
-                            "$ref": "./AmazonS3Reader.json"
+                        "S3Reader": {
+                            "$ref": "./S3Reader.json"
                         },
                         "tests": {
                             "type": "array"
@@ -368,8 +368,8 @@
                 {
                     "additionalProperties": false,
                     "properties": {
-                        "AmazonS3Writer": {
-                            "$ref": "./AmazonS3Writer.json"
+                        "S3Writer": {
+                            "$ref": "./S3Writer.json"
                         },
                         "tests": {
                             "type": "array"

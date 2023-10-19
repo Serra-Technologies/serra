@@ -19,7 +19,7 @@
         "is_column_condition": "string",
         "otherwise_value": "string"
     },
-    "CastColumnTransformer": {
+    "CastColumnsTransformer": {
         "input_block": "string",
         "columns_to_cast": "object"
     },
@@ -132,7 +132,7 @@
         "input_block": "string",
         "partition_by": "array"
     },
-    "AmazonS3Reader": {
+    "S3Reader": {
         "bucket_name": "string",
         "file_path": "string",
         "file_type": "string",
@@ -155,7 +155,7 @@
         "database": "string",
         "schema": "string"
     }, 
-    "AmazonS3Writer": {
+    "S3Writer": {
         "input_block": "string",
         "bucket_name": "string",
         "file_path": "string",

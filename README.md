@@ -7,7 +7,7 @@ For example, you can specify that you want to read a CSV file from an S3 bucket,
 
 ```yaml
 step_read:
-  AmazonS3Reader:
+  S3Reader:
     bucket_name: serrademo
     file_path: sales.csv
     file_type: csv

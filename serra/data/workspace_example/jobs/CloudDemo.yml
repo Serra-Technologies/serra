@@ -1,11 +1,11 @@
 read_sales:
- AmazonS3Reader:
+ S3Reader:
    bucket_name: serrademo
    file_path: sales.csv
    file_type: csv
 
 read_ratings:
- AmazonS3Reader:
+ S3Reader:
    bucket_name: serrademo
    file_path: rating_df.csv
    file_type: csv
@@ -25,7 +25,7 @@ map_state_names:
    input_column: 'region'
 
 cast_ratings:
-  CastColumnTransformer:
+  CastColumnsTransformer:
     input_block: map_state_names
     columns_to_cast:
       rating: ['rating', 'double']

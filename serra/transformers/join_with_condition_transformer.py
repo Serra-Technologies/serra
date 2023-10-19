@@ -6,18 +6,6 @@ class JoinWithConditionTransformer(Transformer):
     """
     A transformer to join two DataFrames together based on a specified join condition.
 
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'join_type': The type of join to perform. Currently only 'inner' join is supported.
-                   - 'join_on': A dictionary where the keys are the table names (or DataFrame aliases)
-                                and the values are the column names to join on for each table.
-                   Example: {'table1': 'column1', 'table2': 'column2'}
-    """
-
-class JoinWithConditionTransformer(Transformer):
-    """
-    A transformer to join two DataFrames together based on a specified join condition.
-
     :param join_type: The type of join to perform. Currently only 'inner' join is supported.
     :param condition: The condition for the join.
     :param join_on: A dictionary where the keys are the table names (or DataFrame aliases)

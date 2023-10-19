@@ -2,7 +2,7 @@ from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
 
-class CastColumnTransformer(Transformer):
+class CastColumnsTransformer(Transformer):
     """
     A transformer to cast columns in a DataFrame to specified data types.
 

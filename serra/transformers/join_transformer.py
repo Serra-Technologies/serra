@@ -44,6 +44,8 @@ class JoinTransformer(Transformer):
         assert self.join_type in "inner"
 
         join_keys = []
+
+        
         for table in self.join_on:
             join_keys.append(self.join_on.get(table))
 

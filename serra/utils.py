@@ -63,3 +63,26 @@ def copy_folder(source_folder, destination_folder):
         logger.info(f"Folder copied successfully from '{source_folder}' to '{destination_folder}'.")
     except Exception as e:
         logger.error(f"An error occurred while copying the folder: {e}")
+
+def dict_to_string(input_dict):
+    # Initialize an empty list to store key-value pairs as strings
+    key_value_strings = []
+
+    for key, value in input_dict.items():
+        # Check if the value is a string and wrap it in double quotes
+        if key == 'input_block':
+            continue
+
+        if isinstance(value, str):
+            value_str = f'"{value}"'
+        else:
+            value_str = value  # Keep other types as they are
+
+        # Remove single quotes from the key and format the key-value pair
+        key_str = key.strip("'")  # Remove single quotes if present
+        key_value_strings.append(f'{key_str} = {value_str}')
+
+    # Combine the key-value strings into a single string
+    result = ", ".join(key_value_strings)
+
+    return result

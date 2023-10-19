@@ -2,7 +2,7 @@ from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
 
-class DropColumnTransformer(Transformer):
+class DropColumnsTransformer(Transformer):
     """
     A transformer to drop specified columns from the DataFrame.
 
@@ -17,7 +17,9 @@ class DropColumnTransformer(Transformer):
     @classmethod
     def from_config(cls, config):
         columns_to_drop = config.get("columns_to_drop")
-        return cls(columns_to_drop)
+        obj = cls(columns_to_drop)
+        obj.input_block = config.get('input_block')
+        return obj
 
     def transform(self, df):
         """

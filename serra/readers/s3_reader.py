@@ -3,7 +3,7 @@ import pandas as pd
 
 from serra.readers import Reader
 
-class AmazonS3Reader(Reader):
+class S3Reader(Reader):
     """
     A class to read data from Amazon S3 and return a Spark DataFrame.
 

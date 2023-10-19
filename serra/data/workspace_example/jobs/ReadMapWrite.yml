@@ -1,5 +1,5 @@
 step_read:
-  AmazonS3Reader:
+  S3Reader:
     bucket_name: serrademo
     file_path: sales.csv
     file_type: csv
@@ -14,7 +14,7 @@ step_map:
     input_column: 'region'
 
 step_write:
-  AmazonS3Writer:
+  S3Writer:
     input_block: step_map
     bucket_name: serrademo
     file_path: output.csv

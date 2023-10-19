@@ -10,7 +10,7 @@ from pyspark.sql.types import (
 from tests.base_test import SparkETLTestCase
 
 from serra.transformers.cast_columns_transformer import (
-    CastColumnTransformer
+    CastColumnsTransformer
 )
 
 class CastColumnsTransformerTest(SparkETLTestCase):
@@ -29,7 +29,7 @@ class CastColumnsTransformerTest(SparkETLTestCase):
             }
         }
 
-        result = CastColumnTransformer(config).transform(df)
+        result = CastColumnsTransformer(config).transform(df)
 
         expected_schema = StructType(
             [

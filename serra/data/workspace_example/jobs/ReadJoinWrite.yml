@@ -1,5 +1,5 @@
 read_sales:
-  AmazonS3Reader:
+  S3Reader:
     bucket_name: serrademo
     file_path: sales.csv
     file_type: csv
@@ -7,7 +7,7 @@ read_sales:
       header: True
 
 read_ratings:
-  AmazonS3Reader:
+  S3Reader:
     bucket_name: serrademo
     file_path: rating_df.csv
     file_type: csv
@@ -23,7 +23,7 @@ join_tables:
       read_ratings: id
 
 step_write:
-  AmazonS3Writer:
+  S3Writer:
     input_block: join_tables
     bucket_name: serrademo
     file_path: output.csv

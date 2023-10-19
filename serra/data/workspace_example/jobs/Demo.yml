@@ -28,7 +28,7 @@ filter_states:
     filter_values: ['AK', 'AL', 'CA', 'TX', 'CO', 'DE', 'FL']
 
 cast_customers:
-  CastColumnTransformer:
+  CastColumnsTransformer:
     input_block: filter_states
     columns_to_cast:
       rating: ['customers', 'double']
