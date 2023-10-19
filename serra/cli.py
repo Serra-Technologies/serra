@@ -3,12 +3,11 @@ import sys
 import click
 import schedule, time
 
-from serra.run import update_package, translate_job, run_job_safely
+from serra.run import update_package, run_job_safely
 from serra.databricks import create_job
 from serra.utils import validate_workspace
 from serra.config import PACKAGE_PATH
 from serra.utils import copy_folder
-from serra.translate_module.translate_client import reset_serra_token
 
 @click.group()
 def main():
@@ -47,20 +46,6 @@ def cli_schedule_job(job_name, interval, unit):
     while True:
         schedule.run_pending()
         time.sleep(1)
-
-@main.command(name='configure')
-def cli_configure():
-    """Configure serra_token for serra translate
-    """
-    reset_serra_token()
-
-@main.command(name="translate")
-@click.argument("sql_path")
-@click.option("--run", is_flag=True, default=False, required=False)
-def cli_translator(sql_path, run):
-    """Translate a sql file to a serra config file
-    """
-    translate_job(sql_path, run)
 
 @main.command(name="deploy")
 @click.argument("job_name")

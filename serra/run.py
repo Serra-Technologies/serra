@@ -9,9 +9,7 @@ from serra.utils import get_path_to_user_configs_folder, write_to_file
 from serra.databricks import upload_wheel_to_bucket, restart_server
 from serra.runners.graph_runner import run_job_with_graph
 from serra.exceptions import SerraRunException
-from serra.translate_module.translate_client import save_as_yaml, get_translated_yaml
 from serra.profile import SerraProfile
-# from serra.translate_module.clean import clean_yaml_file
 
 PACKAGE_PATH = os.path.dirname(os.path.dirname(__file__))
 
@@ -56,36 +54,6 @@ def run_job_safely(job_name, config_location):
     except SerraRunException as s:
         logger.error(s)
     return result
-
-
-def translate_job(sql_file_name):
-    """
-    translates your given sql file, gives you the config output, and saves the config in a new yml file
-    """
-    # Find sql file and determine where to write yaml
-    yaml_path = os.path.splitext(sql_file_name)[0]
-    sql_folder_path = './sql'
-    sql_file_path = f"{sql_folder_path}/{sql_file_name}"
-    if (not os.path.isfile(sql_file_path)):
-        logger.error(f"Unable to find sql file: {sql_file_path}")
-        return
-
-    # Translation process
-    logger.info(f"Starting translation process for {sql_file_name}...")
-    translated_yaml = get_translated_yaml(sql_file_path)
-    if not translated_yaml:
-        return
- 
-    # Save in new yaml file (config folder with same name as sql path)
-    user_configs_folder = get_path_to_user_configs_folder()
-    yaml_path = f"{user_configs_folder}/{yaml_path}.yml"
-    
-    save_as_yaml(translated_yaml, yaml_path)
-    # try:
-    #     clean_yaml_file(yaml_path)
-    # except:
-    #     logger.error(f"Unable to clean translated file")
-    logger.info(f"Translation complete. Yaml file can be found at {os.path.abspath(yaml_path)}")
 
 def update_package():
     # create wheel
