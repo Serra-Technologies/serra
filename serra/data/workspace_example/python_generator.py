@@ -89,7 +89,7 @@ def save_file(file_name, python_script):
     print(f"The Python script has been saved to {file_name}")
 
 def main():
-    cf = ConfigParser.from_local_config("./jobs/ReadDrop.yml")
+    cf = ConfigParser.from_local_config("./jobs/Demo.yml")
     ords = parse_config(cf)
     py_script = generate_py_script(ords,cf)
     save_file("python_output.py", py_script)

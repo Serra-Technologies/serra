@@ -17,18 +17,17 @@ class MapTransformer(Transformer):
     """
     def __init__(self, output_column, input_column, mapping_dictionary=None, mapping_dict_path=None):
         self.output_column = output_column
+        self.input_column = input_column
         self.mapping_dictionary = mapping_dictionary
         self.mapping_dict_path = mapping_dict_path
-        self.input_column = input_column
 
     @classmethod
     def from_config(cls, config): 
-        print(config)
         output_col = config.get("output_column")
+        input_col = config.get('input_column')
         map_dict = config.get("mapping_dictionary")
         map_dict_path = config.get("mapping_dict_path")
-        input_col = config.get('input_column')
-        obj = cls(output_col, map_dict, map_dict_path, input_col)
+        obj = cls(output_col, input_col, map_dict, map_dict_path)
         obj.input_block = config.get('input_block')
         return obj
 
@@ -41,8 +40,8 @@ class MapTransformer(Transformer):
         :raises: SerraRunException if any required config parameter is missing or if column specified
                  as 'input_column' does not exist in the DataFrame.
         """
-        if not self.output_column or not self.input_column:
-            raise SerraRunException("Both 'output_column' and 'input_column' must be provided in the config.")
+        # if not self.output_column or not self.input_column:
+        #     raise SerraRunException("Both 'output_column' and 'input_column' must be provided in the config.")
         
         if not self.mapping_dictionary and not self.mapping_dict_path:
             raise SerraRunException("Either 'mapping_dictionary' or 'mapping_dict_path' must be provided in the config.")
