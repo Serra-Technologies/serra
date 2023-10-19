@@ -3,15 +3,20 @@ read_sales:
    bucket_name: serrademo
    file_path: sales.csv
    file_type: csv
+   options:
+    header: True
 
 read_ratings:
  S3Reader:
    bucket_name: serrademo
    file_path: rating_df.csv
    file_type: csv
+   options:
+    header: True
 
 join_tables:
  JoinTransformer:
+   input_block: [read_sales,read_ratings]
    join_type: 'inner'
    join_on:
      read_sales: id
@@ -37,12 +42,3 @@ pivot:
    column_level_column: "region"
    aggregate_type: "avg"
    value_column: "customers"
-
-step_write:
-  SnowflakeWriter:
-   input_block: pivot
-   warehouse: transforming
-   database: serra
-   schema: demo
-   table: serra_tests
-   type: create
