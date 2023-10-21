@@ -3,11 +3,9 @@ from abc import ABC, abstractmethod
 from pyspark.sql.functions import col, when
 import yaml
 import json
-from google.cloud import bigquery
 import os
 from pyspark.sql import functions as F
 from pyspark.sql.types import FloatType
-from geopy.distance import geodesic
 from pyspark.sql.functions import lit,max,min
 from pyspark.sql import Window
 from pyspark.ml.feature import Imputer
@@ -142,6 +140,46 @@ class LocalReader(Reader):
     def read_with_spark(self, spark):
         self.spark = spark
         return self.read()
+    
+class DatabricksReader(Reader):
+    """
+    A reader to read data from a Databricks Delta Lake table into a Spark DataFrame.
+
+    :param config: A dictionary containing the configuration for the reader.
+                   It should have the following keys:
+                   - 'database': The name of the database containing the table.
+                   - 'table': The name of the table to be read.
+    """
+
+    def __init__(self, database, table):
+        self.database = database
+        self.table = table
+        
+    @classmethod
+    def from_config(cls, config):
+        database = config.get('database')
+        table = config.get('table')
+
+        obj = cls(database, table)
+        return obj
+
+    def read(self):
+        """
+        Read data from a Databricks Delta Lake table and return a Spark DataFrame.
+
+        :return: A Spark DataFrame containing the data read from the specified table.
+        :raises: SerraRunException if an error occurs during the data reading process.
+        """
+        try:
+            df = self.spark.read.table(f'{self.database}.{self.table}')
+        except Exception as e:
+            raise SerraRunException(e)
+        return df
+
+    def read_with_spark(self, spark):
+        self.spark = spark
+        return self.read()
+
 
 class JoinTransformer(Transformer):
     """
@@ -569,67 +607,6 @@ class FilterTransformer(Transformer):
             return df.filter(F.expr(self.filter_values))
 
         return df.filter(df[self.filter_column].isin(self.filter_values))
-
-class GeoDistanceTransformer(Transformer):
-    """
-    A transformer to calculate distances between pairs of geographical coordinates.
-
-    :param start_column: The name of the column containing user coordinates.
-    :param end_column: The name of the column containing facility coordinates.
-    :param distance_km_col: The name of the column to store the calculated distance in kilometers.
-    :param distance_mi_col: The name of the column to store the calculated distance in miles.
-    """
-
-    def __init__(self, start_column, end_column, distance_km_col, distance_mi_col):
-        self.start_column = start_column
-        self.end_column = end_column
-        self.distance_km_col = distance_km_col
-        self.distance_mi_col = distance_mi_col
-
-    @classmethod
-    def from_config(cls, config):
-        start_column = config.get("start_column")
-        end_column = config.get("end_column")
-        distance_km_col = config.get("distance_km_col")
-        distance_mi_col = config.get("distance_mi_col")
-
-        obj = cls(start_column, end_column, distance_km_col, distance_mi_col)
-        obj.input_block = config.get('input_block')
-        return obj
-        
-    def transform(self, df):
-        """
-        Calculate distances between pairs of coordinates and add them to the DataFrame.
-
-        :param df: The input DataFrame to be transformed.
-        :return: A new DataFrame with calculated distances added as new columns.
-        """
-        # UDF to calculate distance in kilometers
-        def calculate_distance_km(user_coords, facility_coords):
-            user_lat, user_lon = map(float, user_coords.split(','))
-            facility_lat, facility_lon = map(float, facility_coords.split(','))
-            return geodesic((user_lat, user_lon), (facility_lat, facility_lon)).kilometers
-
-        calculate_distance_km_udf = F.udf(calculate_distance_km, FloatType())
-
-        # UDF to calculate distance in miles
-        def calculate_distance_mi(user_coords, facility_coords):
-            user_lat, user_lon = map(float, user_coords.split(','))
-            facility_lat, facility_lon = map(float, facility_coords.split(','))
-            return geodesic((user_lat, user_lon), (facility_lat, facility_lon)).miles
-
-        calculate_distance_mi_udf = F.udf(calculate_distance_mi, FloatType())
-
-        # Calculate distances and add them to the DataFrame
-        df_with_distances = df.withColumn(
-            'distance_km_col',
-            calculate_distance_km_udf(df[self.start_column], df[self.end_column])
-        ).withColumn(
-            'distance_mi_col',
-            calculate_distance_mi_udf(df[self.start_column], df[self.end_column])
-        )
-
-        return df_with_distances
 
 class GetCountTransformer(Transformer):
     """
@@ -1256,3 +1233,43 @@ class LocalWriter(Writer):
 
         # Write the Pandas DataFrame to a local file
         pandas_df.to_csv(self.file_path, index=False)
+
+class DatabricksWriter(Writer):
+    """
+    A writer to write data from a Spark DataFrame to a Databricks Delta table.
+
+    :param config: A dictionary containing the configuration for the writer.
+                   It should have the following keys:
+                   - 'database': The name of the Databricks database to write to.
+                   - 'table': The name of the table in the Databricks database.
+                   - 'format': The file format to use for the Delta table.
+                   - 'mode': The write mode to use, such as 'overwrite', 'append', etc.
+    """
+
+    def __init__(self, database, table, format, mode):
+        self.database = database
+        self.table = table
+        self.format = format
+        self.mode = mode
+
+    @classmethod
+    def from_config(cls, config):
+        database = config.get('database')
+        table = config.get('table')
+        format = config.get('format')
+        mode = config.get('mode')
+
+        obj = cls(database, table, format, mode)
+        obj.input_block = config.get('input_block')
+        return obj
+        
+    def write(self, df: DataFrame):
+        """
+        Write data from a Spark DataFrame to a Databricks Delta table.
+
+        :param df: The Spark DataFrame to be written to the Delta table.
+        """
+        # Currently forces overwrite if csv already exists
+        df.write.format(self.format).mode(self.mode).saveAsTable(f'{self.database}.{self.table}')
+        return None
+

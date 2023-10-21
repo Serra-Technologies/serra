@@ -30,23 +30,6 @@ def generate_py_script(ordered_block_classes, cf):
         script = [file.read()]
 
     script.append("from pyspark.sql import SparkSession")
-
-    for block_name, class_name, args in ordered_block_classes:
-        module_name = "serra."
-
-        if "Reader" in class_name:
-            module_name += "readers."
-        if "Writer" in class_name:
-            module_name += "writers."
-        if "Transformer" in class_name:
-            module_name += "transformers."
-        
-        module_name += camel_to_snake(class_name)
-
-        import_statement = f"from {module_name} import {class_name}"
-        script.append(import_statement)
-        
-
     script.append("""spark = SparkSession.builder.appName("PyRun").master("local").getOrCreate()""")
 
     reader_count = 0 
@@ -88,11 +71,11 @@ def save_file(file_name, python_script):
 
     print(f"The Python script has been saved to {file_name}")
 
-def main():
-    cf = ConfigParser.from_local_config("./jobs/Demo.yml")
+def create_and_save_py_script(config_path):
+    cf = ConfigParser.from_local_config(config_path)
     ords = parse_config(cf)
     py_script = generate_py_script(ords,cf)
-    save_file("python_output.py", py_script)
+    save_file("py_script.py", py_script)
 
 if __name__ == "__main__":
-    main()
+    create_and_save_py_script("./jobs/DBDemo.yml")

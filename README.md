@@ -98,3 +98,5 @@ serra translate hard_demo.sql
 
 The translated config file can be found at **workspace/hard_demo.sql**
 
+
+https://docs.databricks.com/en/workspace/workspace-details.html

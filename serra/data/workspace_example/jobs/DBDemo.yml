@@ -1,0 +1,41 @@
+read_sales:
+ DatabricksReader:
+   database: demo
+   table: sales
+
+read_ratings:
+   DatabricksReader:
+    database: demo
+    table: ratings
+
+join_tables:
+ JoinTransformer:
+   input_block: [read_sales,read_ratings]
+   join_type: 'inner'
+   join_on:
+     read_sales: id
+     read_ratings: id
+
+map_state_names:
+  MapTransformer:
+   input_block: join_tables
+   output_column: 'region_abbr'
+   mapping_dictionary:
+    Alabama: 'AL'
+    Alaska: 'AK'
+   input_column: 'region'
+
+cast_ratings:
+  CastColumnsTransformer:
+    input_block: map_state_names
+    columns_to_cast:
+      rating: ['rating', 'double']
+
+pivot:
+ PivotTransformer:
+   input_block: cast_ratings
+   row_level_column: 'restaurant'
+   column_level_column: "region"
+   aggregate_type: "avg"
+   value_column: "customers"
+

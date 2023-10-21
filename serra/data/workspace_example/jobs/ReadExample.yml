@@ -7,6 +7,6 @@ step_write:
   DatabricksWriter:
     input_block: step_read
     database: 'demo'
-    table: 'db_test'
+    table: 'db_connect'
     format: 'delta'
     mode: 'overwrite'
