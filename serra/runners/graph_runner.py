@@ -127,3 +127,242 @@ def run_job_with_graph(cf: ConfigParser, serra_profile: SerraProfile) -> Monitor
     #     print(value)
 
     return monitor
+
+"""
+Here is an example of an output of the run_job_with_graph with a job that has two blocks: adder, and read_restaurants
+
+{
+    "adder": {
+        "columns": [
+            "id",
+            "rating",
+            "new_col"
+        ],
+        "data": [
+            {
+                "id": "102",
+                "new_col": 1,
+                "rating": "0.5"
+            },
+            {
+                "id": "104",
+                "new_col": 1,
+                "rating": "0.9"
+            },
+            {
+                "id": "105",
+                "new_col": 1,
+                "rating": "1.7"
+            },
+            {
+                "id": "115",
+                "new_col": 1,
+                "rating": "3.3"
+            },
+            {
+                "id": "132",
+                "new_col": 1,
+                "rating": "4.8"
+            },
+            {
+                "id": "133",
+                "new_col": 1,
+                "rating": "3.9"
+            },
+            {
+                "id": "135",
+                "new_col": 1,
+                "rating": "3.0"
+            },
+            {
+                "id": "136",
+                "new_col": 1,
+                "rating": "0.4"
+            },
+            {
+                "id": "137",
+                "new_col": 1,
+                "rating": "2.5"
+            },
+            {
+                "id": "144",
+                "new_col": 1,
+                "rating": "2.8"
+            },
+            {
+                "id": "145",
+                "new_col": 1,
+                "rating": "4.0"
+            },
+            {
+                "id": "145",
+                "new_col": 1,
+                "rating": "3.0"
+            },
+            {
+                "id": "151",
+                "new_col": 1,
+                "rating": "1.3"
+            },
+            {
+                "id": "164",
+                "new_col": 1,
+                "rating": "3.8"
+            },
+            {
+                "id": "166",
+                "new_col": 1,
+                "rating": "3.8"
+            },
+            {
+                "id": "166",
+                "new_col": 1,
+                "rating": "4.3"
+            },
+            {
+                "id": "173",
+                "new_col": 1,
+                "rating": "2.3"
+            },
+            {
+                "id": "177",
+                "new_col": 1,
+                "rating": "1.3"
+            },
+            {
+                "id": "181",
+                "new_col": 1,
+                "rating": "2.3"
+            },
+            {
+                "id": "182",
+                "new_col": 1,
+                "rating": "4.7"
+            }
+        ],
+        "schema": [
+            {
+                "metadata": {},
+                "name": "id",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "rating",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "new_col",
+                "nullable": true,
+                "type": "integer"
+            }
+        ]
+    },
+    "read_restaurants": {
+        "columns": [
+            "id",
+            "rating"
+        ],
+        "data": [
+            {
+                "id": "102",
+                "rating": "0.5"
+            },
+            {
+                "id": "104",
+                "rating": "0.9"
+            },
+            {
+                "id": "105",
+                "rating": "1.7"
+            },
+            {
+                "id": "115",
+                "rating": "3.3"
+            },
+            {
+                "id": "132",
+                "rating": "4.8"
+            },
+            {
+                "id": "133",
+                "rating": "3.9"
+            },
+            {
+                "id": "135",
+                "rating": "3.0"
+            },
+            {
+                "id": "136",
+                "rating": "0.4"
+            },
+            {
+                "id": "137",
+                "rating": "2.5"
+            },
+            {
+                "id": "144",
+                "rating": "2.8"
+            },
+            {
+                "id": "145",
+                "rating": "4.0"
+            },
+            {
+                "id": "145",
+                "rating": "3.0"
+            },
+            {
+                "id": "151",
+                "rating": "1.3"
+            },
+            {
+                "id": "164",
+                "rating": "3.8"
+            },
+            {
+                "id": "166",
+                "rating": "3.8"
+            },
+            {
+                "id": "166",
+                "rating": "4.3"
+            },
+            {
+                "id": "173",
+                "rating": "2.3"
+            },
+            {
+                "id": "177",
+                "rating": "1.3"
+            },
+            {
+                "id": "181",
+                "rating": "2.3"
+            },
+            {
+                "id": "182",
+                "rating": "4.7"
+            }
+        ],
+        "schema": [
+            {
+                "metadata": {},
+                "name": "id",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "rating",
+                "nullable": true,
+                "type": "string"
+            }
+        ]
+    }
+}
+
+"""
