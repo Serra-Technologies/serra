@@ -18,4 +18,5 @@ from .cross_join_transformer import CrossJoinTransformer
 from .case_when_transformer import CaseWhenTransformer
 from .multiple_case_when_transformer import MultipleCaseWhenTransformer
 from .get_max_or_min_transformer import GetMaxOrMinTransformer
+from .custom_transformer import CustomTransformer
 from .transformer import Transformer
