@@ -17,15 +17,6 @@ class MultiJoinTransformer(Transformer):
         self.join_type = join_type
         self.join_on = join_on
 
-    @classmethod
-    def from_config(cls, config):
-        join_type = config.get("join_type")
-        join_on = config.get("join_on")
-
-        obj = cls(join_type, join_on)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, *dfs):
         """
         Join multiple DataFrames together based on the specified join conditions.

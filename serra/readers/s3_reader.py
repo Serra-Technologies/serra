@@ -19,36 +19,6 @@ class S3Reader(Reader):
         self.file_path = file_path
         self.file_type = file_type
         self.options = options
-
-    @classmethod
-    def from_config(cls, config):
-        bucket_name = config.get("bucket_name")
-        file_path = config.get("file_path")
-        file_type = config.get("file_type")
-        options = config.get("options")
-        return cls(bucket_name, file_path, file_type, options)
-    
-    # @property
-    # def bucket_name(self):
-    #     return self.config.get("bucket_name")
-    
-    # @property
-    # def file_path(self):
-    #     return self.config.get("file_path")
-    
-    # @property
-    # def file_type(self):
-    #     file_type = self.config.get("file_type")
-    #     assert file_type in ['csv', 'parquet', 'json', 'orc']
-    #     return self.config.get("file_type")
-    
-    # @property
-    # def options(self):
-    #     options = self.config.get('options')
-    #     if not options:
-    #         return {}
-    #     # is dict
-    #     return options
     
     @property
     def dependencies(self):

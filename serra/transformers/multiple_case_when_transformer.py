@@ -21,17 +21,6 @@ class MultipleCaseWhenTransformer(Transformer):
         self.output_col = output_col
         self.type = type
 
-    @classmethod
-    def from_config(cls, config):
-        columns_and_conditions = config.get('columns_and_conditions')
-        input_column = config.get("input_column")
-        output_col = config.get('output_col')
-        type = config.get('type')
-
-        obj = cls(columns_and_conditions, input_column, output_col, type)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Add a new column with the results of the conditions to the DataFrame.

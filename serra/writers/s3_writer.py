@@ -18,18 +18,6 @@ class S3Writer(Writer):
         self.file_type = file_type
         self.options = options
         self.mode = mode
-
-    @classmethod
-    def from_config(cls, config):
-        bucket_name = config.get("bucket_name")
-        file_path = config.get("file_path")
-        file_type = config.get("file_type")
-        options = config.get("options")
-        mode = config.get("mode")
-
-        obj = cls(bucket_name, file_path, file_type, options, mode)
-        obj.input_block = config.get("input_block")
-        return obj
     
     def write(self, df):
         """

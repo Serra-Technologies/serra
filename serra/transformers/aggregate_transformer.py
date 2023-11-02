@@ -14,15 +14,6 @@ class AggregateTransformer(Transformer):
         self.group_by_columns = group_by_columns
         self.aggregation_type = aggregation_type
 
-    @classmethod
-    def from_config(cls, config):
-        group_by_columns = config.get('group_by_columns')
-        aggregation_type = config.get('aggregation_type')
-
-        obj = cls(group_by_columns, aggregation_type)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Transform the DataFrame by aggregating data based on the specified configuration.

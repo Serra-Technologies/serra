@@ -15,13 +15,6 @@ class CastColumnsTransformer(Transformer):
     def __init__(self, columns_to_cast):
         self.columns_to_cast = columns_to_cast
 
-    @classmethod
-    def from_config(cls, config):
-        columns_to_cast = config.get("columns_to_cast")
-        obj = cls(columns_to_cast)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Cast columns in the DataFrame to specified data types.

@@ -10,6 +10,15 @@ class Writer(Step):
     def write(self, df):
         pass
 
+    @classmethod
+    def from_config(cls, config):
+        c = dict(config)
+        input_block = c.pop("input_block")
+
+        obj = cls(**c)
+        obj.input_block = input_block
+        return obj
+
     @property
     def dependencies(self):
         return [self.input_block]

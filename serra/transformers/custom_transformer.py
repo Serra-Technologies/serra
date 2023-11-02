@@ -32,13 +32,6 @@ class CustomTransformer(Transformer):
     def __init__(self, code_block):
         self.code_block = code_block
 
-    @classmethod
-    def from_config(cls, config):
-        code_block = config.get("code_block")
-        obj = cls(code_block)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         custom_transform_func_name = "custom_transform_" + str(id(self))
         get_user_transform(self.code_block, custom_transform_func_name)

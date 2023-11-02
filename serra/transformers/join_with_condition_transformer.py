@@ -18,16 +18,6 @@ class JoinWithConditionTransformer(Transformer):
         self.condition = condition
         self.join_on = join_on
 
-    @classmethod
-    def from_config(cls, config):
-        join_type = config.get("join_type")
-        condition = config.get('condition')
-        join_on = config.get("join_on")
-
-        obj = cls(join_type, condition, join_on)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df1, df2):
         """
         Join two DataFrames together based on the specified join condition.

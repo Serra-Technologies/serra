@@ -22,16 +22,6 @@ class SnowflakeReader(Reader):
         self.schema = schema
         self.table = table
         self.serra_profile = get_local_serra_profile()
-
-    @classmethod
-    def from_config(cls, config):
-        warehouse = config.get('warehouse')
-        database = config.get('database')
-        schema = config.get('schema')
-        table =  config.get('table')
-
-        obj = cls(warehouse, database, schema, table)
-        return obj
     
     @property
     def snowflake_account(self):

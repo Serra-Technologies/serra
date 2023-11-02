@@ -26,18 +26,6 @@ class SnowflakeWriter(Writer):
         self.type = type
         self.serra_profile = get_local_serra_profile()
 
-    @classmethod
-    def from_config(cls, config):
-        warehouse = config.get('warehouse')
-        database = config.get('database')
-        schema = config.get('schema')
-        table = config.get('table')
-        type = config.get('type')
-
-        obj = cls(warehouse, database, schema, table, type)
-        obj.input_block = config.get('input_block')
-        return obj
-
     @property
     def snowflake_account(self):
         return self.serra_profile.snowflake_account

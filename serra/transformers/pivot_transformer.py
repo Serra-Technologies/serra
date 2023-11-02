@@ -20,17 +20,6 @@ class PivotTransformer(Transformer):
         self.value_column = value_column
         self.aggregate_type = aggregate_type
 
-    @classmethod
-    def from_config(cls, config):
-        row_level_column = config.get("row_level_column")
-        column_level_column = config.get("column_level_column")
-        value_column = config.get("value_column")
-        aggregate_type = config.get("aggregate_type")
-
-        obj = cls(row_level_column, column_level_column, value_column, aggregate_type)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Pivot the DataFrame based on the specified row and column levels, and perform aggregation.

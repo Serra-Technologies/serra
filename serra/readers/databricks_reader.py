@@ -14,14 +14,6 @@ class DatabricksReader(Reader):
     def __init__(self, database, table):
         self.database = database
         self.table = table
-        
-    @classmethod
-    def from_config(cls, config):
-        database = config.get('database')
-        table = config.get('table')
-
-        obj = cls(database, table)
-        return obj
 
     def read(self):
         """

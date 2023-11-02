@@ -21,16 +21,6 @@ class MapTransformer(Transformer):
         self.mapping_dictionary = mapping_dictionary
         self.mapping_dict_path = mapping_dict_path
 
-    @classmethod
-    def from_config(cls, config): 
-        output_col = config.get("output_column")
-        input_col = config.get('input_column')
-        map_dict = config.get("mapping_dictionary")
-        map_dict_path = config.get("mapping_dict_path")
-        obj = cls(output_col, input_col, map_dict, map_dict_path)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Map values in the DataFrame column to new values based on the specified mapping.

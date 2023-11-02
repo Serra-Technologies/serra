@@ -14,15 +14,6 @@ class RenameColumnTransformer(Transformer):
         self.old_name = old_name
         self.new_name = new_name
 
-    @classmethod
-    def from_config(cls, config):
-        old_name = config.get("old_name")
-        new_name = config.get("new_name")
-
-        obj = cls(old_name, new_name)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Rename a column in the DataFrame.

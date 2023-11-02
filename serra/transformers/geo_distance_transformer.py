@@ -18,17 +18,6 @@ class GeoDistanceTransformer(Transformer):
         self.end_column = end_column
         self.distance_km_col = distance_km_col
         self.distance_mi_col = distance_mi_col
-
-    @classmethod
-    def from_config(cls, config):
-        start_column = config.get("start_column")
-        end_column = config.get("end_column")
-        distance_km_col = config.get("distance_km_col")
-        distance_mi_col = config.get("distance_mi_col")
-
-        obj = cls(start_column, end_column, distance_km_col, distance_mi_col)
-        obj.input_block = config.get('input_block')
-        return obj
         
     def transform(self, df):
         """

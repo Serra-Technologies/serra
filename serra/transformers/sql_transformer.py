@@ -13,14 +13,6 @@ class SQLTransformer(Transformer):
     def __init__(self, sql_expression):
         self.sql_expression = sql_expression
 
-    @classmethod
-    def from_config(cls, config):
-        sql_expression = config.get('sql_expression')
-
-        obj = cls(sql_expression)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df: DataFrame) -> DataFrame:
         """
         Perform the SELECT operation on the DataFrame.

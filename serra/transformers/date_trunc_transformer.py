@@ -15,16 +15,6 @@ class DateTruncTransformer(Transformer):
         self.trunc_unit = trunc_unit
         self.output_column = output_column
 
-    @classmethod
-    def from_config(cls, config):
-        timestamp_column = config.get("timestamp_column")
-        trunc_unit = config.get("trunc_unit")
-        output_column = config.get('output_column')
-
-        obj = cls(timestamp_column, trunc_unit, output_column)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Truncate the specified timestamp column to the specified unit.

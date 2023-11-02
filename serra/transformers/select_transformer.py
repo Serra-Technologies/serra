@@ -18,16 +18,6 @@ class SelectTransformer(Transformer):
         self.distinct_column = distinct_column
         self.filter_expression = filter_expression
 
-    @classmethod
-    def from_config(cls, config):
-        columns = config.get("columns", [])
-        distinct_column = config.get('distinct_column')
-        filter_expression = config.get('filter_expression')
-
-        obj = cls(columns, distinct_column, filter_expression)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df: DataFrame) -> DataFrame:
         """
         Perform the SELECT operation on the DataFrame.
@@ -38,7 +28,7 @@ class SelectTransformer(Transformer):
                  or if none of the specified columns exist in the DataFrame.
         """
         if not self.columns:
-            raise SerraRunException("No columns specified in the configuration.")
+            columns = []
 
         selected_columns = [F.col(col) for col in self.columns if col in df.columns]
 

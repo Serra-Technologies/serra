@@ -14,15 +14,6 @@ class CoalesceTransformer(Transformer):
         self.input_columns = input_columns
         self.output_column = output_column
 
-    @classmethod
-    def from_config(cls, config):
-        input_columns = config.get('input_columns')
-        output_column = config.get('output_column')
-
-        obj = cls(input_columns, output_column)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Create a new column by coalescing multiple columns.

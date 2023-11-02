@@ -19,14 +19,6 @@ class JoinTransformer(Transformer):
     def __init__(self, join_type, join_on):
         self.join_type = join_type
         self.join_on = join_on
-
-    @classmethod
-    def from_config(cls, config):
-        join_type = config.get("join_type")
-        join_on = config.get("join_on")
-        obj = cls(join_type, join_on)
-        obj.input_block = config.get("input_block")
-        return obj
     
     @property
     def dependencies(self):

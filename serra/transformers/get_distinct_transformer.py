@@ -12,14 +12,6 @@ class DropDuplicatesTransformer(Transformer):
     def __init__(self, columns_to_check):
         self.columns_to_check = columns_to_check
 
-    @classmethod
-    def from_config(cls, config):
-        columns_to_check = config.get('columns_to_check')
-
-        obj = cls(columns_to_check)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Drop duplicate rows from the DataFrame based on specified columns.

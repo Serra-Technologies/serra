@@ -5,36 +5,15 @@ from serra.transformers.transformer import Transformer
 
 class CrossJoinTransformer(Transformer):
     """
-    A transformer to join two DataFrames together based on a specified join condition.
-
-    :param config: A dictionary containing the configuration for the transformer.
-                   It should have the following keys:
-                   - 'join_type': The type of join to perform. Currently only 'inner' join is supported.
-                   - 'join_on': A dictionary where the keys are the table names (or DataFrame aliases)
-                                and the values are the column names to join on for each table.
-                   Example: {'table1': 'column1', 'table2': 'column2'}
+    A transformer to join two DataFrames together
     """
 
     def __init__(self):
-        self = self
+        pass
 
-    @classmethod
-    def from_config(cls, config):
-        obj = cls()
-        obj.input_block = config.get('input_block')
-        return obj
-
-    # @property
-    # def dependencies(self):
-    #     """
-    #     Get the list of table names that this transformer depends on.
-
-    #     :return: A list of table names (keys from the 'join_on' dictionary).
-    #     """
-    #     return [key for key in self.config.get("join_on").keys()]
     @property
     def dependencies(self):
-        return self.config.get('input_block')
+        return self.input_block
 
     def transform(self, df1, df2):
         """

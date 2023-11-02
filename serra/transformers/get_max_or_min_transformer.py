@@ -19,16 +19,6 @@ class GetMaxOrMinTransformer(Transformer):
         self.new_column_names = new_column_names
         self.group_by_columns = group_by_columns
 
-    @classmethod
-    def from_config(cls, config):
-        columns_and_operations = config.get('columns_and_operations')
-        new_column_names = config.get('new_column_names')
-        group_by_columns = config.get("group_by_columns")
-
-        obj = cls(columns_and_operations, new_column_names, group_by_columns)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Add a column with the maximum or minimum value to the DataFrame.

@@ -10,13 +10,6 @@ class LocalWriter(Writer):
     def __init__(self, file_path):
         self.file_path = file_path
 
-    @classmethod
-    def from_config(cls, config):
-        file_path = config.get("file_path")
-        obj = cls(file_path)
-        obj.input_block = config.get('input_block')
-        return obj
-    
     def write(self, df):
         """
         Write data from a Spark DataFrame to a local file.

@@ -21,19 +21,6 @@ class CaseWhenTransformer(Transformer):
         self.is_column_condition = is_column_condition
         self.otherwise_value = otherwise_value
 
-    @classmethod
-    def from_config(cls, config):
-        output_column = config.get("output_column")
-        input_column = config.get("input_column")
-        conditions = config.get('conditions')
-        comparison_type = config.get('comparison_type')
-        is_column_condition = config.get('is_column_condition')
-        otherwise_value = config.get('otherwise_value')
-
-        obj = cls(output_column, input_column, conditions, comparison_type, is_column_condition, otherwise_value)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Add column with col_value to dataframe

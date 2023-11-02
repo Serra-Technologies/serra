@@ -16,16 +16,6 @@ class AddColumnTransformer(Transformer):
         self.new_column_name = new_column_name
         self.value = value
         self.new_column_type = new_column_type
-
-    @classmethod
-    def from_config(cls, config):
-        new_column_name = config.get("new_column_name")
-        value = config.get("value")
-        new_column_type = config.get("new_column_type")
-
-        obj = cls(new_column_name, value, new_column_type)
-        obj.input_block = config.get('input_block')
-        return obj
         
     def transform(self, df):
         """

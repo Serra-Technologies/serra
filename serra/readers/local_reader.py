@@ -13,11 +13,6 @@ class LocalReader(Reader):
 
     def __init__(self, file_path):
         self.file_path = file_path
-
-    @classmethod
-    def from_config(cls, config):
-        file_path = config.get("file_path")
-        return cls(file_path)
         
     def read(self):
         """

@@ -14,15 +14,6 @@ class ImputeTransformer(Transformer):
         self.columns_to_impute = columns_to_impute
         self.imputation_strategy = imputation_strategy
 
-    @classmethod
-    def from_config(cls, config):
-        columns_to_impute = config.get("columns_to_impute")
-        imputation_strategy = config.get('imputation_strategy')
-
-        obj = cls(columns_to_impute, imputation_strategy)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Add column with col_value to dataframe

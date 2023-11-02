@@ -12,15 +12,6 @@ class OrderByTransformer(Transformer):
         self.columns = columns
         self.ascending = ascending
 
-    @classmethod
-    def from_config(cls, config):
-        columns = config.get("columns")
-        ascending = config.get("ascending", True)
-
-        obj = cls(columns, ascending)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Transform the DataFrame by sorting it based on specified columns.

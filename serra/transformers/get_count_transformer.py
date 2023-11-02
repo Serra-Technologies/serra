@@ -14,15 +14,6 @@ class GetCountTransformer(Transformer):
         self.group_by_columns = group_by_columns
         self.count_column = count_column
 
-    @classmethod
-    def from_config(cls, config):
-        group_by_columns = config.get("group_by_columns")
-        count_column = config.get("count_column")
-
-        obj = cls(group_by_columns, count_column)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Calculate the count of occurrences of the specified column in the DataFrame.

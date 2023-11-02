@@ -14,13 +14,6 @@ class DropColumnsTransformer(Transformer):
     def __init__(self, columns_to_drop):
         self.columns_to_drop = columns_to_drop
 
-    @classmethod
-    def from_config(cls, config):
-        columns_to_drop = config.get("columns_to_drop")
-        obj = cls(columns_to_drop)
-        obj.input_block = config.get('input_block')
-        return obj
-
     def transform(self, df):
         """
         Drop specified columns from the DataFrame.

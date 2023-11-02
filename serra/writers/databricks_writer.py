@@ -19,17 +19,6 @@ class DatabricksWriter(Writer):
         self.table = table
         self.format = format
         self.mode = mode
-
-    @classmethod
-    def from_config(cls, config):
-        database = config.get('database')
-        table = config.get('table')
-        format = config.get('format')
-        mode = config.get('mode')
-
-        obj = cls(database, table, format, mode)
-        obj.input_block = config.get('input_block')
-        return obj
         
     def write(self, df: DataFrame):
         """
