@@ -5,6 +5,9 @@ class Step(ABC):
     # @abstractmethod
     # def execute(self, **args):
     #     pass
+    @classmethod
+    def from_config(cls, config):
+        return cls(**config)
 
     def add_serra_profile(self, serra_profile: SerraProfile):
         self.serra_profile = serra_profile
