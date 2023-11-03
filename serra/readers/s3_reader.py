@@ -20,10 +20,6 @@ class S3Reader(Reader):
         self.file_type = file_type
         self.options = options
     
-    @property
-    def dependencies(self):
-        return []
-    
     def read(self):
         """
         Read data from Amazon S3 and return a Spark DataFrame.
