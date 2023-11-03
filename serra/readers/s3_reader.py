@@ -1,6 +1,3 @@
-import boto3
-import pandas as pd
-
 from serra.readers import Reader
 
 class S3Reader(Reader):
