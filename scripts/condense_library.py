@@ -38,7 +38,7 @@ for directory in directories:
         if not os.path.isfile(os.path.join(directory, filename)):
             continue
 
-        if (filename in ["reader.py", "transformer.py", "writer.py"]):
+        if (filename in ["reader.py", "transformer.py", "writer.py", "__init__.py"]):
             # ignore the base classes
             continue
 
