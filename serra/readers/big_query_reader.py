@@ -3,13 +3,13 @@ from serra.readers import Reader
 
 class BigQueryReader(Reader):
     """
-    A reader to read data from Snowflake into a Spark DataFrame.
+    A reader to read data from BigQuery into a Spark DataFrame.
 
     :param config: A dictionary containing the configuration for the reader.
                    It should have the following keys:
-                   - 'project_id'
-                   - 'dataset_id'
-                   - 'table_id'
+                   - 'project'
+                   - 'dataset'
+                   - 'table'
     """
 
     def __init__(self, project, dataset, table, mode):

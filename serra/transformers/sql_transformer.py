@@ -5,9 +5,9 @@ from serra.transformers.transformer import Transformer
 
 class SQLTransformer(Transformer):
     """
-    A transformer to perform a SQL SELECT operation on a DataFrame.
+    A transformer to perform a SQL operation on a DataFrame.
 
-    :param sql_expression: A SQL expression string representing the SELECT operation.
+    :param sql_expression: A SQL expression string representing the operation.
     """
 
     def __init__(self, sql_expression):
