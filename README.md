@@ -1,7 +1,10 @@
 ![Project Header](./etc/serra.png)
+# Explore Our Cloud Console
+
+Try building and deploying your Serra jobs to Databricks with our [Cloud Console](https://cloud.serra.io). Give it a try!
 
 # What is Serra?
-Serra provides a library of readers, transformers and writers to simplify the process of writing data pipelines.
+Serra provides a library of readers, transformers and writers to simplify the process of writing Spark data pipelines.
 
 For example, you can specify that you want to read a CSV file from an S3 bucket, apply a transformation to the data, then write the data to a Snowflake table with the following config:
 
@@ -86,7 +89,3 @@ Other jobs available can be found in the **workspace/jobs** folder.
 serra run {job_name}
 ```
 Your job name is what you name your configuration file. Place your configuration files in **workspace/jobs** folder.
-
-# Explore Our Cloud Console
-
-Try building and deploying your Serra jobs to Databricks with our [Cloud Console](https://cloud.serra.io). Give it a try!
