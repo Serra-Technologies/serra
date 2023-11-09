@@ -69,3 +69,10 @@ class ConfigParser:
     
     def show_all(self):
         return self.config.get('show_all')
+    
+    def get_dependencies_for_block(self, block_name):
+        block_config = self.get_config_for_block(block_name)
+        result = block_config.get("input_block", [])
+        if (type(result) == str):
+            return [result]
+        return result

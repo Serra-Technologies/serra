@@ -38,8 +38,9 @@ def get_order_of_execution(cf: ConfigParser):
     block_names = cf.get_blocks()
     graph = BlockGraph([])
     for block_name in block_names:
-        obj = get_configured_block_object(block_name, cf)
-        graph.add_block(block_name, obj.dependencies)
+        # obj = get_configured_block_object(block_name, cf)
+        dependencies = cf.get_dependencies_for_block(block_name)
+        graph.add_block(block_name, dependencies)
 
     # Now determine a possible order of execution
     order = []

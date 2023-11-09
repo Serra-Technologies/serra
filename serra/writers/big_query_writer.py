@@ -5,7 +5,7 @@ from serra.writers import Writer
 
 class BigQueryWriter(Writer):
     """
-    A reader to write data to BigQuery from a Spark DataFrame.
+    A writer to write data to BigQuery from a Spark DataFrame.
 
     :param config: A dictionary containing the configuration for the reader.
                    It should have the following keys:

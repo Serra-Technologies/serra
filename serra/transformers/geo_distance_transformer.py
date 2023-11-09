@@ -13,11 +13,10 @@ class GeoDistanceTransformer(Transformer):
     :param distance_mi_col: The name of the column to store the calculated distance in miles.
     """
 
-    def __init__(self, start_column, end_column, distance_km_col, distance_mi_col):
+    def __init__(self, start_column, end_column, output_column):
         self.start_column = start_column
         self.end_column = end_column
-        self.distance_km_col = distance_km_col
-        self.distance_mi_col = distance_mi_col
+        self.output_column = output_column
         
     def transform(self, df):
         """
@@ -44,10 +43,7 @@ class GeoDistanceTransformer(Transformer):
 
         # Calculate distances and add them to the DataFrame
         df_with_distances = df.withColumn(
-            'distance_km_col',
-            calculate_distance_km_udf(df[self.start_column], df[self.end_column])
-        ).withColumn(
-            'distance_mi_col',
+            self.output_column,
             calculate_distance_mi_udf(df[self.start_column], df[self.end_column])
         )
 

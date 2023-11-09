@@ -219,7 +219,7 @@ class JoinTransformer(Transformer):
         :return: A new DataFrame resulting from the join operation.
         :raises: SerraRunException if the join condition columns do not match between the two DataFrames.
         """
-        assert self.join_type in "inner"
+        # assert self.join_type in "inner"
 
         join_keys = []
 
@@ -640,7 +640,7 @@ class GetCountTransformer(Transformer):
 
         return df.groupBy(*self.group_by_columns).agg(F.count(self.count_column))
 
-class DropDuplicatesTransformer(Transformer):
+class GetDistinctTransformer(Transformer):
     """
     A transformer to drop duplicate rows from the DataFrame based on specified column(s).
 

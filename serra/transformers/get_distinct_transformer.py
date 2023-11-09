@@ -2,7 +2,7 @@ from pyspark.sql import functions as F
 
 from serra.transformers.transformer import Transformer
 
-class DropDuplicatesTransformer(Transformer):
+class GetDistinctTransformer(Transformer):
     """
     A transformer to drop duplicate rows from the DataFrame based on specified column(s).
 
