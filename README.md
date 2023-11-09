@@ -81,22 +81,12 @@ Other jobs available can be found in the **workspace/jobs** folder.
 
 # Commands
 
-## Test Locally
+## Run Locally
 ```bash
 serra run {job_name}
 ```
 Your job name is what you name your configuration file. Place your configuration files in **workspace/jobs** folder.
 
-## Translate SQL to Serra Config File using GPT
+# Explore Our Cloud Console
 
-Place your sql scripts in the **workspace/sql** folder.
-
-```bash
-cd workspace
-serra translate hard_demo.sql
-```
-
-The translated config file can be found at **workspace/hard_demo.sql**
-
-
-https://docs.databricks.com/en/workspace/workspace-details.html
+Try building and deploying your Serra jobs to Databricks with our [Cloud Console](https://cloud.serra.io). Give it a try!
