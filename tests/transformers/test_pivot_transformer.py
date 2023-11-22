@@ -29,14 +29,18 @@ class PivotTransformerTest(SparkETLTestCase):
             ]
         )
 
-        config = {
-            'row_level': 'streaming_service',
-            'column_level': 'country',
-            'sum_col': 'subscriber_count',
-            'aggregate_type': 'sum'
-        }
+        # config = {
+        #     'row_level': 'streaming_service',
+        #     'column_level': 'country',
+        #     'sum_col': 'subscriber_count',
+        #     'aggregate_type': 'sum'
+        # }
 
-        result = PivotTransformer(config).transform(df)
+        # result = PivotTransformer(config).transform(df)
+        result = PivotTransformer(row_level_column="streaming_service",
+                                  column_level_column="country",
+                                  value_column="subscriber_count",
+                                  aggregate_type="sum").transform(df)
 
         expected_schema = StructType(
             [

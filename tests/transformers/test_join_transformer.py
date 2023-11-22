@@ -27,15 +27,11 @@ class JoinTransformerTest(SparkETLTestCase):
             ]
         )
 
-        config = {
-            'join_type':'inner',
-            'join_on': {
+        result = JoinTransformer(join_type="inner",
+                                 join_on={
                 "some": "id",
                 "thing": "id"
-            }
-        }
-
-        result = JoinTransformer(config).transform(df,df2)
+            }).transform(df, df2)
 
         expected_schema = StructType(
             [

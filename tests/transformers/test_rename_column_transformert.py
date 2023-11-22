@@ -21,12 +21,7 @@ class RenameColumnTransformerTest(SparkETLTestCase):
             ]
         )
 
-        config = {
-            'old_name':'person',
-            'new_name':'name'
-        }
-
-        result = RenameColumnTransformer(config).transform(df)
+        result = RenameColumnTransformer(old_name="person", new_name="name").transform(df)
 
         expected_schema = StructType(
             [

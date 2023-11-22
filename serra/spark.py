@@ -23,7 +23,9 @@ def set_jar_packages(spark_builder):
         "com.amazonaws:aws-java-sdk-bundle:1.12.530",
         "org.apache.hadoop:hadoop-common:3.3.4",
         # For bigquery
-        "com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.32.2"
+        "com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.32.2",
+        # For mongo db
+        "org.mongodb.spark:mongo-spark-connector_2.12:10.2.1"
         ]  
     spark_builder = spark_builder.config('spark.jars.packages', ','.join(packages))
     return spark_builder

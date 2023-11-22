@@ -21,13 +21,9 @@ class MapTransformerTest(SparkETLTestCase):
             ]
         )
 
-        config = {
-            'name':'location_full',
-            'map_dict': {'CA':'California', 'TX':'Texas'},
-            'col_key':'location'
-        }
-
-        result = MapTransformer(config).transform(df)
+        result = MapTransformer(output_column="location_full",
+                                mapping_dictionary={'CA':'California', 'TX':'Texas'},
+                                input_column="location").transform(df)
 
         expected_schema = StructType(
             [

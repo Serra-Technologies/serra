@@ -23,13 +23,11 @@ class CastColumnsTransformerTest(SparkETLTestCase):
             ]
         )
 
-        config = {
-            'cast_columns': {
-                'amount_int': ['amount','integer']
-            }
+        cast_columns = {
+            'amount_int': ['amount','integer']
         }
 
-        result = CastColumnsTransformer(config).transform(df)
+        result = CastColumnsTransformer(cast_columns).transform(df)
 
         expected_schema = StructType(
             [
