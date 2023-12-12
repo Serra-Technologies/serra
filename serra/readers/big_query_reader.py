@@ -28,7 +28,3 @@ class BigQueryReader(Reader):
             .option('parentProject', self.project)\
             .load(f"{self.dataset}.{self.table}")
         return df
-    
-    def read_with_spark(self, spark):
-        self.spark = spark
-        return self.read()

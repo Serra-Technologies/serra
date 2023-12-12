@@ -24,7 +24,3 @@ class LocalReader(Reader):
         df = self.spark.read.format("csv").option("header",True).load(self.file_path)
         return df
 
-    def read_with_spark(self, spark):
-        self.spark = spark
-        return self.read()
-

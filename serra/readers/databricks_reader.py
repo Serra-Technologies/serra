@@ -27,7 +27,3 @@ class DatabricksReader(Reader):
         except Exception as e:
             raise SerraRunException(e)
         return df
-
-    def read_with_spark(self, spark):
-        self.spark = spark
-        return self.read()

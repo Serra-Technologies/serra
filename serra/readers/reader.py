@@ -13,3 +13,7 @@ class Reader(Step):
     @property
     def dependencies(self):
         return []
+    
+    def read_with_spark(self, spark):
+        self.spark = spark
+        return self.read()
