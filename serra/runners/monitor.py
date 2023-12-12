@@ -18,7 +18,7 @@ def get_json_rep(df, rows=20):
     # Convert each row to a dictionary and collect them as a list
     json_data = []
     for row in df_head.collect():
-        row_dict = {col: value for col, value in zip(columns, row)}
+        row_dict = {col: str(value) for col, value in zip(columns, row)}
         json_data.append(row_dict)
 
     # Create a dictionary for the JSON output
