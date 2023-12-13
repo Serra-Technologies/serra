@@ -26,6 +26,8 @@ def set_jar_packages(spark_builder):
         "com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.32.2",
         # For mongo db
         "org.mongodb.spark:mongo-spark-connector_2.12:10.2.1"
+        # For snowflake
+        # "net.snowflake:spark-snowflake_2.13:2.13.0-spark_3.4"
         ]  
     spark_builder = spark_builder.config('spark.jars.packages', ','.join(packages))
     return spark_builder
