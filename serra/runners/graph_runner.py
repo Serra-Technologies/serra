@@ -80,7 +80,6 @@ def run_job_with_graph(cf: ConfigParser, serra_profile: SerraProfile) -> Monitor
         logger.info(f"Executing step {block_name}")
 
         block_obj = get_configured_block_object(block_name, cf)
-        block_obj.add_serra_profile(serra_profile)
         block_obj.add_spark_session(spark)
 
         if is_reader(block_name, cf):
