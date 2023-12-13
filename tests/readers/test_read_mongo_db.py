@@ -1,4 +1,5 @@
 from pyspark.sql import Row
+from unittest.mock import patch
 from pyspark.sql.types import (
     StructType,
     StructField,
@@ -20,7 +21,17 @@ class MongoDbReaderTest(SparkETLTestCase):
             cluster_ip_and_options="cluster0.ijbg2ly.mongodb.net/?retryWrites=true&w=majority"
         )
         reader.spark = self.spark
-        result = reader.read()
+        mock_df = self.spark.createDataFrame(
+            [
+                ("ObjectId('5f50c31e1c4ae837d5a83a36')", 'john.doe@example.com', 'John Doe'),
+                ("ObjectId('5f50c3201c4ae837d5a83a37')", 'jane.smith@example.com', 'Jane Smith')
+            ],
+            ['_id', 'email', 'name']
+        )
+
+        with patch('pyspark.sql.readwriter.DataFrameReader.load', return_value=mock_df):
+            # Now when you call the read method, it will return the mock DataFrame
+            result = reader.read()
 
         expected_schema = StructType(
             [

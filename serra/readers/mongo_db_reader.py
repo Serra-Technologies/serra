@@ -1,4 +1,6 @@
 from serra.readers import Reader
+from pyspark.sql.dataframe import DataFrame
+from pyspark.sql.session import SparkSession
 
 class MongoDBReader(Reader):
     def __init__(self, username, password, database, collection, cluster_ip_and_options):
@@ -9,7 +11,7 @@ class MongoDBReader(Reader):
         self.cluster_ip_and_options = cluster_ip_and_options
 
     def read(self):
-        spark = self.spark
+        spark: SparkSession = self.spark
 
         #TODO: connection.uri can either start iwth mongodb+srv or mongodb
 
@@ -20,7 +22,7 @@ class MongoDBReader(Reader):
         Must also run Spark 3.1 - 3.2.4 according to https://www.mongodb.com/docs/spark-connector/v10.2/
         """
 
-        df = spark.read\
+        df: DataFrame = spark.read\
         .format("mongodb")\
         .option("connection.uri", f'mongodb+srv://{self.username}:{self.password}@{self.cluster_ip_and_options}')\
         .option("database", self.database)\
