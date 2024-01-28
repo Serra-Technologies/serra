@@ -11,10 +11,9 @@ class MongoDBReader(Reader):
         self.cluster_ip_and_options = cluster_ip_and_options
 
     def read(self):
-        spark: SparkSession = self.spark
+        spark = self.spark
 
         #TODO: connection.uri can either start iwth mongodb+srv or mongodb
-
         """
         Cluster must have this package installed:
         org.mongodb.spark:mongo-spark-connector_2.12:10.2.1
@@ -22,7 +21,7 @@ class MongoDBReader(Reader):
         Must also run Spark 3.1 - 3.2.4 according to https://www.mongodb.com/docs/spark-connector/v10.2/
         """
 
-        df: DataFrame = spark.read\
+        df = spark.read\
         .format("mongodb")\
         .option("connection.uri", f'mongodb+srv://{self.username}:{self.password}@{self.cluster_ip_and_options}')\
         .option("database", self.database)\

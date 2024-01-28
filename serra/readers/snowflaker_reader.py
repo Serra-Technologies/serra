@@ -35,6 +35,7 @@ class SnowflakeReader(Reader):
         .option("sfWarehouse", self.warehouse)
         .option("database", self.database)
         .option("schema", self.schema) # Optional - will use default schema "public" if not specified.
+        .option("autopushdown", "off")
         .option("dbtable", self.table)
         .load()
         )

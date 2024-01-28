@@ -15,7 +15,7 @@ class FilterTransformer(Transformer):
         self.filter_values = filter_values
         self.filter_column = filter_column
         self.is_expression = is_expression
-    
+
     def transform(self, df):
         """
         Filter the DataFrame based on the specified condition.
@@ -23,8 +23,6 @@ class FilterTransformer(Transformer):
         :param df: The input DataFrame to be transformed.
         :return: A new DataFrame with rows filtered based on the specified condition.
         """
-        if self.is_expression == None:
-            self.is_expression = False
         if self.is_expression:
             return df.filter(F.expr(self.filter_values))
 
