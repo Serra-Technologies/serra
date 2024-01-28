@@ -10,6 +10,10 @@ class Reader(Step):
     def read(self, fmt, path, predicate=None):
         pass
 
+    @classmethod
+    def from_config(cls, config):
+        return cls(**config)
+
     @property
     def dependencies(self):
         return []

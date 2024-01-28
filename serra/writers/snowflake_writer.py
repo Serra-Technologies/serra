@@ -41,6 +41,7 @@ class SnowflakeWriter(Writer):
         .option("database", self.database)
         .option("schema", self.schema)
         .option("dbtable", self.table) 
+        .option("autopushdown", "off")
         .mode(self.mode) 
         .save()
         )

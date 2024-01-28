@@ -31,4 +31,3 @@ class AddColumnTransformer(Transformer):
         return df.withColumn(
             self.new_column_name, F.lit(self.value).cast(self.new_column_type)  
         )
-    

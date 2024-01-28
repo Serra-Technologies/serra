@@ -5,7 +5,14 @@ from serra.transformers.transformer import Transformer
 
 class CrossJoinTransformer(Transformer):
     """
-    A transformer to join two DataFrames together
+    A transformer to join two DataFrames together based on a specified join condition.
+
+    :param config: A dictionary containing the configuration for the transformer.
+                   It should have the following keys:
+                   - 'join_type': The type of join to perform. Currently only 'inner' join is supported.
+                   - 'join_on': A dictionary where the keys are the table names (or DataFrame aliases)
+                                and the values are the column names to join on for each table.
+                   Example: {'table1': 'column1', 'table2': 'column2'}
     """
 
     def __init__(self):
@@ -13,7 +20,7 @@ class CrossJoinTransformer(Transformer):
 
     @property
     def dependencies(self):
-        return self.input_block
+        return self.config.get('input_block')
 
     def transform(self, df1, df2):
         """

@@ -28,7 +28,7 @@ class SelectTransformer(Transformer):
                  or if none of the specified columns exist in the DataFrame.
         """
         if not self.columns:
-            columns = []
+            raise SerraRunException("No columns specified in the configuration.")
 
         selected_columns = [F.col(col) for col in self.columns if col in df.columns]
 

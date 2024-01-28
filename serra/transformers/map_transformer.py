@@ -17,9 +17,9 @@ class MapTransformer(Transformer):
     """
     def __init__(self, output_column, input_column, mapping_dictionary=None, mapping_dict_path=None):
         self.output_column = output_column
-        self.input_column = input_column
         self.mapping_dictionary = mapping_dictionary
         self.mapping_dict_path = mapping_dict_path
+        self.input_column = input_column
 
     def transform(self, df):
         """
@@ -30,8 +30,8 @@ class MapTransformer(Transformer):
         :raises: SerraRunException if any required config parameter is missing or if column specified
                  as 'input_column' does not exist in the DataFrame.
         """
-        # if not self.output_column or not self.input_column:
-        #     raise SerraRunException("Both 'output_column' and 'input_column' must be provided in the config.")
+        if not self.output_column or not self.input_column:
+            raise SerraRunException("Both 'output_column' and 'input_column' must be provided in the config.")
         
         if not self.mapping_dictionary and not self.mapping_dict_path:
             raise SerraRunException("Either 'mapping_dictionary' or 'mapping_dict_path' must be provided in the config.")
@@ -55,9 +55,3 @@ class MapTransformer(Transformer):
             raise SerraRunException(f"Error transforming DataFrame: {str(e)}")
 
         return df
-        
-        
-    
-
-        
-    

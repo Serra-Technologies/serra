@@ -40,7 +40,7 @@ class CaseWhenTransformer(Transformer):
 
         if comparison_func is None:
             raise ValueError(f"Unsupported comparison type: {self.comparison_type}")
-        print('###########', self.conditions[0][0])
+        
         # Create the 'when' expression based on the provided conditions and type
         if self.is_column_condition is None:
             case_expr = when(comparison_func(df[self.input_column], self.conditions[0][0]), self.parse_result_value(self.conditions[0][1]))

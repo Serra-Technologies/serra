@@ -21,4 +21,8 @@ from .get_max_or_min_transformer import GetMaxOrMinTransformer
 from .custom_transformer import CustomTransformer
 from .custom_transformer import CustomTransformer
 from .get_distinct_transformer import GetDistinctTransformer
+from .de_duplicate_transformer import DeDuplicateTransformer
+from .drop_duplicate_rows_transformer import DropDuplicateRowsTransformer
+from .row_count_transformer import RowCountTransformer
+from .drop_null_transformer import DropNullTransformer
 from .transformer import Transformer
