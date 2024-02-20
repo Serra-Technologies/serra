@@ -1,8 +1,8 @@
 import pandas as pd
 
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
-class RunningTotalsTransformer(Transformer):
+class RunningTotalsTransformer(PythonTransformer):
     """
     Create new columns of cumulative sums for given columns. Can group by and sort. 
 

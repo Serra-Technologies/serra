@@ -1,9 +1,7 @@
-
-
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 import math, random, numpy, re
 
-class FormulaTransformer(Transformer):
+class FormulaTransformer(PythonTransformer):
     """
     Allows business users to write their own math transforms
     """

@@ -1,8 +1,8 @@
 import pandas as pd
 
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
-class TransposeTransformer(Transformer):
+class TransposeTransformer(PythonTransformer):
     """
     Gets sample of size N from dataset.
 

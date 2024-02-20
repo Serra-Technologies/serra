@@ -1,8 +1,8 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.base import PythonTransformer
 import string
 import re
 
-class DropDuplicatesTransformer(Transformer):
+class DropDuplicatesTransformer(PythonTransformer):
     """
     Clean whitespaces, cases, punctuation.
 

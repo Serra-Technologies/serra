@@ -1,6 +1,6 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.base import PythonTransformer
 
-class CoalesceTransformer(Transformer):
+class CoalesceTransformer(PythonTransformer):
     """
     Coalesces values across multiple columns into a single column.
     """

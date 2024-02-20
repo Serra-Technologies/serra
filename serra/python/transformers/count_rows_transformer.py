@@ -1,7 +1,7 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.base import PythonTransformer
 import pandas as pd
 
-class CountRowsTransformer(Transformer):
+class CountRowsTransformer(PythonTransformer):
     """
     Get the row count for the dataset.
 

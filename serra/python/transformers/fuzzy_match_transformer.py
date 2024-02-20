@@ -1,4 +1,4 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
 from fuzzywuzzy import fuzz
 import nltk
@@ -10,7 +10,7 @@ def remove_phrases(text, phrases_to_remove):
         text = text.replace(phrase, '')
     return text
 
-class FuzzyMatchTransformer(Transformer):
+class FuzzyMatchTransformer(PythonTransformer):
     """
     Drop rows that have nulls in specified column(s).
 

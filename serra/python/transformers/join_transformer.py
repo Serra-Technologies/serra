@@ -1,6 +1,6 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
-class JoinTransformer(Transformer):
+class JoinTransformer(PythonTransformer):
     """
     Join two datasets together (defaults to inner join). Can be used to union datasets. 
 

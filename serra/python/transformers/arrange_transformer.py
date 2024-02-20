@@ -1,6 +1,6 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.base import PythonTransformer
 
-class ArrangeTransformer(Transformer):
+class ArrangeTransformer(PythonTransformer):
     """
     Create new columns of cumulative sums for given columns. Can group by and sort. 
 

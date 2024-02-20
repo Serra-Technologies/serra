@@ -1,8 +1,8 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.base import PythonTransformer
 import string
 import re
 
-class DataCleansingTransformer(Transformer):
+class DataCleansingTransformer(PythonTransformer):
     """
     Clean whitespaces, cases, punctuation.
 

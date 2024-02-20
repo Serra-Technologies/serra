@@ -1,9 +1,9 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
 from fuzzywuzzy import fuzz
 import pandas as pd
 
-class MatchTransformer(Transformer):
+class MatchTransformer(PythonTransformer):
     """
     Drop rows that have nulls in specified column(s).
 

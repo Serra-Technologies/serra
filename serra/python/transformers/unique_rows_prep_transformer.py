@@ -1,6 +1,6 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
-class UniqueTransformer(Transformer):
+class UniqueTransformer(PythonTransformer):
     """
     Select specified columns
 

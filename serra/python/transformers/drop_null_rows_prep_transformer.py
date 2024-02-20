@@ -1,6 +1,6 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.base import PythonTransformer
 
-class DropNullRowsTransformer(Transformer):
+class DropNullRowsTransformer(PythonTransformer):
     """
     Drop rows that have nulls in specified column(s).
 

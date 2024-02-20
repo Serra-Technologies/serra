@@ -2,9 +2,9 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
-class TokenizeTransformer(Transformer):
+class TokenizeTransformer(PythonTransformer):
     """
     Tokenize your strings.
     """

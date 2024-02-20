@@ -1,7 +1,7 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.base import PythonTransformer
 
 # TODO: Add more operators >, <
-class FilterRowsTransformer(Transformer):
+class FilterRowsTransformer(PythonTransformer):
     """
     Drop rows that have nulls in specified column(s).
 

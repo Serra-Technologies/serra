@@ -1,6 +1,6 @@
-from serra.python.transformers.transformer import Transformer
+from serra.python.transformers import PythonTransformer
 
-class SummarizeTransformer(Transformer):
+class SummarizeTransformer(PythonTransformer):
     """
     Gets sample of size N from dataset.
 
