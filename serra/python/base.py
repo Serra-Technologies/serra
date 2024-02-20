@@ -14,6 +14,12 @@ class PythonReader(PythonStep):
     def read(self) -> pd.DataFrame:
         pass
 
+    @classmethod
+    def from_config(cls, config):
+        c = dict(config)
+        obj = cls(**c)
+        return obj
+
     @property
     def dependencies(self):
         return []
