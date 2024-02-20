@@ -11,3 +11,5 @@ google-cloud-bigquery
 db-dtypes
 geopy
 schedule
+nltk
+fuzzywuzzy

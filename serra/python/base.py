@@ -11,7 +11,7 @@ class PythonReader(PythonStep):
     Enforce read method
     """
     @abstractmethod
-    def read(self, fmt, path, predicate=None):
+    def read(self) -> pd.DataFrame:
         pass
 
     @property
@@ -24,7 +24,7 @@ class PythonTransformer(PythonStep):
     Enforce transform method
     """
     @abstractmethod
-    def transform(self, df):
+    def transform(self, df: pd.DataFrame):
         pass
 
     @classmethod
@@ -40,4 +40,24 @@ class PythonTransformer(PythonStep):
     def dependencies(self):
         return [self.input_block]
     
-#TODO: Add PythonWriter
+class PythonWriter(PythonStep):
+    """
+    Writer base class for loading data
+    Enforce write method
+    """
+    @abstractmethod
+    def write(self, df: pd.DataFrame):
+        pass
+
+    @classmethod
+    def from_config(cls, config):
+        c = dict(config)
+        input_block = c.pop("input_block")
+
+        obj = cls(**c)
+        obj.input_block = input_block
+        return obj
+
+    @property
+    def dependencies(self):
+        return [self.input_block]
