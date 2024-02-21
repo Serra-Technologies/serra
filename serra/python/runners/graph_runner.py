@@ -3,7 +3,7 @@ from loguru import logger
 from serra.config_parser import ConfigParser
 from serra.utils import import_class
 from serra.runners.ExecutionGraph import BlockGraph
-from serra.runners.monitor import Monitor
+from serra.python.runners.monitor import Monitor
 from serra.python.base import PythonStep
 
 def convert_name_to_full_python(class_name):
@@ -107,11 +107,7 @@ def run_job_with_graph(cf: ConfigParser) -> Monitor:
 
         monitor.log_job_step(block_name, df)
 
-    if cf.show_all():
-        logger.info("Showing 500 rows...")
-        df.show(500)
-    else:
-        df.show()
+        print(df)
 
     # response = monitor.to_dict()
     # for key, value in response.items():

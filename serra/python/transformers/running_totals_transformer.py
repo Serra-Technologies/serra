@@ -1,6 +1,6 @@
 import pandas as pd
 
-from serra.python.transformers import PythonTransformer
+from serra.python.base import PythonTransformer
 
 class RunningTotalsTransformer(PythonTransformer):
     """

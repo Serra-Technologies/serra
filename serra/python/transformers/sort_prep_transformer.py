@@ -1,4 +1,4 @@
-from serra.python.transformers import PythonTransformer
+from serra.python.base import PythonTransformer
 
 class SortTransformer(PythonTransformer):
     """

@@ -1,8 +1,7 @@
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-
-from serra.python.transformers import PythonTransformer
+from serra.python.base import PythonTransformer
 
 class TokenizeTransformer(PythonTransformer):
     """
