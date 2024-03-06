@@ -8,11 +8,11 @@ class DataCleansingTransformer(PythonTransformer):
 
     """
 
-    def __init__(self, columns, case, punctuation, white_space):
+    def __init__(self, columns, case, punctuation=None, whitespace=None):
         self.columns = columns
         self.case = case
         self.punc = punctuation
-        self.white_space = white_space
+        self.white_space = whitespace
         
     def transform(self, df):
         """

@@ -9,9 +9,9 @@ class SortTransformer(PythonTransformer):
     :param sort_by: Column(s) to sort by.
     """
 
-    def __init__(self, sort_by, ascending = False):
+    def __init__(self, sort_by, ascending):
         self.sort_by = sort_by
-        self.ascending = ascending
+        self.ascending = ascending.lower() == "true"
 
     def transform(self, df):
         return df.sort_values(by = self.sort_by, ascending = self.ascending)

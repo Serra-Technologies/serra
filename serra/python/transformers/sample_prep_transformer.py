@@ -9,7 +9,7 @@ class SampleTransformer(PythonTransformer):
     """
 
     def __init__(self, size, type):
-        self.size = size
+        self.size = int(size)
         self.type = type
 
     def transform(self, df):
