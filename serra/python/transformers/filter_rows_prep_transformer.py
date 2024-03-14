@@ -43,6 +43,6 @@ class FilterRowsTransformer(PythonTransformer):
         operator = operator_map.get(self.operator)
 
         # Combine all things together into query, run and return filtered df
-        query_str = f"{self.column} {operator} {converted_value}"
+        query_str = f"`{self.column}` {operator} {converted_value}"
 
         return df.query(query_str)
