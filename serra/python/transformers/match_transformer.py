@@ -1,4 +1,8 @@
 from serra.python.base import PythonTransformer
+import logging
+
+# Configure logging at the beginning of your script or module
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 from fuzzywuzzy import fuzz
 import pandas as pd
@@ -10,21 +14,25 @@ class MatchTransformer(PythonTransformer):
     :param columns: The columns to look for
     """
 
-    def __init__(self, columns_to_match, partition, include_fuzzy = True, threshold = 90):
+    def __init__(self, left_df, right_df, columns_to_match, partition, include_fuzzy = True, threshold = 90):
+        self.left_df = left_df
+        self.right_df = right_df
         self.columns_to_match = columns_to_match # Dict: key = left column, value = right
         self.partition = partition
         self.include_fuzzy = include_fuzzy
         self.threshold = threshold
         
-    def transform(self, left_df, right_df):
+    def transform(self):
+        print("Left DF: ", self.left_df, self.left_df[self.partition[0]])
+        print("Right DF: ", self.right_df)
 
         matched_data = pd.DataFrame()
 
-        for partition in left_df[self.partition].unique():
-
-            left_df_subset = left_df[left_df[self.partition] == partition].copy()
-            right_df_subset = right_df[right_df[self.partition] == partition].copy()
-
+        for partition in self.left_df[self.partition[0]].dropna().unique():
+            left_df_subset = self.left_df[self.left_df[self.partition[0]] == partition].copy()
+            right_df_subset = self.right_df[self.right_df[self.partition[0]] == partition].copy()
+            print("Left DF SUBSET: ", left_df_subset)
+            print("Right DF SIBSET: ", right_df_subset)
             #_______Exact Matches________
             for left_column, right_column in self.columns_to_match.items():
                 exact_match_name = pd.merge(left_df_subset, right_df_subset,
@@ -100,5 +108,6 @@ class MatchTransformer(PythonTransformer):
                 
                 print(f"\n\n\n\n————————Joined Matched Data for {left_column}——————————", matched_data['fuzzy_score'], "\n\n\n\n")
 
+        print("\n\n\n\n MATCHED DATA ALL: ", matched_data)
         return matched_data
 
