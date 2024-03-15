@@ -105,8 +105,6 @@ class MatchTransformer(PythonTransformer):
                 # After iterating through all columns and rows, check if there are any matches to append
                 if match_series_list:  # Check if the list is not empty
                     matched_data = pd.concat([matched_data] + match_series_list, ignore_index=True)
-                
-                print(f"\n\n\n\n————————Joined Matched Data for {left_column}——————————", matched_data['fuzzy_score'], "\n\n\n\n")
 
         print("\n\n\n\n MATCHED DATA ALL: ", matched_data)
         return matched_data
