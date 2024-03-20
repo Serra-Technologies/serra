@@ -9,8 +9,8 @@ class GeoMatchTransformer(PythonTransformer):
 
     """
 
-    def __init__():
-        pass
+    def __init__(self, distance):
+        self.distance = distance
         
     def transform(self, df):
         """
