@@ -17,3 +17,4 @@ from .summarize_transformer import SummarizeTransformer
 from .tokenize_transformer import TokenizeTransformer
 from .transpose_transformer import TransposeTransformer
 from .unique_rows_prep_transformer import UniqueTransformer
+from .geomatch_transformer import GeoMatchTransformer
