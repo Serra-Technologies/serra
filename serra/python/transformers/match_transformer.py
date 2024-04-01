@@ -14,25 +14,22 @@ class MatchTransformer(PythonTransformer):
     :param columns: The columns to look for
     """
 
-    def __init__(self, left_df, right_df, columns_to_match, partition, include_fuzzy = True, threshold = 90):
-        self.left_df = left_df
-        self.right_df = right_df
+    def __init__(self, columns_to_match, partition, include_fuzzy = True, threshold = 90):
         self.columns_to_match = columns_to_match # Dict: key = left column, value = right
         self.partition = partition
         self.include_fuzzy = include_fuzzy
         self.threshold = threshold
         
-    def transform(self):
-        print("Left DF: ", self.left_df, self.left_df[self.partition[0]])
-        print("Right DF: ", self.right_df)
+    def transform(self, left_df, right_df):
 
         matched_data = pd.DataFrame()
 
-        for partition in self.left_df[self.partition[0]].dropna().unique():
-            left_df_subset = self.left_df[self.left_df[self.partition[0]] == partition].copy()
-            right_df_subset = self.right_df[self.right_df[self.partition[0]] == partition].copy()
-            print("Left DF SUBSET: ", left_df_subset)
-            print("Right DF SIBSET: ", right_df_subset)
+        assert self.partition in left_df.columns, f"Partition column {self.partition} not found in left dataframe"
+
+        for partition in left_df[self.partition].dropna().unique():
+            left_df_subset = left_df[left_df[self.partition] == partition].copy()
+            right_df_subset = right_df[right_df[self.partition] == partition].copy()
+
             #_______Exact Matches________
             for left_column, right_column in self.columns_to_match.items():
                 exact_match_name = pd.merge(left_df_subset, right_df_subset,
@@ -45,7 +42,6 @@ class MatchTransformer(PythonTransformer):
                 
                 matched_data = pd.concat([matched_data, exact_match_name], ignore_index=True)
                 matched_data['fuzzy_score'] = None
-                print(f"\n\n\n\n————————Exact Matched Data for {left_column}——————————", matched_data['fuzzy_score'], "\n\n\n\n")
             
                 # Remove matched rows
                 left_df_subset = left_df_subset[~left_df_subset[left_column].isin(exact_match_name[left_column])]
@@ -92,12 +88,7 @@ class MatchTransformer(PythonTransformer):
                                 }
 
                                 match_series = pd.Series(match_dict, name=index) # Single column series where values are just pair from dict, where series index labels are keys from dict(columns) 
-                                print(f"\n\n\n\n————————Row for {left_column}——————————", row, "\n\n\n\n")
-                                print(f"\n\n\n\n————————Matched Series Dict for {left_column}——————————", match_series, "\n\n\n\n")
                                 match_series_list.append(match_series.to_frame().T)  # Convert Series to DataFrame where single column w/ indexes of column names, values of pairs, signle column becomes single row where headers are column names
-                                print(f"\n\n\n\n————————Transpose Match for {left_column}——————————", match_series.to_frame().T, "\n\n\n\n")
-                                print(f"\n\n\n\n————————Fuzzy Matched Series List for {left_column}——————————", match_series_list, "\n\n\n\n")
-
                                 # Remove matched row from left_df_subset and right_df_subset
                                 left_df_subset = left_df_subset.drop(index)
                                 right_df_subset = right_df_subset.drop(max_score_index)
@@ -106,6 +97,5 @@ class MatchTransformer(PythonTransformer):
                 if match_series_list:  # Check if the list is not empty
                     matched_data = pd.concat([matched_data] + match_series_list, ignore_index=True)
 
-        print("\n\n\n\n MATCHED DATA ALL: ", matched_data)
         return matched_data
 
