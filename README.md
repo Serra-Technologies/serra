@@ -1,7 +1,4 @@
 ![Project Header](./etc/serra.png)
-# Explore Our Cloud Console
-
-Try building and deploying your Serra jobs to Databricks with our [Cloud Console](https://cloud.serra.io). Give it a try!
 
 # What is Serra?
 Serra provides a library of readers, transformers and writers to simplify the process of writing Spark data pipelines.
